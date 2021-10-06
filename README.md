@@ -43,4 +43,4 @@ I can describe the process that I imagined we could potentially follow (at least
 
 We could potentially require an approval of the pull request by other person (between step 4 and 5), just so there is another set of eyes looking for any issues before merging into develop. This will probably be an overkill though, since it's not a software engineering project as Stu has mentioned.
 
-Any questions or suggestions, just let me know! :) Feel free to edit this for clarity too!
+Any questions or suggestions, just let me know! :) Feel free to edit this for clarity too.

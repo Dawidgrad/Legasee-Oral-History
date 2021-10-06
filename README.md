@@ -7,14 +7,14 @@ Short, informal instruction on how we can use this repo along with some suggesti
 
 I thought that it would be potentially beneficial to follow a standard approach that is used in software development (well, at least stripped-down version of it). The branches are described below.
 
-####Branches
+#### Branches
  * main - Latest, stable version of the software that we know works,
  * develop - Branch that will be used to merge most recent changes into,
  * *{feature branch}* - e.g. legasee-1 ; These don't exist yet, just make one by branching off from develop when you are starting to work on some feature.
  
 The **main** and **develop** branches are the most important in the repository. The **develop** branch is there to keep the main branch clean, which should contain nothing but release-ready code (well, we won't be making releases, but hopefully you get the idea). **Feature branches** on the other hand will allow everyone to work on multiple features separately, at the same time. Commiting straight to **develop** will in most cases throw others' code off base (code on the develop branch locally not matching the online version) and might result in merge conflicts. They will also allow us to review code and potentially revert any changes easier.
 
-####Kanban board
+#### Kanban board
 
 Ideally, we will break down bigger tasks into smaller ones and put those on the Kanban board (like the one on Trello). I have a suggestion as to how one might look like. We could utilise 4 columns:
  * Backlog - The tasks that we will work on in the future,
@@ -28,7 +28,7 @@ The example that I just created to visualise it:
 
 ![Kanban board](https://i.imgur.com/iiNaW9e.png)
 
-####Task lifecycle 
+#### Task lifecycle 
 
 I can describe the process that I imagined we could potentially follow (at least for those tasks that require implementation).
 

@@ -28,7 +28,7 @@ The example that I just created to visualise it:
 
 ![Kanban board](https://i.imgur.com/iiNaW9e.png)
 
-Tom: The "Board" view in ClickUp behaves like this - I believe it's designed to replicate exactly this kind of Trello board.
+Tom: The "Board" view in ClickUp behaves like this - I believe it's designed to replicate exactly this kind of Trello board, will hopefully do the trick.
 
 ### Task lifecycle 
 

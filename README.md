@@ -28,6 +28,8 @@ The example that I just created to visualise it:
 
 ![Kanban board](https://i.imgur.com/iiNaW9e.png)
 
+Tom: The "Board" view in ClickUp behaves like this - I believe it's designed to replicate exactly this kind of Trello board.
+
 ### Task lifecycle 
 
 I can describe the process that I imagined we could potentially follow (at least for those tasks that require implementation).

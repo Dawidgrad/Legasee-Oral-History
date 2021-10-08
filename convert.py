@@ -5,6 +5,8 @@ requires ffmpeg to be installed -- sudo apt install ffmpeg
 place file in directory containing the folders for each person i.e ['Harriet_Wright', 'Doug_Joyce', 'Frank_Wilson', 'John_Roach', 'Pat_Massett', 'Mervyn_Salter', 'Baden_Singleton', 'Peter_Dunstan', 'Kevin_Fenton', 'Ted_Rogers']
 
 Then run this file with python
+
+This will only work in linux !!
 '''
 import subprocess
 from os import listdir

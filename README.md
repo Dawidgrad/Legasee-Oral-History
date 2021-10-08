@@ -1,5 +1,5 @@
 # Legasee Oral History
-SLT Cohort 3 Mini-Project
+SLT Cohort 3 Team 2  Mini-Project
 
 ## How to use the repository & project management suggestions
 

@@ -54,12 +54,16 @@ ClickUp will automatically pick up new GitHub activity and associate it with tas
 
 The task id must be formatted using one of these options:
 
-\#{task_id}
-CU-{task_id}
-{custom_task_id}
+ * \#{task_id}
+
+ * CU-{task_id}
+
+ * {custom_task_id}
 
 For example:
 
-\#1abc2de
-CU-1abc2de
-prefix-1
+ * \#1abc2de
+
+ * CU-1abc2de
+
+ * prefix-1

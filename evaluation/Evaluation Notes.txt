@@ -1,0 +1,48 @@
+
+VIDEO 1
+[{'wer': 0.12116504854368933,
+  'mer': 0.113578449217328,
+  'wil': 0.13856653554603937,
+  'wip': 0.8614334644539606,
+  'hits': 2435,
+  'substitutions': 66,
+  'deletions': 74,
+  'insertions': 172},
+
+
+N1 = H + S + D
+   = 2435 + 66 + 74
+   = 2575
+   
+N2 = H + S + I
+   = 2435 + 66 + 172
+   = 2673
+
+N = H + S + D + I
+  = 2435 + 66 + 74 + 172
+  = 2747
+  
+   
+WER = (S+D+I)/N1
+    = (66 + 74 + 172)/2575
+	= 312 / 2575 = 0.121165
+	
+MER = 1 - H/N
+    = 1 - 2435/2747
+	= 0.113578
+	
+WIL = 1 - H^2 / N1*N2
+    = 1 - 2435^2 / (2575*2673)
+	= 0.138567
+	
+	
+ "The  commonly  used  WER  measure  is  ideally  suited  only  to
+CSR  applications  where  output  errors  can  be  corrected  by
+typing.  For  almost  any  other  type  of  speech  recognition  sys-
+tem  a  measure  based  on  the  proportion  of  information  com-
+municated would be more useful."
+  	From WER and RIL to MER and WIL: improved evaluation measures for connected speech recognition
+    Andrew C. Morris, Viktoria Maier & Phil Green, 2004
+
+ - we actually kind of want both? But primarily something like WIL.
+ - note also tendency of transcripts produced by correcting an ASR system output to "double-penalise" models (https://storage.googleapis.com/pub-tools-public-publication-data/pdf/38335.pdf) - should caution against using such transcripts for future refinement of our system

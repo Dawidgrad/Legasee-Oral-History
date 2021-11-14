@@ -83,6 +83,6 @@ transcripts = get_transcripts(directory)
 # for transcript in transcripts:
 #     print(transcript)
 #     gate_output = call_gate_api(transcript)
-gate_output = call_gate_api(transcripts[0][0:100])
+gate_output = call_gate_api(transcripts[0])
 
 print(gate_output)

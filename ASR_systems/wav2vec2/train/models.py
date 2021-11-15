@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 import pytorch_lightning as pl 
+#from deepspeed.ops.adam import FusedAdam
+#from deepspeed.ops.adam.cpu_adam import CPUAdamBuilder
 
 class ASR_CTC(pl.LightningModule):
     def __init__(self, model, config):

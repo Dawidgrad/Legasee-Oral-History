@@ -15,7 +15,7 @@ from utilities import get_transcripts
 ################################################################
 # Command line options handling, and help
 
-opts, args = getopt.getopt(sys.argv[1:], 'hk:p:')
+opts, args = getopt.getopt(sys.argv[1:], 'h')
 opts = dict(opts)
 
 def printHelp():

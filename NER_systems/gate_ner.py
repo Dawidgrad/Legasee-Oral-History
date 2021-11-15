@@ -68,7 +68,11 @@ def get_transcripts(directory):
             if file.endswith('.tsv'):
                 df = pd.read_csv("{}/{}".format(directory, file), sep='\t')
                 cond = (df['Speaker'] == 'Interviewer') | (df['Speaker'] == 'Interviewee')
-                full_transcript = " ".join(list(df[cond]['Transcript']))
+                section_list = list(df[cond]['Transcript'])
+
+                consecutive_n = 5
+                temp = '{} ' * consecutive_n
+                full_transcript = [temp.format(*item) for item in zip(*[iter(section_list)] * consecutive_n)] 
                 transcripts.append(full_transcript)
 
     return transcripts
@@ -80,9 +84,17 @@ def get_transcripts(directory):
 directory = "../transcripts/ingested"
 transcripts = get_transcripts(directory)
 
+#### Might need to add rate limiting wrapper ####
+
 # for transcript in transcripts:
 #     print(transcript)
 #     gate_output = call_gate_api(transcript)
-gate_output = call_gate_api(transcripts[0])
+# gate_output = call_gate_api(transcripts[0])
+
+# print(gate_output)
+
+gate_output = []
+for transcript_part in transcripts[0]:
+    gate_output.append(call_gate_api(transcript_part))
 
 print(gate_output)

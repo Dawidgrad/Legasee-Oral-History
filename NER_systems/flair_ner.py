@@ -7,13 +7,10 @@ OPTIONS:
 # Importing libraries
 
 import sys
-import re
 import getopt
-import os
-import requests
-import pandas as pd
 from flair.data import Sentence
 from flair.models import SequenceTagger
+from utilities import get_transcripts
 
 ################################################################
 # Command line options handling, and help
@@ -34,18 +31,18 @@ if '-h' in opts:
 ################################################################
 # Defining functions
 
-def get_transcripts(directory):    
-    transcripts = []
+# def get_transcripts(directory):    
+#     transcripts = []
 
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.tsv'):
-                df = pd.read_csv("{}/{}".format(directory, file), sep='\t')
-                cond = (df['Speaker'] == 'Interviewer') | (df['Speaker'] == 'Interviewee')
-                full_transcript = " ".join(list(df[cond]['Transcript']))
-                transcripts.append(full_transcript)
+#     for root, dirs, files in os.walk(directory):
+#         for file in files:
+#             if file.endswith('.tsv'):
+#                 df = pd.read_csv("{}/{}".format(directory, file), sep='\t')
+#                 cond = (df['Speaker'] == 'Interviewer') | (df['Speaker'] == 'Interviewee')
+#                 full_transcript = " ".join(list(df[cond]['Transcript']))
+#                 transcripts.append(full_transcript)
 
-    return transcripts
+#     return transcripts
 
 
 ################################################################
@@ -54,18 +51,18 @@ def get_transcripts(directory):
 directory = "../transcripts/ingested"
 transcripts = get_transcripts(directory)
 
-# make a sentence
-sentence = Sentence(transcripts[0])
+for batch in transcripts[0]:
+    # make a sentence
+    transcript = Sentence(batch)
 
-# load the NER tagger
-tagger = SequenceTagger.load('ner')
+    # load the NER tagger
+    tagger = SequenceTagger.load('ner')
 
-# run NER over sentence
-tagger.predict(sentence)
+    # run NER over sentence
+    tagger.predict(transcript)
 
-print(sentence)
-print('The following NER tags are found:')
+    print(transcript)
+    print('The following NER tags are found:')
 
-# iterate over entities and print
-for entity in sentence.get_spans('ner'):
-    print(entity)
+    for entity in transcript.get_spans('ner'):
+        print(entity)

@@ -9,11 +9,11 @@ OPTIONS:
 # Importing libraries
 
 import sys
-import re
 import getopt
 import os
 import requests
 import pandas as pd
+from utilities import get_transcripts
 
 ################################################################
 # Command line options handling, and help
@@ -60,38 +60,13 @@ def call_gate_api(transcript):
 
     return results
 
-def get_transcripts(directory):    
-    transcripts = []
-
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.tsv'):
-                df = pd.read_csv("{}/{}".format(directory, file), sep='\t')
-                cond = (df['Speaker'] == 'Interviewer') | (df['Speaker'] == 'Interviewee')
-                section_list = list(df[cond]['Transcript'])
-
-                consecutive_n = 5
-                temp = '{} ' * consecutive_n
-                full_transcript = [temp.format(*item) for item in zip(*[iter(section_list)] * consecutive_n)] 
-                transcripts.append(full_transcript)
-
-    return transcripts
-
-
 ################################################################
 # Main program function
 
-directory = "../transcripts/ingested"
-transcripts = get_transcripts(directory)
-
 #### Might need to add rate limiting wrapper ####
 
-# for transcript in transcripts:
-#     print(transcript)
-#     gate_output = call_gate_api(transcript)
-# gate_output = call_gate_api(transcripts[0])
-
-# print(gate_output)
+directory = "../transcripts/ingested"
+transcripts = get_transcripts(directory)
 
 gate_output = []
 for transcript_part in transcripts[0]:

@@ -8,7 +8,7 @@ def get_transcripts(directory):
         for file in files:
             if file.endswith('.tsv'):
                 df = pd.read_csv("{}/{}".format(directory, file), sep='\t')
-                cond = (df['Speaker'] == 'Interviewer') | (df['Speaker'] == 'Interviewee')
+                cond = (df['Speaker'] != 'New Film') & (df['Speaker'] != 'End of audio')
                 section_list = list(df[cond]['Transcript'])
 
                 consecutive_n = 5

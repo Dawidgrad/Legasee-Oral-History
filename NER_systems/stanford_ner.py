@@ -38,10 +38,12 @@ if '-h' in opts:
 directory = "../transcripts/ingested"
 transcripts = get_transcripts(directory)
 
+# Load the model
 st = StanfordNERTagger('stanford_models/english.all.3class.distsim.crf.ser.gz',
 					   'stanford_models/stanford-ner.jar',
 					   encoding='utf-8')
 
+# Get the NER tags
 for batch in transcripts[0]:
     tokenized_text = word_tokenize(batch)
     classified_text = st.tag(tokenized_text)

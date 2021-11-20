@@ -1,15 +1,14 @@
-#
-# Script for merging multipe csv files into one file with complete paths 
-# Requires CSV containing paths to all needed csv files
-# all_datasets.csv is an example csv constructed for the openslr dataset
-# 
-
 import pandas as pd
 import numpy as np
 import argparse
-
 from torch.utils import data
 
+vocab = ['<pad>', '<s>', '</s>', '<unk>', '|', 'E', 'T', 'O', 'A', 'I', 'N', 'H', 'S', 'R', 'L', 'D', 'U', 'Y', 'W', 'M', 'C', 'G', 'F', 'P', 'B', 'K', "'", 'V', 'J', 'X', 'Q', 'Z']
+
+def process_text(text):
+    text = text.upper().strip()
+    text = "".join(el if el in vocab else ' ' for el in text)
+    return text
 
 def main(args):
     datasets = pd.read_csv(args.csv)
@@ -26,7 +25,7 @@ def main(args):
         new_csv = {
             'name':name,
             'audio':cur[cur.columns[wav_col]],
-            'txt':cur[cur.columns[txt_col]]
+            'txt':cur[cur.columns[txt_col]].apply(lambda x: process_text(x))
         }
         csvs.append(pd.DataFrame(new_csv))
         print(f'--- {name} added ---')

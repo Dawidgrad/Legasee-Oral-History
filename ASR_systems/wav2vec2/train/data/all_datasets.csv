@@ -1,0 +1,12 @@
+name,csv_path,audio_path,wav_column,txt_column,extension
+irish_english_male,irish_english_male/line_index.csv,irish_english_male/,1,2,.wav
+midlands_english_female,midlands_english_female/line_index.csv,midlands_english_female/,1,2,.wav
+midlands_english_male,midlands_english_male/line_index.csv,midlands_english_male/,1,2,.wav
+northern_english_female,northern_english_female/line_index.csv,northern_english_female/,1,2,.wav
+northern_english_male,northern_english_male/line_index.csv,northern_english_male/,1,2,.wav
+scottish_english_female,scottish_english_female/line_index.csv,scottish_english_female/,1,2,.wav
+scottish_english_male,scottish_english_male/line_index.csv,scottish_english_male/,1,2,.wav
+southern_english_female,southern_english_female/line_index.csv,southern_english_female/,1,2,.wav
+southern_english_male,southern_english_male/line_index.csv,southern_english_male/,1,2,.wav
+welsh_english_female,welsh_english_female/line_index.csv,welsh_english_female/,1,2,.wav
+welsh_english_male,welsh_english_male/line_index.csv,welsh_english_male/,1,2,.wav

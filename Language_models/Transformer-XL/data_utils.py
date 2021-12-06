@@ -88,7 +88,7 @@ class DatasetXL(Dataset):
                         ttl_len += len(dta)
                         data.append(dta)
         print(f'Total Characters: {ttl_len}')
-        return data[:150]
+        return data
 
     def __len__(self):
         return len(self.data)

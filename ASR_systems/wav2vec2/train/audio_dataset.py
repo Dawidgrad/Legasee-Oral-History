@@ -15,7 +15,7 @@ class dataset(Dataset):
         wav2cecProc:Wav2Vec2Processor,
         audio_i=1,
         label_i=2, 
-        f_extension='.wav', 
+        f_extension='', 
         header=None
         ):
 
@@ -30,7 +30,7 @@ class dataset(Dataset):
         return len(self.data_frame)
 
     def _get_audio_path(self, index):
-        return self.data_path + self.data_frame.iloc[index, self.audio_i].strip() + self.f_extension
+        return self.data_path + self.data_frame.iloc[index, self.audio_i].strip() #+ self.f_extension
         
     def _get_label(self, index):
         return self.data_frame.iloc[index, self.label_i]
@@ -39,13 +39,18 @@ class dataset(Dataset):
         speech_path = self._get_audio_path(index)
         label = self._get_label(index)
         speech, _ = torchaudio.load(speech_path) # sampling rate is assumed to be 16000
-        return speech.mean(0).numpy(), label ##maybe just take 0 for speed if channels are equal??
+        return speech[0].numpy(), label 
 
     def collocate(self, batch):
         speech = [item[0] for item in batch]
         labels = [item[1] for item in batch]
-        speech = self.wav2vecProc(speech ,padding="longest", sampling_rate=16000, return_tensors='pt')['input_values']
-        labels = self.wav2vecProc.tokenizer(labels, padding="longest", return_tensors='pt')['input_ids']
-        return speech, labels
+        speech = self.wav2vecProc(speech ,padding="longest", sampling_rate=16000, return_tensors='pt')
+        input_values = speech['input_values']
+        attention_mask = speech['attention_mask']
+        with self.wav2vecProc.as_target_processor():
+            labels = self.wav2vecProc(labels, padding="longest", return_tensors='pt')
+        
+        input_ids = labels["input_ids"].masked_fill(labels.attention_mask.ne(1), -100) # ignore loss for padding
+        return input_values, attention_mask, input_ids
         
         

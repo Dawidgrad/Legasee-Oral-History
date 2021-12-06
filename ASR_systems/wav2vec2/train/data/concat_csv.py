@@ -3,11 +3,12 @@ import numpy as np
 import argparse
 from torch.utils import data
 
+
 vocab = ['<pad>', '<s>', '</s>', '<unk>', '|', 'E', 'T', 'O', 'A', 'I', 'N', 'H', 'S', 'R', 'L', 'D', 'U', 'Y', 'W', 'M', 'C', 'G', 'F', 'P', 'B', 'K', "'", 'V', 'J', 'X', 'Q', 'Z']
 
-def process_text(text):
+def process_text(text):  #need proper prepocessing
     text = text.upper().strip()
-    text = "".join(el if el in vocab else ' ' for el in text)
+    text = " ".join(i for i in "".join(el if el in vocab else ' ' for el in text).split(' ') if i != '') #remove OOV tokens and remove multiple blank spaces
     return text
 
 def main(args):

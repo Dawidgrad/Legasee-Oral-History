@@ -16,6 +16,8 @@ from tqdm import tqdm
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 from pytorch_lightning.callbacks import ModelCheckpoint
 import pytorch_lightning as pl
+from pytorch_lightning.loggers import WandbLogger
+from pytorch_lightning import Trainer
 
 #
 def main(args):
@@ -38,9 +40,12 @@ def main(args):
     data_module = model_utils.DataModule(args, data_util, processor)
     checkpoint = ModelCheckpoint(dirpath='checkpoints/', monitor='val_loss', mode='min')
 
+    wandb_logger = WandbLogger(project="OpenSLR-83_test_run", entity="slt-cdt-team-a")
+
     trainer = pl.Trainer(gpus=args.gpus, 
         strategy='ddp', 
-        precision=16, 
+        precision=16,
+        logger=wandb_logger, 
         max_epochs=args.epochs, 
         min_epochs=1, 
         callbacks=[checkpoint], 
@@ -53,18 +58,24 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--pretrained', help='path to pretrained model', default='wav2vec2-large-robust-ft-libri-960h')
-    parser.add_argument('--data_csv_path', help='path to entire csv file with data', default='data/line_index.csv')
+    parser.add_argument('--data_csv_path', help='path to entire csv file with data', default='data/all_data.csv')
     parser.add_argument('--train_csv_path', help='path to training csv file with data', default='train.csv')
     parser.add_argument('--test_csv_path', help='path to testing csv file with data', default='test.csv')
     parser.add_argument('--val_csv_path', help='path to validation csv file with data', default='val.csv')
     parser.add_argument('--data_path', help='path to folder to store data csv', default='data/')
-    parser.add_argument('--audio_path', help='path to folder containing wav files that are referenced in csv', default='data/audio')
+    parser.add_argument('--audio_path', help='path to folder containing wav files that are referenced in csv', default='data/')
     parser.add_argument('--gpus', help='number of gpus to use', default=-1, type=int)
-    parser.add_argument('--epochs', help='number of epochs to train', default=10, type=int)
-    parser.add_argument('--batch_size', help='batch size', default=1, type=int)
-    parser.add_argument('--learning_rate', '-lr', help='learning rate', default=1e-15, type=float)
+    parser.add_argument('--epochs', help='number of epochs to train', default=5, type=int)
+    parser.add_argument('--batch_size', help='batch size', default=3, type=int) 
+    parser.add_argument('--learning_rate', '-lr', help='learning rate', default=1e-5, type=float)
     parser.add_argument('--cores', help='number of cores to use', default=1, type=int)
-
+    parser.add_argument('--wandb', help='whether to use wandb', default=True, type=bool)
     args = parser.parse_args()
     torch.cuda.empty_cache()
     main(args)
+
+
+#
+#parser.add_argument('--train_csv_path', help='path to training csv file with data', default='train.csv')
+#parser.add_argument('--test_csv_path', help='path to testing csv file with data', default='test.csv')
+#parser.add_argument('--val_csv_path', help='path to validation csv file with data', default='val.csv')

@@ -26,12 +26,12 @@ class dataset_utils():
     def __init__(self, config):
         self.config=config
 
-    def load_datasets(self, config):
+    def load_datasets(self, config): 
         if isthere(config, 'data_path'):
             pth = config.data_path if config.data_path[-1] == '/' else f"{config.data_path}/"
-            self.train = pd.read_csv(f'{pth}train.csv', header=None)
-            self.validate = pd.read_csv(f'{pth}val.csv', header=None)
-            self.test = pd.read_csv(f'{pth}test.csv', header=None)
+            self.train = pd.read_csv(f'{pth}train.csv')
+            self.validate = pd.read_csv(f'{pth}val.csv')
+            self.test = pd.read_csv(f'{pth}test.csv')
         else:
             print("Please specify 'data_path' in args")
              
@@ -39,9 +39,9 @@ class dataset_utils():
     def _save_splits_(self, config):
         if isthere(config, 'data_path'):
             pth = config.data_path if config.data_path[-1] == '/' else f"{config.data_path}/" 
-            self.train.to_csv(f'{pth}train.csv', index=None, header=None)
-            self.validate.to_csv(f'{pth}val.csv', index=None, header=None)
-            self.test.to_csv(f'{pth}test.csv', index=None, header=None)
+            self.train.to_csv(f'{pth}train.csv', index=None)
+            self.validate.to_csv(f'{pth}val.csv', index=None)
+            self.test.to_csv(f'{pth}test.csv', index=None)
             print(f'Training splits saved in {pth}')
         else:
             print('Please specify "data_path" in args to save file')
@@ -50,7 +50,7 @@ class dataset_utils():
         if isthere(self.config, 'data_csv_path'):
             train_size = 0.8
             val_size = 0.1
-            all_csv = pd.read_csv(self.config.data_csv_path, header=None)
+            all_csv = pd.read_csv(self.config.data_csv_path)
             self.train, self.validate, self.test = np.split(all_csv.sample(frac=1), [int(train_size*len(all_csv)), int((val_size+train_size)*len(all_csv))])
             self._save_splits_(self.config)
         else:

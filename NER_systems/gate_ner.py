@@ -1,12 +1,15 @@
 import requests
 from utilities import get_transcript
 import json
+from ratelimit import limits
 
 class Gate_Entities:
     def __init__(self, key_id, password) -> None:
         self.key_id = key_id
         self.password = password
         
+    # Rate limit calls to one every other second
+    @limits(calls=30, period=60)
     def call_gate_api(self, transcript):
         results = []
         endpoint_url = "https://cloud-api.gate.ac.uk/process/annie-named-entity-recognizer?{}={}".format(self.key_id, self.password)
@@ -20,7 +23,6 @@ class Gate_Entities:
         return results
 
     def get_entities(self):
-        #### Might need to add rate limiting wrapper ####
         directory = "../transcripts/ingested"
         transcript = get_transcript(directory)
 
@@ -28,7 +30,6 @@ class Gate_Entities:
         for batch in transcript:
             gate_output = self.call_gate_api(batch)
             entities = entities + self.convert_format(gate_output)
-            break
 
         return entities
 

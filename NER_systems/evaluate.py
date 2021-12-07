@@ -52,21 +52,21 @@ if len(args) > 0:
 ################################################################
 # Main program function
 
-# flair_recogniser = Flair_Entities()
-# flair_entities = flair_recogniser.get_entities()
-# print(flair_entities)
+flair_recogniser = Flair_Entities()
+flair_entities = flair_recogniser.get_entities()
+print(flair_entities)
 
 # pavlov_recogniser = DeepPavlov_Entities()
 # pavlov_entities = pavlov_recogniser.get_entities()
 # print(pavlov_entities)
 
-# spacy_recogniser = Spacy_Entities()
-# spacy_entities = spacy_recogniser.get_entities()
-# print(spacy_entities)
+spacy_recogniser = Spacy_Entities()
+spacy_entities = spacy_recogniser.get_entities()
+print(spacy_entities)
 
-# stanford_recogniser = Stanford_Entities()
-# stanford_entities = stanford_recogniser.get_entities()
-# print(stanford_entities)
+stanford_recogniser = Stanford_Entities()
+stanford_entities = stanford_recogniser.get_entities()
+print(stanford_entities)
 
 gate_recogniser = Gate_Entities(KEY_ID, PASSWORD)
 gate_entities = gate_recogniser.get_entities()

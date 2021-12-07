@@ -12,16 +12,12 @@ class Flair_Entities:
         tagger = SequenceTagger.load('ner')
         
         for batch in transcript:
-            # Create a sentence
+            # Get predictions for the text batch
             sentence = Sentence(batch)
-
-            # Run NER over sentence
             tagger.predict(sentence)
-
             entities = entities + sentence.to_dict(tag_type='ner')['entities']
 
-            break # single iteration for testing
-
+        # Convert format of the Flair entities to universal one
         formatted_entities = self.convert_format(entities)
         
         return formatted_entities

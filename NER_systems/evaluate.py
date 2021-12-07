@@ -12,11 +12,11 @@ import sys
 import getopt
 
 from utilities import get_transcript
-from flair_ner import Flair_Entities
+# from flair_ner import Flair_Entities
 from deeppavlov_ner import DeepPavlov_Entities
-from spacy_ner import Spacy_Entities
-from stanford_ner import Stanford_Entities
-from gate_ner import Gate_Entities
+# from spacy_ner import Spacy_Entities
+# from stanford_ner import Stanford_Entities
+# from gate_ner import Gate_Entities
 
 ################################################################
 # Command line options handling, and help
@@ -52,11 +52,14 @@ if len(args) > 0:
 ################################################################
 # Main program function
 
-# directory = "../transcripts/ingested"
-# transcripts = get_transcripts(directory)
+# flair_recogniser = Flair_Entities()
+# flair_entities = flair_recogniser.get_entities()
+# print(flair_entities)
 
-flair_recogniser = Flair_Entities()
-flair_entities = flair_recogniser.get_entities()
-print(flair_entities)
+# pavlov_recogniser = DeepPavlov_Entities()
+# pavlov_entities = pavlov_recogniser.get_entities()
+# print(pavlov_entities)
 
-# print(transcripts[1])
+spacy_recogniser = Spacy_Entities()
+spacy_entities = spacy_recogniser.get_entities()
+print(spacy_entities)

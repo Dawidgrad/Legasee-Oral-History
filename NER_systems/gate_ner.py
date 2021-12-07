@@ -1,5 +1,6 @@
 import requests
 from utilities import get_transcript
+import json
 
 class Gate_Entities:
     def __init__(self, key_id, password) -> None:
@@ -23,10 +24,34 @@ class Gate_Entities:
         directory = "../transcripts/ingested"
         transcript = get_transcript(directory)
 
-        gate_output = []
-        for transcript_part in transcript:
-            gate_output.append(call_gate_api(transcript_part))
+        entities = []
+        for batch in transcript:
+            gate_output = self.call_gate_api(batch)
+            entities = entities + self.convert_format(gate_output)
+            break
 
-        print(gate_output)
+        return entities
 
-        return gate_output
+    def convert_format(self, output):
+        raw_data = output[0]
+        dict_output = json.loads(raw_data)['entities']
+
+        formatted_entities = []
+
+        if 'Date' in dict_output:
+            for item in dict_output['Date']:
+                formatted_entities.append((item['indices'], 'DATE'))
+        
+        if 'Location' in dict_output:
+            for item in dict_output['Location']:
+                formatted_entities.append((item['indices'], 'LOC'))
+
+        if 'Person' in dict_output:
+            for item in dict_output['Person']:
+                formatted_entities.append((item['indices'], 'PER'))
+
+        if 'Organisation' in dict_output:
+            for item in dict_output['Organisation']:
+                formatted_entities.append((item['indices'], 'ORG'))
+
+        return formatted_entities

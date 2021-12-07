@@ -23,8 +23,8 @@ from gate_ner import Gate_Entities
 
 opts, args = getopt.getopt(sys.argv[1:], 'hk:p:')
 opts = dict(opts)
-# KEY_ID = opts['-k']
-# PASSWORD = opts['-p']
+KEY_ID = opts['-k']
+PASSWORD = opts['-p']
 
 def printHelp():
     progname = sys.argv[0]
@@ -36,13 +36,13 @@ def printHelp():
 if '-h' in opts:
     printHelp()
 
-# if '-k' not in opts:
-#     print("\n** ERROR: must specify API Key ID (opt: -k KEY_ID) **", file=sys.stderr)
-#     printHelp()
+if '-k' not in opts:
+    print("\n** ERROR: must specify API Key ID (opt: -k KEY_ID) **", file=sys.stderr)
+    printHelp()
 
-# if '-p' not in opts:
-#     print("\n** ERROR: must specify API Key Password (opt: -p PASSWORD) **", file=sys.stderr)
-#     printHelp()    
+if '-p' not in opts:
+    print("\n** ERROR: must specify API Key Password (opt: -p PASSWORD) **", file=sys.stderr)
+    printHelp()    
 
 if len(args) > 0:
     print("\n** ERROR: no arg files - only options! **", file=sys.stderr)
@@ -64,6 +64,10 @@ if len(args) > 0:
 # spacy_entities = spacy_recogniser.get_entities()
 # print(spacy_entities)
 
-stanford_recogniser = Stanford_Entities()
-stanford_entities = stanford_recogniser.get_entities()
-print(stanford_entities)
+# stanford_recogniser = Stanford_Entities()
+# stanford_entities = stanford_recogniser.get_entities()
+# print(stanford_entities)
+
+gate_recogniser = Gate_Entities(KEY_ID, PASSWORD)
+gate_entities = gate_recogniser.get_entities()
+print(gate_entities)

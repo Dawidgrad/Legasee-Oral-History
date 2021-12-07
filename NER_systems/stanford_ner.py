@@ -4,7 +4,7 @@ from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
 
 class Stanford_Entities:
-    def __init__(self) -> None:
+    def __init__(self):
         nltk.download('punkt')
 
     def get_entities(self):
@@ -23,11 +23,9 @@ class Stanford_Entities:
             tokenized_text = word_tokenize(batch)
             classified_text = st.tag(tokenized_text)
 
+            # Convert to universal format
             formatted_entities = self.convert_format(classified_text, batch)
             entities = entities + formatted_entities
-
-            break # Single batch for now
-
 
         return entities
 

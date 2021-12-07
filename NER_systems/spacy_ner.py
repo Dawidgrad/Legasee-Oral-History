@@ -20,7 +20,6 @@ class Spacy_Entities:
         for batch in transcript:
             doc = nlp(batch)
             for ent in doc.ents:
-                entities.append(([ent.start_char, ent.end_char], ent.label_))
+                entities = entities + [([ent.start_char, ent.end_char], ent.label_)]
         
         return entities
-                

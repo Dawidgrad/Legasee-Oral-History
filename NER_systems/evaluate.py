@@ -60,6 +60,10 @@ if len(args) > 0:
 # pavlov_entities = pavlov_recogniser.get_entities()
 # print(pavlov_entities)
 
-spacy_recogniser = Spacy_Entities()
-spacy_entities = spacy_recogniser.get_entities()
-print(spacy_entities)
+# spacy_recogniser = Spacy_Entities()
+# spacy_entities = spacy_recogniser.get_entities()
+# print(spacy_entities)
+
+stanford_recogniser = Stanford_Entities()
+stanford_entities = stanford_recogniser.get_entities()
+print(stanford_entities)

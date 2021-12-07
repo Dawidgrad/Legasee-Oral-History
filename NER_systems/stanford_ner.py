@@ -23,7 +23,24 @@ class Stanford_Entities:
             tokenized_text = word_tokenize(batch)
             classified_text = st.tag(tokenized_text)
 
-            print(classified_text)
-            entities.append(classified_text)
+            formatted_entities = self.convert_format(classified_text, batch)
+            entities = entities + formatted_entities
+
+            break # Single batch for now
+
 
         return entities
+
+    def convert_format(self, entities, transcript):
+            formatted_entities = list()
+            offset = 0
+
+            for entity in entities:
+                if entity[1] != 'O':
+                    span_start = transcript.find(entity[0], offset)
+                    span_end = span_start + len(entity[0])
+                    ner_class = entity[1][0:3]
+                    formatted_entities.append(([span_start, span_end], ner_class))
+                    offset = span_end
+
+            return formatted_entities

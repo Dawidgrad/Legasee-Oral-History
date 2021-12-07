@@ -12,11 +12,11 @@ import sys
 import getopt
 
 from utilities import get_transcript
-# from flair_ner import Flair_Entities
-from deeppavlov_ner import DeepPavlov_Entities
-# from spacy_ner import Spacy_Entities
-# from stanford_ner import Stanford_Entities
-# from gate_ner import Gate_Entities
+from flair_ner import Flair_Entities
+# from deeppavlov_ner import DeepPavlov_Entities
+from spacy_ner import Spacy_Entities
+from stanford_ner import Stanford_Entities
+from gate_ner import Gate_Entities
 
 ################################################################
 # Command line options handling, and help

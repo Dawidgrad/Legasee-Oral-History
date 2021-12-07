@@ -1,4 +1,4 @@
-from utilities import get_transcripts
+from utilities import get_transcript
 import subprocess
 import sys
 import spacy
@@ -8,16 +8,16 @@ class Spacy_Entities:
         # Download the en_core_web_sm model
         subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
 
-    def get_entities(self):  
+    def get_entities(self): 
         directory = "../transcripts/ingested"
-        transcripts = get_transcripts(directory)
+        transcript = get_transcript(directory)
 
         # Load the model
         nlp = spacy.load('en_core_web_sm')
         entities = list()
 
         # Get the NER tags
-        for batch in transcripts[0]:
+        for batch in transcript:
             doc = nlp(batch)
             for ent in doc.ents:
                 print(ent.text,ent.label_)

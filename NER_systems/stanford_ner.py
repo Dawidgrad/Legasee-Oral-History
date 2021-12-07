@@ -1,4 +1,4 @@
-from utilities import get_transcripts
+from utilities import get_transcript
 import nltk
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
@@ -9,7 +9,7 @@ class Stanford_Entities:
 
     def get_entities(self):
         directory = "../transcripts/ingested"
-        transcripts = get_transcripts(directory)
+        transcript = get_transcript(directory)
 
         # Load the model
         st = StanfordNERTagger('stanford_models/english.all.3class.distsim.crf.ser.gz',
@@ -19,7 +19,7 @@ class Stanford_Entities:
         entities = list()
 
         # Get the NER tags
-        for batch in transcripts[0]:
+        for batch in transcript:
             tokenized_text = word_tokenize(batch)
             classified_text = st.tag(tokenized_text)
 

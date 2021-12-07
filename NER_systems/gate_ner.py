@@ -1,5 +1,5 @@
 import requests
-from utilities import get_transcripts
+from utilities import get_transcript
 
 class Gate_Entities:
     def __init__(self, key_id, password) -> None:
@@ -21,10 +21,10 @@ class Gate_Entities:
     def get_entities(self):
         #### Might need to add rate limiting wrapper ####
         directory = "../transcripts/ingested"
-        transcripts = get_transcripts(directory)
+        transcript = get_transcript(directory)
 
         gate_output = []
-        for transcript_part in transcripts[0]:
+        for transcript_part in transcript:
             gate_output.append(call_gate_api(transcript_part))
 
         print(gate_output)

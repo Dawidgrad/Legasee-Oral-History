@@ -1,28 +1,35 @@
 from flair.data import Sentence
 from flair.models import SequenceTagger
-from utilities import get_transcripts
+from utilities import get_transcript
 
 class Flair_Entities:
     def get_entities(self):
         directory = "../transcripts/ingested"
-        transcripts = get_transcripts(directory)
-        spans = list()
+        transcript = get_transcript(directory)
+        entities = list()
 
-        for batch in transcripts[0]:
-            # make a sentence
-            transcript = Sentence(batch)
+        # Load the NER tagger
+        tagger = SequenceTagger.load('ner')
+        
+        for batch in transcript:
+            # Create a sentence
+            sentence = Sentence(batch)
 
-            # load the NER tagger
-            tagger = SequenceTagger.load('ner')
+            # Run NER over sentence
+            tagger.predict(sentence)
 
-            # run NER over sentence
-            tagger.predict(transcript)
+            entities = entities + sentence.to_dict(tag_type='ner')['entities']
 
-            print(transcript)
-            print('The following NER tags are found:')
+            break # single iteration for testing
 
-            for entity in transcript.get_spans('ner'):
-                print(entity)
-                spans.append(entity)
+        formatted_entities = self.convert_format(entities)
+        
+        return formatted_entities
 
-        return spans
+    def convert_format(self, entities):
+        formatted_entities = list()
+
+        for entity in entities:
+            formatted_entities.append(([entity['start_pos'], entity['end_pos']], entity['labels'][0].value))
+
+        return formatted_entities

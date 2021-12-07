@@ -10,7 +10,8 @@ OPTIONS:
 
 import sys
 import getopt
-from utilities import get_transcripts
+
+from utilities import get_transcript
 from flair_ner import Flair_Entities
 from deeppavlov_ner import DeepPavlov_Entities
 from spacy_ner import Spacy_Entities
@@ -22,8 +23,8 @@ from gate_ner import Gate_Entities
 
 opts, args = getopt.getopt(sys.argv[1:], 'hk:p:')
 opts = dict(opts)
-KEY_ID = opts['-k']
-PASSWORD = opts['-p']
+# KEY_ID = opts['-k']
+# PASSWORD = opts['-p']
 
 def printHelp():
     progname = sys.argv[0]
@@ -35,13 +36,13 @@ def printHelp():
 if '-h' in opts:
     printHelp()
 
-if '-k' not in opts:
-    print("\n** ERROR: must specify API Key ID (opt: -k KEY_ID) **", file=sys.stderr)
-    printHelp()
+# if '-k' not in opts:
+#     print("\n** ERROR: must specify API Key ID (opt: -k KEY_ID) **", file=sys.stderr)
+#     printHelp()
 
-if '-p' not in opts:
-    print("\n** ERROR: must specify API Key Password (opt: -p PASSWORD) **", file=sys.stderr)
-    printHelp()    
+# if '-p' not in opts:
+#     print("\n** ERROR: must specify API Key Password (opt: -p PASSWORD) **", file=sys.stderr)
+#     printHelp()    
 
 if len(args) > 0:
     print("\n** ERROR: no arg files - only options! **", file=sys.stderr)
@@ -51,7 +52,11 @@ if len(args) > 0:
 ################################################################
 # Main program function
 
-directory = "../transcripts/ingested"
-transcripts = get_transcripts(directory)
+# directory = "../transcripts/ingested"
+# transcripts = get_transcripts(directory)
+
+flair_recogniser = Flair_Entities()
+flair_entities = flair_recogniser.get_entities()
+print(flair_entities)
 
 # print(transcripts[1])

@@ -51,8 +51,8 @@ class Gate_Entities:
             for item in dict_output['Person']:
                 formatted_entities.append((item['indices'], 'PER'))
 
-        if 'Organisation' in dict_output:
-            for item in dict_output['Organisation']:
+        if 'Organization' in dict_output:
+            for item in dict_output['Organization']:
                 formatted_entities.append((item['indices'], 'ORG'))
 
         return formatted_entities

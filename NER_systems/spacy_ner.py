@@ -15,11 +15,13 @@ class Spacy_Entities:
         # Load the model
         nlp = spacy.load('en_core_web_sm')
         entities = list()
+        ignored_labels = ['LANGUAGE', 'TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
 
         # Get the NER tags
         for batch in transcript:
             doc = nlp(batch)
             for ent in doc.ents:
-                entities = entities + [([ent.start_char, ent.end_char], ent.label_)]
+                if ent.label_ not in ignored_labels:
+                    entities = entities + [([ent.start_char, ent.end_char], ent.label_)]
         
         return entities

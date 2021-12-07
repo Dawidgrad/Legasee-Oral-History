@@ -1,51 +1,28 @@
-"""
-USE: python <PROGNAME> (options) 
-OPTIONS:
-    -h : print this help message and exit
-"""
-################################################################
-# Importing libraries
-
-import sys
-import getopt
 from flair.data import Sentence
 from flair.models import SequenceTagger
 from utilities import get_transcripts
 
-################################################################
-# Command line options handling, and help
+class Flair_Entities:
+    def get_entities(self):
+        directory = "../transcripts/ingested"
+        transcripts = get_transcripts(directory)
+        spans = list()
 
-opts, args = getopt.getopt(sys.argv[1:], 'h')
-opts = dict(opts)
+        for batch in transcripts[0]:
+            # make a sentence
+            transcript = Sentence(batch)
 
-def printHelp():
-    progname = sys.argv[0]
-    progname = progname.split('/')[-1] # strip out extended path
-    help = __doc__.replace('<PROGNAME>', progname, 1)
-    print('-' * 60, help, '-' * 60, file=sys.stderr)
-    sys.exit()
-    
-if '-h' in opts:
-    printHelp()
+            # load the NER tagger
+            tagger = SequenceTagger.load('ner')
 
-################################################################
-# Main program function
+            # run NER over sentence
+            tagger.predict(transcript)
 
-directory = "../transcripts/ingested"
-transcripts = get_transcripts(directory)
+            print(transcript)
+            print('The following NER tags are found:')
 
-for batch in transcripts[0]:
-    # make a sentence
-    transcript = Sentence(batch)
+            for entity in transcript.get_spans('ner'):
+                print(entity)
+                spans.append(entity)
 
-    # load the NER tagger
-    tagger = SequenceTagger.load('ner')
-
-    # run NER over sentence
-    tagger.predict(transcript)
-
-    print(transcript)
-    print('The following NER tags are found:')
-
-    for entity in transcript.get_spans('ner'):
-        print(entity)
+        return spans

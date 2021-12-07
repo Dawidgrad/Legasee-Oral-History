@@ -8,8 +8,8 @@ class Gate_Entities:
         self.key_id = key_id
         self.password = password
         
-    # Rate limit calls to one every other second
-    @limits(calls=30, period=60)
+    # Rate limit calls to one every 4 seconds
+    @limits(calls=15, period=60)
     def call_gate_api(self, transcript):
         results = []
         endpoint_url = "https://cloud-api.gate.ac.uk/process/annie-named-entity-recognizer?{}={}".format(self.key_id, self.password)

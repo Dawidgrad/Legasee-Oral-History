@@ -3,6 +3,8 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
+# Store discarded beams, so that they can be merged if necessary
+
 # Optimization
 # dictionary lookup is 6.6 times faster than a list, so replace all lists with dicts where possible
 # Remove redundant looping of lists
@@ -23,11 +25,6 @@ class Beam():
         self.pad_tkn = pad_tkn
         self.space_tkn = space_tkn
         self.next_logits = None
-
-    def add(self, token, score):
-        self.seq.append(token)
-        self.score = self.score * score
-        self.collapse() 
 
     def collapse(self): # This should be optimized to avoid collapsing parts of the sequence that have already been collapsed
         seq = []
@@ -67,19 +64,18 @@ class BeamSearch():
         self.asr_logits = asr_logits # Wav2vec2 logits [seq_len, vocab_size]
         self.pad_tkn = pad_tkn       # token used for padding
         self.space_tkn = space_tkn   # token used for space
-        self.lm = lm_model           # LM model __call__ must return softmax over vocab [vocab_size]
+        self.lm = lm_model           # LM model __call__ must return log softmax over vocab [vocab_size]
         self.beams = []              # list of all beam objects
-        self.lm_weight = lm_weight   # weight for language model
-        self.asr_weight = 1 - self.lm_weight #weight of the asr model
+        self.lm_weight = -np.inf if lm_weight == 0 else np.log(lm_weight)   # weight for language model
+        self.asr_weight = np.log(1-lm_weight) # weight for acoustic model
 
         self.current_pos = 0         # current position of the search within the logits
 
-        self.loading_bar = None      # progress bar (tqdm)
 
         self.cache = {}              # cache for lm logits that have already been computed
         self.debug = False         
 
-        if self.lm_weight == 0:
+        if lm_weight == 0:
             self.lm = DummyLM()      # if lm_weight is 0 then perform greedy search
 
     def _get_sorted(self, current_pos):
@@ -129,7 +125,7 @@ class BeamSearch():
                 cbeams.append(beam)
                 blist.append(beam_str)
             else:
-                cbeams[blist.index(beam_str)].score += beam.score #add the score of the new beam to the existing beam
+                cbeams[blist.index(beam_str)].score = np.logaddexp(beam.score, cbeams[blist.index(beam_str)].score) #add the score of the new beam to the existing beam
         return cbeams
 
 
@@ -185,9 +181,9 @@ class BeamSearch():
         '''
         if beam.next_logits is None:
             print('Next logits is None, this should not happen')
-            return [Beam([*beam.get_seq(), token], beam.score*self.asr_logits[self.current_pos, token]) for token in self.vocab.values()]
+            return [Beam([*beam.get_seq(), token], beam.score + self.asr_logits[self.current_pos, token]) for token in self.vocab.values()]
         else:
-            return [Beam([*beam.get_seq(),token], beam.score*( self.lm_weight*beam.next_logits[token] + self.asr_weight*self.asr_logits[self.current_pos, token] ) ) for token in self.vocab.values()] #compute the score for each candidate beam, combining the score from the language model and the score from the asr model
+            return [Beam([*beam.get_seq(),token], beam.score + ( np.logaddexp(self.lm_weight+beam.next_logits[token], self.asr_weight+self.asr_logits[self.current_pos, token]) ) ) for token in self.vocab.values()] #compute the score for each candidate beam, combining the score from the language model and the score from the asr model
 
     def _search_step(self):
         candidate_sets = [self._get_candidate(beam) for beam in self.beams]
@@ -199,32 +195,23 @@ class BeamSearch():
       
         self.beams = candidate_beams[:self.beam_width] #prune to beam_width
 
-    def _loading_bar(self, end=False):
-        if self.loading_bar is None:
-            self.loading_bar = tqdm(total=self.asr_logits.shape[0]-1, desc="Searching..")
-            self.loading_bar.update()
-        elif end:
-            self.loading_bar.close()
-            self.loading_bar = None
-        else:
-            self.loading_bar.update()
 
     def search(self): #main search function that returns the top k beams
-        ### End of sequence 
-        if self.current_pos == len(self.asr_logits) - 1:
-            self._loading_bar(end=True)
-            return [self, self._return_beams()] if self.debug else self._return_beams()
-        ## Start of sequence
-        elif len(self.beams) == 0:
-            self._init_beams()
-        # During sequence
-        else:
-            self._search_step()
+        for i in tqdm(range(len(self.asr_logits)), desc='Searching'):
+          self.current_pos = i
+          ### End of sequence 
+          if self.current_pos == len(self.asr_logits) - 1:
+              return [self, self._return_beams()] if self.debug else self._return_beams()
+          ## Start of sequence
+          elif len(self.beams) == 0:
+              self._init_beams()
+          # During sequence
+          else:
+              self._search_step()
 
-        self._retrieve_batch() #retrieve logits for next character for each beam
-        self.current_pos += 1
-        self._loading_bar()
-        return self.search() #recursive call
+          self._retrieve_batch() #retrieve logits for next character for each beam
+    
+        
     
 
             

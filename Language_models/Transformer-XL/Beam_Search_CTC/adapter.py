@@ -75,7 +75,7 @@ wav2vecVocab = {
 class TransfoXLPredictonHead():
   '''
     Takes in a sequence and outputs a probability distrubution over the next character
-    outputs standard probability rather than logs
+    outputs log probabilities
   '''
   def __init__(self, model):
     self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -98,7 +98,7 @@ class TransfoXLPredictonHead():
       out = out[torch.tensor([el for el in range(out.shape[0])]).to(self.device), indices.to(self.device)]  # select indices for token inputs i.e we don't need predictions for padding
     
       logits = self.compute_logit(out, self.weight, self.bias, self.out_projs)
-      probs = torch.nn.functional.softmax(logits, -1).cpu().numpy()
+      probs = torch.nn.functional.log_softmax(logits, -1).cpu().numpy()
     return probs #return smax over next char in seq
 
 

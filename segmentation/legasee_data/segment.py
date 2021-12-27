@@ -95,12 +95,13 @@ def process(args, audio:np.array, text:str):
     segments = get_utterances(gap=0.25, max=7.5, min=2, text=text, segments=segments_)
     return segments
 
-def to_dict(segments:list, fname:str) -> List[dict]:
+def to_dict(segments:list, fname:str, wav_name:str) -> List[dict]:
     '''
     Converts a list of segment objects to a list of dictionaries
     '''
     return [
         {   
+            'parent':wav_name,
             'name': fname.replace(' ', '_')[:-len('.txt')] + '_' + str(i),
             'text': str(segment),
             'start': min(segment.segment_list[0][0] - PADDING, 0),
@@ -112,9 +113,18 @@ def to_dict(segments:list, fname:str) -> List[dict]:
         for i, segment in enumerate(segments)
     ]
 
-def save_audio(args, segments:List[Dict], audio:np.array):
-    for segment in segments:
-        sf.write(os.path.join(args.output_dir, segment['name'] + '.wav'), audio[int(segment["start"]*SAMPLE_RATE):int(segment["end"]*SAMPLE_RATE)], SAMPLE_RATE)
+def save_audio(args, segments_df:pd.DataFrame) -> None:
+  '''
+  Saves segments from the datafram to individual files
+  '''
+  print(f'{"-"*50}\n{"Saving audio segments":^50}\n{"-"*50}')
+  unique_wavs = segments_df['parent'].unique()
+  for wav_name in tqdm(unique_wavs):
+    wav, fs = sf.read(os.path.join(args.audio, wav_name))
+    for i, segment in segments_df[segments_df['parent']==wav_name].iterrows():
+      start = int(segment['start']*fs)
+      end = int(segment['end']*fs)
+      sf.write(os.path.join(args.output_dir, segment['name'] + '.wav'), wav[start:end], fs)
 
 def main(args) -> None:
     # load csv
@@ -132,15 +142,16 @@ def main(args) -> None:
         # segment audio w/ transcript
         segments = process(args, audio.squeeze(), transcript)
         # add to list of dictonary
-        segdata = to_dict(segments, row['Text_File'])
+        segdata = to_dict(segments, row['Text_File'], row['Wav_File'])
         segment_list.extend(segdata)
-        # save audio
-        save_audio(args, segdata, audio)
 
     print(f'{"-"*50}\n{"Segmented":^50}\n{"-"*50}')
     segments_df = pd.DataFrame(segment_list)
     segments_df.to_csv(args.csv_out, index=False)
     print(f'{"-"*50}\n{"Saved dataframe":^50}\n{"-"*50}')
+    #save audio segments
+    save_audio(args, segments_df)
+
 
 def check_dirs_and_files_exit(args):
     for item in [args.audio, args.output_dir, args.csv, args.text_files, args.csv]:

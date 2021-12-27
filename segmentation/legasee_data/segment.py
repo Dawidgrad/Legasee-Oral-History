@@ -96,6 +96,9 @@ def process(args, audio:np.array, text:str):
     return segments
 
 def to_dict(segments:list, fname:str) -> List[dict]:
+    '''
+    Converts a list of segment objects to a list of dictionaries
+    '''
     return [
         {   
             'name': fname.replace(' ', '_')[:-len('.txt')] + '_' + str(i),
@@ -111,7 +114,7 @@ def to_dict(segments:list, fname:str) -> List[dict]:
 
 def save_audio(args, segments:List[Dict], audio:np.array):
     for segment in segments:
-        sf.write(os.path.join(args.output_dir, segment['name'] + '.wav'), audio[int(segment.start*SAMPLE_RATE):int(segment.end*SAMPLE_RATE)], SAMPLE_RATE)
+        sf.write(os.path.join(args.output_dir, segment['name'] + '.wav'), audio[int(segment["start"]*SAMPLE_RATE):int(segment["end"]*SAMPLE_RATE)], SAMPLE_RATE)
 
 def main(args) -> None:
     # load csv

@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 import ctc_segmentation
 import numpy as np
 import pandas as pd
@@ -100,7 +100,7 @@ def to_dict(segments:list, fname:str) -> List[dict]:
         {   
             'name': fname.replace(' ', '_')[:-len('.txt')] + '_' + str(i),
             'text': str(segment),
-            'start': segment.segment_list[0][0] - PADDING,
+            'start': min(segment.segment_list[0][0] - PADDING, 0),
             'end': segment.segment_list[-1][1] + PADDING,
             'length': len(segment),
             'avg_confidence': segment.avg_confidence(),
@@ -109,13 +109,9 @@ def to_dict(segments:list, fname:str) -> List[dict]:
         for i, segment in enumerate(segments)
     ]
 
-def save_audio(args, segments_df:pd.DataFrame, audio:np.array):
-    for i, segment in tqdm(segments_df.iterrows(), total=len(segments_df)):
-        sf.write(
-            f'{args.output_dir}/{segment["name"]}.wav',
-            audio[int(segment.start*SAMPLE_RATE):int(segment.end*SAMPLE_RATE)],
-            SAMPLE_RATE
-        )
+def save_audio(args, segments:List[Dict], audio:np.array):
+    for segment in segments:
+        sf.write(os.path.join(args.output_dir, segment['name'] + '.wav'), audio[int(segment.start*SAMPLE_RATE):int(segment.end*SAMPLE_RATE)], SAMPLE_RATE)
 
 def main(args) -> None:
     # load csv
@@ -133,15 +129,15 @@ def main(args) -> None:
         # segment audio w/ transcript
         segments = process(args, audio.squeeze(), transcript)
         # add to list of dictonary
-        segment_list.extend(to_dict(segments, row['Text_File']))
+        segdata = to_dict(segments, row['Text_File'])
+        segment_list.extend(segdata)
+        # save audio
+        save_audio(args, segdata, audio)
 
     print(f'{"-"*50}\n{"Segmented":^50}\n{"-"*50}')
     segments_df = pd.DataFrame(segment_list)
     segments_df.to_csv(args.csv_out, index=False)
     print(f'{"-"*50}\n{"Saved dataframe":^50}\n{"-"*50}')
-    print(f'{"-"*50}\n{"Saving segments to output dir":^50}\n{"-"*50}')
-    save_audio(args, segments_df, audio)
-    print(f'{"-"*50}\n{"Done":^50}\n{"-"*50}')
 
 def check_dirs_and_files_exit(args):
     for item in [args.audio, args.output_dir, args.csv, args.text_files, args.csv]:

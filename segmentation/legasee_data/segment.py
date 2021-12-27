@@ -107,7 +107,7 @@ def to_dict(segments:list, fname:str) -> List[dict]:
 def save_audio(args, segments_df:pd.DataFrame, audio:np.array):
     for i, segment in tqdm(segments_df.iterrows(), total=len(segments_df)):
         sf.write(
-            f'{args.output_dir}/{segment.name}.wav',
+            f'{args.output_dir}/{segment["name"]}.wav',
             audio[int(segment.start*SAMPLE_RATE):int(segment.end*SAMPLE_RATE)],
             SAMPLE_RATE
         )

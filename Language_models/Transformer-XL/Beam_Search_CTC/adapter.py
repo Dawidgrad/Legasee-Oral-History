@@ -77,7 +77,7 @@ class TransfoXLPredictonHead():
     Takes in a sequence and outputs a probability distrubution over the next character
     outputs log probabilities
   '''
-  def __init__(self, model):
+  def __init__(self, model): #model is a HuggingFace TransformerXL model
     self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     self.model = model.to(self.device)
     self.model.eval()
@@ -136,7 +136,7 @@ class Wav2Vec2CTCPredictionHead():
     return self.forward()
 
 
-  def _convert(self, output): #DOESN'T WORK
+  def _convert(self, output):
     '''
       Converts the output of the model to match the language models vocab before softmax is applied
     '''

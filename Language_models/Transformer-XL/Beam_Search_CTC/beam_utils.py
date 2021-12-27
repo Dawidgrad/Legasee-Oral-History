@@ -3,17 +3,31 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
+# TODO :
+
 # Store discarded beams, so that they can be merged if necessary
 
-# Optimization
+# ------------ #
+# Optimization #
+# ------------ #
+
 # dictionary lookup is 6.6 times faster than a list, so replace all lists with dicts where possible
 # Remove redundant looping of lists
-# Improve beam collapsing
-# Replace recursive calls with a loop
+# Improve beam collapsing 
+# Replace recursive calls with a loop                                                                        ✓✓ Done ✓✓
 # After certain sequence length store LM models hidden states in memory and use them for the next sequence
-# Replace looped multiplication with matrix operations where possible
-# cache beam strings
-# work in log space where possible addition > multiplication
+# Replace looped multiplication with matrix operations where possible 
+# cache beam strings 
+# work in log space where possible, addition > multiplication                                                ✓✓ Done ✓✓
+
+# https://stackoverflow.com/questions/11232597/storing-python-objects-in-a-python-list-vs-a-fixed-length-numpy-array
+
+# Convert algorithm to consist of a dictionary of sequences, with the keys being the indices of <
+# a matrix of corresponding log probabilities. Then batches, beam merging and score updates can <
+# organized as matrix addition and logsumexp operations. Indices can be selected using indexing <
+# use numpy.fromfunction to create the matrix of indices. This is more parallelizable ######### <
+
+# https://arxiv.org/pdf/1902.06022.pdf ?
 
 class Beam():
     '''
@@ -29,7 +43,7 @@ class Beam():
     def collapse(self): # This should be optimized to avoid collapsing parts of the sequence that have already been collapsed
         seq = []
         for i, tkn in enumerate(self.seq):   # This doesn't account for spaces with a padding token between them # Fixed
-            if len(seq) == 0: #first token in sequence cannot be a space or pad token
+            if len(seq) == 0: # first token in sequence cannot be a space or pad token
                 if tkn != self.space_tkn and tkn != self.pad_tkn:   
                     seq.append(tkn)
             elif tkn != seq[-1]: #if the current token is not the same as the previous token then add it to the sequence
@@ -75,22 +89,22 @@ class BeamSearch():
         self.cache = {}              # cache for lm logits that have already been computed
         self.debug = False         
 
-        if lm_weight == 0:
+        if lm_weight == 0: 
             self.lm = DummyLM()      # if lm_weight is 0 then perform greedy search
 
-    def _get_sorted(self, current_pos):
+    def _get_sorted(self, current_pos): # current_pos is a bad variable name, as self.current_pos is the current position in the logits, is confusing
         '''
         Returns array where the index corresponds to the order of sorted logits i.e [0] = most probable, [-1] = least probable
-        and the value is the number corresponding to a character in the vocabulary
+        and the value is the number corresponding to a character in the vocabulary 
         '''
-        sorted_ = (-current_pos).argsort()
-        beam_order = np.empty(sorted_.shape,dtype=np.int8)
-        for i, el in enumerate(sorted_):
+        sorted_ = (-current_pos).argsort() 
+        beam_order = np.empty(sorted_.shape,dtype=np.int8) 
+        for i, el in enumerate(sorted_): 
             beam_order[el] = i
         return beam_order
 
     def _init_beams(self):
-        beam_order =  self._get_sorted(self.asr_logits[self.current_pos])
+        beam_order =  self._get_sorted(self.asr_logits[self.current_pos]) 
         for char in beam_order:
             if len(self.beams) >= self.beam_width:
                 break
@@ -166,9 +180,9 @@ class BeamSearch():
 
         if len(sequences) != 0:
             sequences, tgt_indices = pad_batch(sequences)
-            batch_logits = self.lm(sequences, tgt_indices)
+            batch_logits = self.lm(sequences, tgt_indices) 
 
-            for i_beam, i_batch in zip(beam_indices, batch_indices):
+            for i_beam, i_batch in zip(beam_indices, batch_indices):        
                 self.beams[i_beam].next_logits = batch_logits[i_batch]      # update the next_logits for each beam
                 self.cache[str(self.beams[i_beam])] = batch_logits[i_batch] # cache the logits
 
@@ -200,14 +214,14 @@ class BeamSearch():
         for i in tqdm(range(len(self.asr_logits)), desc='Searching'):
           self.current_pos = i
           ### End of sequence 
-          if self.current_pos == len(self.asr_logits) - 1:
-              return [self, self._return_beams()] if self.debug else self._return_beams()
+          if self.current_pos == len(self.asr_logits) - 1: 
+              return [self, self._return_beams()] if self.debug else self._return_beams()   
           ## Start of sequence
           elif len(self.beams) == 0:
-              self._init_beams()
+              self._init_beams() 
           # During sequence
           else:
-              self._search_step()
+              self._search_step() 
 
           self._retrieve_batch() #retrieve logits for next character for each beam
     

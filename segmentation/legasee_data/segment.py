@@ -28,6 +28,9 @@ class utterance():
   def min_confidence(self):
     return np.e**min(el[-1] for el in self.segment_list)
 
+  def avg_confidence(self):
+    return np.mean([np.e**el[-1] for el in self.segment_list])
+
   def add(self, word, segment):
     duration = segment[1] - segment[0]
     self.duration += duration
@@ -98,8 +101,10 @@ def to_dict(segments:list, fname:str) -> List[dict]:
             'name': fname.replace(' ', '_')[:-len('.txt')] + '_' + str(i),
             'text': str(segment),
             'start': segment.segment_list[0][0] - PADDING,
-            'end': segment.segment_list[0][1] + PADDING,
-            'confidence': segment.min_confidence()
+            'end': segment.segment_list[-1][1] + PADDING,
+            'length': len(segment),
+            'avg_confidence': segment.avg_confidence(),
+            'min_confidence': segment.min_confidence()
         }
         for i, segment in enumerate(segments)
     ]

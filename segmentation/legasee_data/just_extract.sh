@@ -1,9 +1,6 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --mem=20G
-#SBATCH --partition=dcs-gpu
-#SBATCH --account=dcs-res
-#SBATCH --gpus-per-node=1
 #SBATCH --time=06:00:00
 
 nvidia-smi
@@ -18,22 +15,17 @@ rm -rf $TMPDIR/* # make sure dir is empty (it should be :P)
 mkdir audio
 mkdir segments
 cp ~/data/audio/*.wav audio/
-unzip ~/data/text_files.zip -d ./
-cp ~/data/segment.py ./
-cp ~/data/corresponding_audio.csv ./
+cp ~/data/segments.csv ./
 cp ~/data/extract.py ./
 
 echo "Directory Prepared - Contents:"
 ls -l
-echo "Running segment.py"
-python segment.py
-cp segments.csv ~/data/
-echo "!!! FINISHED !!!"
-echo "lets snip the audio up, chop chop chop"
+echo "extracting segments"
 python extract.py
+echo "!!! FINISHED !!!"
 echo "zipping then copying files back to home"
 zip -r ./segments.zip segments/
 mv segments.zip ~/data/
-
+mv segments.csv ~/data/
 ls ~/data/ -l
 echo "WE ARE DONE, BYE"

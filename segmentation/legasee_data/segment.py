@@ -104,7 +104,7 @@ def to_dict(segments:list, fname:str, wav_name:str) -> List[dict]:
             'parent':wav_name,
             'name': fname.replace(' ', '_')[:-len('.txt')] + '_' + str(i),
             'text': str(segment),
-            'start': min(segment.segment_list[0][0] - PADDING, 0),
+            'start': max(segment.segment_list[0][0] - PADDING, 0), # must be non-negative irrespectively of padding
             'end': segment.segment_list[-1][1] + PADDING,
             'length': len(segment),
             'avg_confidence': segment.avg_confidence(),
@@ -125,6 +125,7 @@ def save_audio(args, segments_df:pd.DataFrame) -> None:
       start = int(segment['start']*fs)
       end = int(segment['end']*fs)
       sf.write(os.path.join(args.output_dir, segment['name'] + '.wav'), wav[start:end], fs)
+
 
 def main(args) -> None:
     # load csv
@@ -150,7 +151,7 @@ def main(args) -> None:
     segments_df.to_csv(args.csv_out, index=False)
     print(f'{"-"*50}\n{"Saved dataframe":^50}\n{"-"*50}')
     #save audio segments
-    save_audio(args, segments_df)
+    #save_audio(args, segments_df) #not working...
 
 
 def check_dirs_and_files_exit(args):
@@ -164,7 +165,7 @@ if __name__ == "__main__":
     parser.add_argument('--audio', type=str, default='./audio', help='audio directory')
     parser.add_argument('--text_files', type=str, default='./text_files', help='transcript directory')
     parser.add_argument('--csv' , type=str, default='corresponding_audio.csv', help='CSV aligning audio and respective transcripts')
-    parser.add_argument('--chunk_size', type=int, default=100000, help='batch size')
+    parser.add_argument('--chunk_size', type=int, default=200000, help='batch size')
     parser.add_argument('--csv_out', type=str, default='segments.csv', help='output csv file')
     parser.add_argument('--output_dir', type=str, default='./segments', help='output directory')
     args = parser.parse_args()

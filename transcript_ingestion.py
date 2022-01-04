@@ -140,7 +140,7 @@ def page_to_ts(docpage):
             
             
     
-    raw_html = page.get_text("html")
+    raw_html = docpage.get_text("html")
     page_bs = BeautifulSoup(raw_html)
     
     # Get paragraphs from content, as a list

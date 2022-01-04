@@ -1,0 +1,9 @@
+torch
+numpy
+pandas
+pypi-kenlm==0.1.20210121
+pyctcdecode
+transformers
+datasets
+soundfile
+tqdm

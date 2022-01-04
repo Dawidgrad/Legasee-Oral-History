@@ -1,0 +1,9 @@
+torch
+numpy
+pandas
+transformers
+datasets
+soundfile
+pytorch_lightning
+tqdm
+fairscale

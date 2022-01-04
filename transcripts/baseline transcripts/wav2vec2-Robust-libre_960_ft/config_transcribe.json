@@ -1,0 +1,1 @@
+{"config": "config_transcribe.json", "wav": null, "model": "facebook/wav2vec2-large-robust-ft-libri-960h", "ARPA_Path": "4gram_big.arpa", "inference_batch": 250000, "model_name": "robust-ft-libri-960", "type": "CTC", "alpha": 0.5, "beta": 1.0, "beam_width": 200, "cpu_count": 1}

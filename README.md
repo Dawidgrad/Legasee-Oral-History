@@ -46,3 +46,24 @@ I can describe the process that I imagined we could potentially follow (at least
 We could potentially require an approval of the pull request by other person (between step 4 and 5), just so there is another set of eyes looking for any issues before merging into develop. This will probably be an overkill though, since it's not a software engineering project as Stu has mentioned.
 
 Any questions or suggestions, just let me know! :) Feel free to edit this for clarity too.
+
+### ClickUp & GitHub integration
+Now that the integration between these two services seems to be set up, there are some instructions provided on how to automatically associate GitHub activity in ClickUp.
+
+ClickUp will automatically pick up new GitHub activity and associate it with tasks, as long as you include the ClickUp task ID in any part of the pull request title, branch name, or commit message. 
+
+The task id must be formatted using one of these options:
+
+ * \#{task_id}
+
+ * CU-{task_id}
+
+ * {custom_task_id}
+
+For example:
+
+ * \#1abc2de
+
+ * CU-1abc2de
+
+ * prefix-1

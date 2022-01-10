@@ -12,11 +12,11 @@ import sys
 import getopt
 
 from utilities import get_transcript
-from flair_ner import Flair_Entities
+# from flair_ner import Flair_Entities
 # from deeppavlov_ner import DeepPavlov_Entities
-from spacy_ner import Spacy_Entities
-from stanford_ner import Stanford_Entities
-from gate_ner import Gate_Entities
+# from spacy_ner import Spacy_Entities
+# from stanford_ner import Stanford_Entities
+# from gate_ner import Gate_Entities
 
 ################################################################
 # Command line options handling, and help
@@ -52,22 +52,22 @@ if len(args) > 0:
 ################################################################
 # Main program function
 
-flair_recogniser = Flair_Entities()
-flair_entities = flair_recogniser.get_entities()
-print(flair_entities)
+# flair_recogniser = Flair_Entities()
+# flair_entities = flair_recogniser.get_entities()
+# print(flair_entities)
 
 # pavlov_recogniser = DeepPavlov_Entities()
 # pavlov_entities = pavlov_recogniser.get_entities()
 # print(pavlov_entities)
 
-spacy_recogniser = Spacy_Entities()
-spacy_entities = spacy_recogniser.get_entities()
-print(spacy_entities)
+# spacy_recogniser = Spacy_Entities()
+# spacy_entities = spacy_recogniser.get_entities()
+# print(spacy_entities)
 
-stanford_recogniser = Stanford_Entities()
-stanford_entities = stanford_recogniser.get_entities()
-print(stanford_entities)
+# stanford_recogniser = Stanford_Entities()
+# stanford_entities = stanford_recogniser.get_entities()
+# print(stanford_entities)
 
-gate_recogniser = Gate_Entities(KEY_ID, PASSWORD)
-gate_entities = gate_recogniser.get_entities()
-print(gate_entities)
+# gate_recogniser = Gate_Entities(KEY_ID, PASSWORD)
+# gate_entities = gate_recogniser.get_entities()
+# print(gate_entities)

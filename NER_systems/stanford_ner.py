@@ -1,7 +1,13 @@
-from utilities import get_transcript
+################################################################
+# Importing libraries
+
+from utilities import get_transcript, write_to_file
 import nltk
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
+
+################################################################
+# Class definition
 
 class Stanford_Entities:
     def __init__(self):
@@ -42,3 +48,14 @@ class Stanford_Entities:
                     offset = span_end
 
             return formatted_entities
+
+################################################################
+# Main Function
+
+if __name__ == '__main__':
+    # Get the Named Entities from GATE API
+    stanford_recogniser = Stanford_Entities()
+    stanford_entities = stanford_recogniser.get_entities()
+
+    # Write the result to the output file
+    write_to_file("./stanford_results.txt", stanford_entities)

@@ -15,3 +15,8 @@ def get_transcript(directory):
                 break
 
     return full_transcript
+
+def write_to_file(directory, data):
+    with open(directory, "w") as file:
+        for item in data:
+            file.write(str(item) + '\n')

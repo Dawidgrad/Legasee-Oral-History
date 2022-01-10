@@ -1,7 +1,13 @@
-from utilities import get_transcript
+################################################################
+# Importing libraries
+
+from utilities import get_transcript, write_to_file
 import subprocess
 import sys
 import spacy
+
+################################################################
+# Class definition
 
 class Spacy_Entities:
     def __init__(self):
@@ -25,3 +31,14 @@ class Spacy_Entities:
                     entities = entities + [([ent.start_char, ent.end_char], ent.label_)]
         
         return entities
+
+################################################################
+# Main Function
+
+if __name__ == '__main__':
+    # Get the Named Entities from GATE API
+    spacy_recogniser = Spacy_Entities()
+    spacy_entities = spacy_recogniser.get_entities()
+
+    # Write the result to the output file
+    write_to_file("./spacy_results.txt", spacy_entities)

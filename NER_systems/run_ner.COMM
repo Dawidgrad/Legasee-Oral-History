@@ -1,0 +1,10 @@
+python gate_ner.py -k gcj5bngrffwz -p js2x284dczldo9xgscgk
+python flair_ner.py
+python spacy_ner.py
+python stanford_ner.py
+
+python -m venv deeppavlov_env
+source ./deeppavlov/bin/activate
+conda activate deeppavlov_env
+python deeppavlov_ner.py
+conda deactivate

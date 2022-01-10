@@ -27,9 +27,19 @@ def write_to_doc(transcript, results):
         for entity in entities:
             start_idx = entity[0][0]
             end_idx = entity[0][1]
+            entity_class = entity[1]
+
+            color = WD_COLOR_INDEX.YELLOW
+
+            if entity_class == 'PER':
+                color = WD_COLOR_INDEX.RED
+            elif entity_class == 'LOC':
+                color = WD_COLOR_INDEX.GREEN
+            elif entity_class == 'ORG':
+                color = WD_COLOR_INDEX.TURQUOISE
 
             para.add_run(batch[prev_idx:start_idx])
-            para.add_run(batch[start_idx:end_idx]).font.highlight_color = WD_COLOR_INDEX.YELLOW
+            para.add_run(batch[start_idx:end_idx]).font.highlight_color = color
             prev_idx = end_idx
 
 
@@ -42,6 +52,11 @@ if __name__ == '__main__':
     transcript = get_transcript(directory)
 
     doc = docx.Document()
+    para = doc.add_paragraph('LEGEND:\n')
+    para.add_run('PERSON\n').font.highlight_color = WD_COLOR_INDEX.RED
+    para.add_run('LOCATION\n').font.highlight_color = WD_COLOR_INDEX.GREEN
+    para.add_run('ORGANISATION\n').font.highlight_color = WD_COLOR_INDEX.TURQUOISE
+    para.add_run('OTHER\n').font.highlight_color = WD_COLOR_INDEX.YELLOW
 
     # Visualise GATE results
     results = read_results('./gate_results.txt')

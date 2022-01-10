@@ -32,6 +32,7 @@ class Stanford_Entities:
             # Convert to universal format
             formatted_entities = self.convert_format(classified_text, batch)
             entities = entities + formatted_entities
+            entities.append('batch_end')
 
         return entities
 

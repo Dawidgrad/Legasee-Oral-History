@@ -78,6 +78,7 @@ class Gate_Entities:
             gate_output = self.call_gate_api(batch)
             print(gate_output)
             entities = entities + self.convert_format(gate_output)
+            entities.append('batch_end')
             break
 
         return entities

@@ -29,6 +29,7 @@ class Spacy_Entities:
             for ent in doc.ents:
                 if ent.label_ not in ignored_labels:
                     entities = entities + [([ent.start_char, ent.end_char], ent.label_)]
+            entities.append('batch_end')
         
         return entities
 

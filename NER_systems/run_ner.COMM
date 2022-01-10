@@ -5,6 +5,5 @@ python stanford_ner.py
 
 python -m venv deeppavlov_env
 source ./deeppavlov/bin/activate
-conda activate deeppavlov_env
 python deeppavlov_ner.py
-conda deactivate
+deactivate

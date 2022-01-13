@@ -1,14 +1,16 @@
 #!/bin/bash
-#$ -l gpu=2
-#$ -l rmem=26G
-#$ -l h_rt=2:00:00
-#$ -P rse
-#$ -q rse.q
-
+#SBATCH --nodes=1
+#SBATCH --mem=46G
+#SBATCH --partition=dcs-gpu
+#SBATCH --account=dcs-res
+#SBATCH --gpus-per-node=4
+#SBATCH --time=10:00:00
 
 nvidia-smi
 
-module load apps/python/conda
+module load Anaconda3/2019.07
 source activate ML
 
-python main.py --batch_size 3 --cores 1
+python main.py --batch_size 4 --gpus 4 
+
+#2300066

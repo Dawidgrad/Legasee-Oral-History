@@ -26,36 +26,14 @@ class dataset_utils():
     def __init__(self, config):
         self.config=config
 
-    def load_datasets(self, config): 
-        if isthere(config, 'data_path'):
-            pth = config.data_path if config.data_path[-1] == '/' else f"{config.data_path}/"
-            self.train = pd.read_csv(f'{pth}train.csv')
-            self.validate = pd.read_csv(f'{pth}val.csv')
-            self.test = pd.read_csv(f'{pth}test.csv')
-        else:
-            print("Please specify 'data_path' in args")
-             
-
-    def _save_splits_(self, config):
-        if isthere(config, 'data_path'):
-            pth = config.data_path if config.data_path[-1] == '/' else f"{config.data_path}/" 
-            self.train.to_csv(f'{pth}train.csv', index=None)
-            self.validate.to_csv(f'{pth}val.csv', index=None)
-            self.test.to_csv(f'{pth}test.csv', index=None)
-            print(f'Training splits saved in {pth}')
-        else:
-            print('Please specify "data_path" in args to save file')
-
-    def create_splits(self):
+    def load_datasets(self): 
         if isthere(self.config, 'data_csv_path'):
-            train_size = 0.8
-            val_size = 0.1
-            all_csv = pd.read_csv(self.config.data_csv_path)
-            self.train, self.validate, self.test = np.split(all_csv.sample(frac=1), [int(train_size*len(all_csv)), int((val_size+train_size)*len(all_csv))])
-            self._save_splits_(self.config)
+            master = pd.read_csv(self.config.data_csv_path)
+            self.train = master.loc[master['split'] == 'train']
+            self.validate = master.loc[master['split'] == 'val']
         else:
-            print('Please specify "data_csv_path" in args')
-
+            print("Please specify 'data_csv_path' in args")
+             
       
 
 class DataModule(pl.LightningDataModule):
@@ -66,7 +44,7 @@ class DataModule(pl.LightningDataModule):
         self.batch_size = config.batch_size
         self.data_utils = data_utils
         self.train = audio_dataset.dataset(self.data_utils.train, self.config.audio_path, proc)
-        self.test = audio_dataset.dataset(self.data_utils.test, self.config.audio_path, proc)
+       
         self.val = audio_dataset.dataset(self.data_utils.validate, self.config.audio_path, proc)
         
 
@@ -78,9 +56,7 @@ class DataModule(pl.LightningDataModule):
     
     def val_dataloader(self):
         return DataLoader(self.val, batch_size=self.batch_size, num_workers=self.cores, collate_fn=self.val.collocate)
-            
-    def test_dataloader(self):
-        return DataLoader(self.test, batch_size=self.batch_size, num_workers=self.cores, collate_fn=self.test.collocate)
+    
 
 
 

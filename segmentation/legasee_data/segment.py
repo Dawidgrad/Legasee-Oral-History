@@ -11,7 +11,7 @@ from tqdm import tqdm
 import os
 
 SAMPLE_RATE = 16000
-PADDING = 1 # padding amount, can trim files down more later, for now bigger == better 
+PADDING = 0.1 # seconds
 
 class utterance():
   def __init__(self, word, segment):
@@ -57,12 +57,16 @@ def open_textfile(args, filename:str) -> str:
 def batch_audio(args, audio:np.array) -> np.array:
     b_chunks = [*[args.chunk_size]*(audio.shape[0]//args.chunk_size), audio.shape[0]%args.chunk_size] # batches of shape chunk_size, with last batch of size remainder
     batches = [audio[i*el:(i+1)*el] for i, el in enumerate(b_chunks) if el != 0] 
+    # if last batch is smaller than chunk_size, pad it with zeros
+    if batches[-1].shape[0] < args.chunk_size:
+        batches[-1] = np.concatenate((batches[-1], np.zeros(args.chunk_size - batches[-1].shape[0])), axis=0)
     return batches
 
 def get_logits(model:Wav2Vec2ForCTC, processor:Wav2Vec2Processor, batches:list) -> torch.tensor:
     logits = []
     with torch.no_grad():
-        for batch in batches:
+        for i, batch in enumerate(batches):
+            print(f'Processing batch {i+1}/{len(batches)}')
             logits.append(model(**{k:v.to(model.device) for k,v in processor(batch, sampling_rate=16000, return_tensors="pt").items()}).logits.squeeze().cpu())
     return torch.vstack(logits)
 
@@ -72,16 +76,11 @@ def apply_softmax(logits:torch.tensor) -> torch.tensor:
         lpz = smax(logits).numpy()
     return lpz
 
-def process(args, audio:np.array, text:str):
+def process(args, audio:np.array, text:str, processor:Wav2Vec2Processor, model:Wav2Vec2ForCTC) -> List:
     # load model and other stuff
-    processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-large-robust-ft-libri-960h")
-    model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-robust-ft-libri-960h")
     vocab_dict = processor.tokenizer.get_vocab()
     char_list = [x.lower() for x in vocab_dict.keys()]
-    model.eval() 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print('WARNING: CUDA is not available!') if not torch.cuda.is_available() else None
-    model.to(device)
+
     # get ctc predictions from model
     batches = batch_audio(args, audio)
     lpz = apply_softmax(get_logits(model, processor, batches))
@@ -92,7 +91,7 @@ def process(args, audio:np.array, text:str):
     ground_truth_mat, utt_begin_indices = ctc_segmentation.prepare_text(config, text)
     timings, char_probs, state_list = ctc_segmentation.ctc_segmentation(config, lpz, ground_truth_mat) 
     segments_ = ctc_segmentation.determine_utterance_segments(config, utt_begin_indices, char_probs, timings, text) # where the action happens
-    segments = get_utterances(gap=0.25, max=7.5, min=2, text=text, segments=segments_)
+    segments = get_utterances(gap=0.15, max=7.5, min=2, text=text, segments=segments_)
     return segments
 
 def to_dict(segments:list, fname:str, wav_name:str) -> List[dict]:
@@ -134,14 +133,23 @@ def main(args) -> None:
     df = df.loc[df['Wav_File'] != 'NONE']
     segment_list = []
     # iterate df
+    processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-large-robust-ft-libri-960h")
+    model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-robust-ft-libri-960h")
+    model.eval() 
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print('WARNING: CUDA is not available!') if not torch.cuda.is_available() else None
+    model.to(device)
+
     print(f'{"-"*50}\n{"Predicting, and segmenting":^50}\n{"-"*50}')
     for i, row in tqdm(df.iterrows(), total=len(df)):
         # get transcript
         transcript = open_textfile(args, row['Text_File'])
         # get audio
+        print(row['Wav_File'])
         audio, fs = sf.read(os.path.join(args.audio, row['Wav_File']))
         # segment audio w/ transcript
-        segments = process(args, audio.squeeze(), transcript)
+        segments = process(args, audio.squeeze(), transcript, processor, model)
         # add to list of dictonary
         segdata = to_dict(segments, row['Text_File'], row['Wav_File'])
         segment_list.extend(segdata)

@@ -3,6 +3,7 @@ Implementation of the process described in the paper: Unsupervised Domain Adapta
 via Uncertainty Driven Self-Training: https://www.merl.com/publications/docs/TR2021-039.pdf
 '''
 import argparse
+from cProfile import label
 from typing import Dict
 import torch
 from Levenshtein import distance as levenshtein_distance
@@ -71,13 +72,21 @@ def get_stochastic_predictions(model:Wav2Vec2ForCTC, proc:Wav2Vec2Processor, dat
 
     for i in tqdm(range(0, len(dataset)), desc='Stochastic Predictions'):
         batch = dataset[i:i+1]
-        #print(batch['input_values'].shape)
-        sbatch = stack_batch(batch, monte_carlo)
-        #print(sbatch['input_values'].shape)
-        logits = forward_pass(model, sbatch)
-        labels = audio_proc.greedy_decode(logits, proc)
-        gold = csv.iloc[i]['predictions'] 
-        m, a, v = get_levenstein_batch(labels, gold)
+        gold = csv.iloc[i]['predictions']
+        if isinstance(gold, str) == False:
+            print(f'\n WE GOT A NAUGHTY LABEL: {gold}') 
+            m, a, v = 1000, 1000, 1000 # if it's not a string, i.e nan value, then just set levenshtein to arbitrarily high value
+        else:
+            sbatch = stack_batch(batch, monte_carlo)
+            logits = forward_pass(model, sbatch)
+            labels = audio_proc.greedy_decode(logits, proc)
+            labels = [label for label in labels if isinstance(label, str) == True] # remove nan values
+            if len(labels) == 0:
+                print('\n oh darn! no labels \n')
+                m, a, v = 1000, 1000, 1000 
+            else:
+                m, a, v = get_levenstein_batch(labels, gold)
+
         max_l.append(m)
         avg_l.append(a)
         var_l.append(v)

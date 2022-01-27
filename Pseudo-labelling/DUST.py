@@ -100,12 +100,12 @@ def main(args):
     model = Wav2Vec2ForCTC.from_pretrained(args.w2v)
     proc = Wav2Vec2Processor.from_pretrained(args.proc)
     model.to(device)
+    model.eval()
     # load csv
     if args.skip_preds == False:
         csv = pd.read_csv(args.csv)
         dataset = audio_proc.dataset(csv, args.audio_dir, args.audio_i, proc)
         # get deterministic predictions
-        model.eval()
         labels = get_determenistic_predictions(model, proc, dataset, args.batch_size)
         # save the labels
         csv['predictions'] = labels

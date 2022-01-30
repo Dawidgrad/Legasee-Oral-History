@@ -129,7 +129,7 @@ def main(args):
     model.to(device)
     model.eval()
 
-    if args.arpa != '' or args.arpa != None:
+    if args.arpa != '' and args.arpa != None:
         lm_decoder = kenlm_decoder(args.arpa, get_vocab(proc))
     else:
         lm_decoder = None

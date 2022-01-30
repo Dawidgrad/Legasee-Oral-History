@@ -15,6 +15,24 @@ import pandas as pd
 import audio_proc # local dataset class and audio functions
 from tqdm import tqdm
 
+from pyctcdecode import build_ctcdecoder
+import kenlm
+
+def get_vocab(processor):
+    vocab_dict = processor.tokenizer.get_vocab()
+    sort_vocab = sorted((value, key) for (key,value) in vocab_dict.items())
+    vocab = []
+    for _, key in sort_vocab:
+        vocab.append(key.lower())
+    vocab[vocab.index(processor.tokenizer.word_delimiter_token)] = ' '
+    return vocab
+
+def kenlm_decoder(arpa, vocab):  
+    alpha = 0.125
+    beta = 1.0
+    decoder = build_ctcdecoder(vocab, kenlm_model_path=arpa, alpha=alpha, beta=beta)
+    return decoder
+
 def lev_distance(a, b):
     return levenshtein_distance(a, b)
 
@@ -30,10 +48,10 @@ def enable_dropout(model:Wav2Vec2ForCTC):
 
 def forward_pass(model:Wav2Vec2ForCTC, batch:Dict[str, torch.Tensor]):
     with torch.no_grad():
-        logits = model(**{k: v.to(model.device) for k, v in batch.items()}).logits
+        logits = model(**{k: v.to(model.device) for k, v in batch.items()}).logits.cpu()
     return logits
 
-def get_determenistic_predictions(model:Wav2Vec2ForCTC, proc:Wav2Vec2Processor, dataset:audio_proc.dataset, batch_size:int):
+def get_determenistic_predictions(model:Wav2Vec2ForCTC, proc:Wav2Vec2Processor, dataset:audio_proc.dataset, batch_size:int, lm_decoder=None):
     """
     Performs a deterministic forward pass of the model on the dataset.
     """
@@ -41,9 +59,13 @@ def get_determenistic_predictions(model:Wav2Vec2ForCTC, proc:Wav2Vec2Processor, 
     for i in tqdm(range(0, len(dataset), batch_size), desc='Deterministic Predictions'):
         batch = dataset[i:i+batch_size]
         logits = forward_pass(model, batch)
-        labels.append(audio_proc.greedy_decode(logits, proc))
+        if lm_decoder == None:
+            labels.append(audio_proc.greedy_decode(logits, proc))
+        else:
+            labels.append(audio_proc.lm_decode(logits, lm_decoder))
     # flatten the list
     labels = [item for sublist in labels for item in sublist]
+
     return labels
 
 def stack_batch(batch:Dict[str, torch.Tensor], monte_carlo:int):
@@ -61,7 +83,7 @@ def get_levenstein_batch(labels, gold):
     var_l = sum([(l - avg_l)**2 for l in levs]) / (len(labels) - 1) 
     return max_l, avg_l, var_l
 
-def get_stochastic_predictions(model:Wav2Vec2ForCTC, proc:Wav2Vec2Processor, dataset:audio_proc.dataset, monte_carlo:int, csv:pd.DataFrame):
+def get_stochastic_predictions(model:Wav2Vec2ForCTC, proc:Wav2Vec2Processor, dataset:audio_proc.dataset, monte_carlo:int, csv:pd.DataFrame, lm_decoder=None):
     '''
     Performs K forward passes for each datapoint w/ dropout enabled and gets the levenstein distance between predictions w/ and w/out dropout
     ensure model has dropout enabled
@@ -79,10 +101,15 @@ def get_stochastic_predictions(model:Wav2Vec2ForCTC, proc:Wav2Vec2Processor, dat
         else:
             sbatch = stack_batch(batch, monte_carlo)
             logits = forward_pass(model, sbatch)
-            labels = audio_proc.greedy_decode(logits, proc)
+            if lm_decoder == None:
+                labels = audio_proc.greedy_decode(logits, proc)
+            else:
+                labels = audio_proc.lm_decode(logits, lm_decoder)
             labels = [label for label in labels if isinstance(label, str) == True] # remove nan values
-            if len(labels) == 0:
-                print('\n oh darn! no labels \n')
+            if len(labels) == 0 or len(gold) == 0:
+                print('\n oh darn! no labels \n') 
+                print(f'\n gold: {gold}')
+                print(f'\n labels: {labels}')
                 m, a, v = 1000, 1000, 1000 
             else:
                 m, a, v = get_levenstein_batch(labels, gold)
@@ -100,13 +127,19 @@ def main(args):
     model = Wav2Vec2ForCTC.from_pretrained(args.w2v)
     proc = Wav2Vec2Processor.from_pretrained(args.proc)
     model.to(device)
+    model.eval()
+
+    if args.arpa != '' or args.arpa != None:
+        lm_decoder = kenlm_decoder(args.arpa, get_vocab(proc))
+    else:
+        lm_decoder = None
+
     # load csv
     if args.skip_preds == False:
         csv = pd.read_csv(args.csv)
         dataset = audio_proc.dataset(csv, args.audio_dir, args.audio_i, proc)
         # get deterministic predictions
-        model.eval()
-        labels = get_determenistic_predictions(model, proc, dataset, args.batch_size)
+        labels = get_determenistic_predictions(model, proc, dataset, args.batch_size, lm_decoder)
         # save the labels
         csv['predictions'] = labels
         csv.to_csv(args.csv_out, index=False)
@@ -131,13 +164,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--w2v', help='path to pretrained model', default='../../Legasee-Oral-History/ASR_systems/wav2vec2/train/wav2vec2_7')
     parser.add_argument('--proc', help='path to pretrained processer for w2v', default='../../Legasee-Oral-History/ASR_systems/wav2vec2/train/wav2vec2-large-robust-ft-libri-960h_proc')
-    parser.add_argument('--csv', help='path to csv file with data', default='../freds-lowconfidence.csv')
+    parser.add_argument('--csv', help='path to csv file with data', default='../fred-s.csv')
     parser.add_argument('--csv_out', help='path to csv file with predictions', default='fred_pred.csv')
     parser.add_argument('--audio_dir', help='path to audio directory', default='../segments')
     parser.add_argument('--audio_i', help='index of audio file in csv', default=1)
     parser.add_argument('--batch_size', help='batch size', default=25)
     parser.add_argument('--monte_carlo', help='number of monte carlo samples', default=10)
     parser.add_argument('--skip_preds', help='skip deterministic predictions (if they\'ve already been done)', default=False)
+    parser.add_argument('--arpa', help='path to arpa file', default='4gram_big.arpa')
 
     args = parser.parse_args()
 

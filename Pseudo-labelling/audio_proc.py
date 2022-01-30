@@ -1,3 +1,4 @@
+from ast import List
 import re
 from typing import Dict
 import torch
@@ -8,6 +9,7 @@ import numpy as np
 import pandas as pd
 from os.path import join
 from transformers import Wav2Vec2Processor
+import multiprocessing
 
 class dataset():
     def __init__(self, csv:pd.DataFrame, audio_path:str, audio_i:int, proc:Wav2Vec2Processor):
@@ -43,3 +45,12 @@ def greedy_decode(logits:torch.Tensor, proc:Wav2Vec2Processor):
     """
     pred_ids = logits.argmax(-1)
     return proc.batch_decode(pred_ids)
+
+def lm_decode(logits:torch.Tensor, decoder):
+    """
+    Decodes the logits using language model decoding.
+    returns list of strings
+    """
+    with multiprocessing.get_context('fork').Pool() as pool:
+        decoded = decoder.decode_batch(pool, logits.numpy(), beam_width=100)
+    return [x.strip().upper() for x in decoded]

@@ -14,7 +14,7 @@ import json
 import getopt
 import requests
 from ratelimit import limits, sleep_and_retry
-from utilities import get_transcript, write_to_file
+from utilities import get_transcript, write_to_file, TranscriptType
 
 ################################################################
 # Command line options handling, and help
@@ -71,7 +71,7 @@ class Gate_Entities:
 
     def get_entities(self):
         directory = "../transcripts/ingested"
-        transcript = get_transcript(directory)
+        transcript = get_transcript(TranscriptType.TEST, directory)
 
         entities = []
         for batch in transcript:
@@ -116,4 +116,4 @@ if __name__ == '__main__':
     gate_entities = gate_recogniser.get_entities()
 
     # Write the result to the output file
-    write_to_file("./gate_results.txt", gate_entities)
+    write_to_file("./outputs/gate_results.txt", gate_entities)

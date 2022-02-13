@@ -1,7 +1,7 @@
 ################################################################
 # Importing libraries
 
-from utilities import get_transcript, write_to_file
+from utilities import get_transcript, write_to_file, TranscriptType
 import nltk
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
@@ -15,7 +15,7 @@ class Stanford_Entities:
 
     def get_entities(self):
         directory = "../transcripts/ingested"
-        transcript = get_transcript(directory)
+        transcript = get_transcript(TranscriptType.TEST, directory)
 
         # Load the model
         st = StanfordNERTagger('stanford_models/english.all.3class.distsim.crf.ser.gz',
@@ -59,4 +59,4 @@ if __name__ == '__main__':
     stanford_entities = stanford_recogniser.get_entities()
 
     # Write the result to the output file
-    write_to_file("./stanford_results.txt", stanford_entities)
+    write_to_file("./outputs/stanford_results.txt", stanford_entities)

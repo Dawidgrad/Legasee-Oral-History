@@ -1,8 +1,9 @@
 ################################################################
 # Importing libraries
 
-from utilities import get_transcript, write_to_file
+from utilities import get_transcript, write_to_file, TranscriptType
 from deeppavlov import configs, build_model
+import json
 
 ################################################################
 # Class definition
@@ -10,7 +11,7 @@ from deeppavlov import configs, build_model
 class DeepPavlov_Entities:
     def get_entities(self):
         directory = "../transcripts/ingested"
-        transcript = get_transcript(directory)
+        transcript = get_transcript(TranscriptType.TEST, directory)
         entities = list()
 
         ner_model = build_model(configs.ner.conll2003_m1, download=True)
@@ -59,4 +60,4 @@ if __name__ == '__main__':
     pavlov_entities = pavlov_recogniser.get_entities()
 
     # Write the result to the output file
-    write_to_file("./deeppavlov_results.txt", pavlov_entities)
+    write_to_file("./outputs/deeppavlov_results.txt", pavlov_entities)

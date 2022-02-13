@@ -10,7 +10,9 @@ class TranscriptType(Enum):
     TEST = 3
 
 # Get the appropriate transcript based on the type of input we want to use
-def get_transcript(directory, type):
+def get_transcript(type, directory = ''):
+    result = []
+    
     if type == TranscriptType.ANNOTATION:
         # Get the json file
         with open('./ner_annotations.jsonl', 'r') as json_file:
@@ -120,5 +122,3 @@ def write_to_file(directory, data):
     with open(directory, "w") as file:
         for item in data:
             file.write(str(item) + '\n')
-
-get_transcript("", TranscriptType.ANNOTATION)

@@ -1,7 +1,7 @@
 ################################################################
 # Importing libraries
 
-from utilities import get_transcript, write_to_file
+from utilities import get_transcript, write_to_file, TranscriptType
 import subprocess
 import sys
 import spacy
@@ -16,7 +16,7 @@ class Spacy_Entities:
 
     def get_entities(self): 
         directory = "../transcripts/ingested"
-        transcript = get_transcript(directory)
+        transcript = get_transcript(TranscriptType.TEST, directory)
 
         # Load the model
         nlp = spacy.load('en_core_web_sm')
@@ -42,4 +42,4 @@ if __name__ == '__main__':
     spacy_entities = spacy_recogniser.get_entities()
 
     # Write the result to the output file
-    write_to_file("./spacy_results.txt", spacy_entities)
+    write_to_file("./outputs/spacy_results.txt", spacy_entities)

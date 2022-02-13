@@ -1,7 +1,7 @@
 ################################################################
 # Importing libraries
 
-from utilities import get_transcript, write_to_file, TranscriptType
+from utilities import get_transcripts, write_to_file, TranscriptType
 from deeppavlov import configs, build_model
 import json
 
@@ -11,7 +11,7 @@ import json
 class DeepPavlov_Entities:
     def get_entities(self):
         directory = "../transcripts/ingested"
-        transcript = get_transcript(TranscriptType.TEST, directory)
+        transcript = get_transcripts(TranscriptType.TEST, directory)
         entities = list()
 
         ner_model = build_model(configs.ner.conll2003_m1, download=True)

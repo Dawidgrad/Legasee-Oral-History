@@ -1,6 +1,6 @@
 import docx
 from docx.enum.text import WD_COLOR_INDEX
-from utilities import get_transcript, TranscriptType
+from utilities import get_transcripts, TranscriptType
 
 def read_results(path):
     results = list()
@@ -49,7 +49,7 @@ def write_to_doc(transcript, results):
 if __name__ == '__main__':
     # Read the transcript in
     directory = "../transcripts/ingested"
-    transcript = get_transcript(TranscriptType.TEST, directory)
+    transcript = get_transcripts(TranscriptType.TEST, directory)
 
     doc = docx.Document()
     para = doc.add_paragraph('LEGEND:\n')

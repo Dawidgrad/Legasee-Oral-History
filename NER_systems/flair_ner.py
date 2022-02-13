@@ -3,7 +3,7 @@
 
 from flair.data import Sentence
 from flair.models import SequenceTagger
-from utilities import get_transcript, write_to_file, TranscriptType
+from utilities import get_transcripts, write_to_file, TranscriptType
 
 ################################################################
 # Class definition
@@ -11,7 +11,7 @@ from utilities import get_transcript, write_to_file, TranscriptType
 class Flair_Entities:
     def get_entities(self):
         directory = "../transcripts/ingested"
-        transcript = get_transcript(TranscriptType.TEST, directory)
+        transcript = get_transcripts(TranscriptType.TEST, directory)
         entities = list()
 
         # Load the NER tagger

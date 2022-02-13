@@ -10,7 +10,7 @@ class TranscriptType(Enum):
     TEST = 3
 
 # Get the appropriate transcript based on the type of input we want to use
-def get_transcript(type, directory = ''):
+def get_transcripts(type, directory = ''):
     result = []
     
     if type == TranscriptType.ANNOTATION:
@@ -47,6 +47,7 @@ def get_transcript(type, directory = ''):
                     temp = '{} ' * consecutive_n
                     result = [temp.format(*item) for item in zip(*[iter(section_list)] * consecutive_n)] 
                     break
+        result = [result]
 
     return result
 
@@ -122,3 +123,6 @@ def write_to_file(directory, data):
     with open(directory, "w") as file:
         for item in data:
             file.write(str(item) + '\n')
+
+
+get_transcripts(TranscriptType.TEST, "../transcripts/ingested")

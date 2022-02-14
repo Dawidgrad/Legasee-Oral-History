@@ -3,7 +3,7 @@ USE: python <PROGNAME> (options)
 OPTIONS:
     -h : print this help message and exit
 
-    Specify ONE method of transcript handling:
+    Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
     -o ASR_OUTPUT : uses ASR system output (WIP)
     -t TEST : uses a test file (John Roche from batch 0)
@@ -64,10 +64,11 @@ class Spacy_Entities:
         nlp = spacy.load('en_core_web_sm')
         entities = list()
         ignored_labels = ['LANGUAGE', 'TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
+        transcripts = []
 
+        # Decide on the transcription type
         if '-a' in opts:
             dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
-            transcripts = []
 
             for dictionary in dictionaries:
                 single_transcript = []

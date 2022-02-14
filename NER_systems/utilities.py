@@ -67,7 +67,7 @@ def segment_trascripts(raw_transcripts):
             transcript_dict[split_transcript[i]] = split_transcript[i + 1]
 
         # Split the transcript into similar segment sizes
-        segment_size = 1000
+        segment_size = 500
         segmented_dict = dict()
         for key, value in transcript_dict.items():
             segmented_dict[key] = []
@@ -77,16 +77,27 @@ def segment_trascripts(raw_transcripts):
                 idx_limit = idx + segment_size if (idx + segment_size) < len(value) else (len(value) - 1)
                 full_stop_idx = value[:idx_limit].rfind('.') # not guaranteed that it's not out of index + start from idx possibly
                 triple_dot_idx = value[:idx_limit].rfind('…')
-                if (full_stop_idx == -1):
-                    full_stop_idx = len(value)
 
                 end_idx = full_stop_idx if full_stop_idx > triple_dot_idx else triple_dot_idx
+
+                # What to do if no full_stop can be found
+                if end_idx <= idx:
+                    end_idx = value[:idx + int(segment_size / 2)].rfind(' ')
 
                 # Get the segment from current index to closest full stop
                 segment = value[idx:end_idx + 1]
 
                 # Preprocess the segment and add it to the output dictionary
                 segment = preprocess_segment(segment)
+
+                # print('idx=', idx)
+                # print('end_idx=', end_idx)
+                # print('len=', len(value))
+                # print('idx_limit=', idx_limit)
+                # print('full_stop=', full_stop_idx)
+                # print('triple_dot=', triple_dot_idx)
+                # print(value[:idx], '\n\n')
+                # print(value[idx:])
 
                 if (len(segment) > 5):
                     segmented_dict[key].append(segment)
@@ -110,7 +121,7 @@ def preprocess_segment(segment):
 
     # Remove "Start of Film" and "End of Film" text
     pattern_start = r'\*\* Start of Film [0-9]*'
-    pattern_end = r'End of Films'
+    pattern_end = r'End of F(i|I)lms'
     preprocessed_segment = re.sub(pattern_start, '', preprocessed_segment)
     preprocessed_segment = re.sub(pattern_end, '', preprocessed_segment)
 

@@ -1,9 +1,9 @@
-python gate_ner.py -k gcj5bngrffwz -p js2x284dczldo9xgscgk
+python gate_ner.py -k gcnwoybltkvp -p 490s4q8rbm2sfcygp421
 python flair_ner.py
 python spacy_ner.py
 python stanford_ner.py
 
 python -m venv deeppavlov_env
-source ./deeppavlov/bin/activate
+source ./deeppavlov_env/bin/activate
 python deeppavlov_ner.py
 deactivate

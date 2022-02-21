@@ -1,0 +1,3980 @@
+([11, 30], 'PERSON')
+([89, 103], 'PERSON')
+segment_end
+segment_end
+segment_end
+([74, 79], 'NORP')
+([100, 107], 'LANGUAGE')
+([141, 160], 'EVENT')
+([164, 191], 'ORG')
+([200, 218], 'ORG')
+([226, 231], 'PERSON')
+([274, 283], 'GPE')
+([369, 376], 'GPE')
+segment_end
+segment_end
+segment_end
+([219, 225], 'GPE')
+([264, 283], 'PERSON')
+([405, 420], 'DATE')
+segment_end
+([242, 248], 'ORG')
+([276, 298], 'ORG')
+([302, 311], 'GPE')
+segment_end
+([21, 32], 'PERSON')
+([56, 72], 'PERSON')
+([121, 128], 'GPE')
+([132, 136], 'DATE')
+([311, 321], 'DATE')
+segment_end
+segment_end
+segment_end
+([3, 12], 'GPE')
+segment_end
+segment_end
+([41, 50], 'GPE')
+([79, 86], 'GPE')
+([128, 137], 'GPE')
+([197, 206], 'GPE')
+segment_end
+([0, 9], 'GPE')
+([13, 19], 'GPE')
+([83, 92], 'GPE')
+([136, 145], 'PERSON')
+([189, 204], 'DATE')
+([269, 278], 'GPE')
+segment_end
+([75, 80], 'GPE')
+([215, 218], 'PERSON')
+segment_end
+([145, 161], 'ORG')
+([208, 216], 'GPE')
+([218, 226], 'ORG')
+segment_end
+([88, 95], 'GPE')
+([115, 122], 'GPE')
+([164, 186], 'LOC')
+([232, 241], 'NORP')
+segment_end
+([40, 49], 'GPE')
+segment_end
+([117, 132], 'DATE')
+([136, 157], 'DATE')
+segment_end
+([50, 57], 'GPE')
+([62, 68], 'GPE')
+segment_end
+([31, 45], 'WORK_OF_ART')
+([90, 97], 'ORG')
+([216, 222], 'NORP')
+segment_end
+([108, 114], 'NORP')
+segment_end
+([122, 157], 'ORG')
+([464, 470], 'GPE')
+segment_end
+([13, 48], 'ORG')
+([69, 81], 'ORG')
+([300, 308], 'DATE')
+segment_end
+([59, 68], 'GPE')
+([256, 261], 'PERSON')
+([354, 357], 'PERSON')
+segment_end
+([137, 144], 'ORG')
+([282, 302], 'DATE')
+([332, 340], 'DATE')
+([379, 387], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([108, 128], 'DATE')
+([162, 169], 'DATE')
+([266, 275], 'PERSON')
+([282, 298], 'ORG')
+([302, 307], 'GPE')
+([311, 318], 'NORP')
+([478, 484], 'DATE')
+segment_end
+([101, 106], 'PERSON')
+([166, 172], 'DATE')
+([315, 320], 'PRODUCT')
+segment_end
+([134, 161], 'ORG')
+([358, 363], 'PRODUCT')
+([466, 472], 'GPE')
+segment_end
+([18, 24], 'GPE')
+([103, 112], 'GPE')
+([116, 122], 'GPE')
+([200, 209], 'GPE')
+segment_end
+([4, 13], 'GPE')
+([78, 106], 'ORG')
+([154, 158], 'ORG')
+segment_end
+([121, 139], 'DATE')
+segment_end
+([70, 79], 'GPE')
+([89, 100], 'PERSON')
+([196, 200], 'ORG')
+([443, 463], 'DATE')
+segment_end
+([233, 250], 'DATE')
+segment_end
+([16, 24], 'ORG')
+([46, 52], 'GPE')
+([172, 186], 'FAC')
+segment_end
+([197, 206], 'GPE')
+([216, 234], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+([49, 55], 'NORP')
+([56, 62], 'PRODUCT')
+segment_end
+([186, 207], 'DATE')
+([253, 259], 'DATE')
+([304, 310], 'DATE')
+([361, 367], 'DATE')
+segment_end
+([38, 44], 'DATE')
+segment_end
+([94, 100], 'GPE')
+segment_end
+([213, 219], 'ORG')
+segment_end
+([329, 335], 'NORP')
+segment_end
+([24, 29], 'WORK_OF_ART')
+segment_end
+segment_end
+([63, 69], 'ORG')
+([381, 387], 'NORP')
+segment_end
+segment_end
+([108, 123], 'PERSON')
+segment_end
+([176, 186], 'DATE')
+segment_end
+([204, 219], 'PERSON')
+([237, 246], 'ORG')
+([264, 278], 'PERSON')
+segment_end
+([63, 72], 'PERSON')
+([113, 122], 'GPE')
+segment_end
+([99, 104], 'NORP')
+([124, 130], 'PRODUCT')
+([190, 208], 'ORG')
+([212, 218], 'GPE')
+([303, 308], 'GPE')
+([329, 335], 'GPE')
+([379, 381], 'GPE')
+segment_end
+([62, 73], 'GPE')
+([95, 110], 'PERSON')
+([154, 168], 'PERSON')
+segment_end
+([0, 14], 'FAC')
+([149, 157], 'NORP')
+([391, 405], 'PERSON')
+segment_end
+segment_end
+segment_end
+([348, 359], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([164, 178], 'FAC')
+segment_end
+([49, 64], 'ORG')
+([304, 318], 'FAC')
+segment_end
+segment_end
+segment_end
+segment_end
+([4, 30], 'LAW')
+segment_end
+segment_end
+segment_end
+([120, 129], 'ORG')
+([176, 186], 'DATE')
+segment_end
+segment_end
+([219, 225], 'NORP')
+([275, 280], 'WORK_OF_ART')
+([286, 294], 'WORK_OF_ART')
+([300, 304], 'WORK_OF_ART')
+([348, 356], 'GPE')
+segment_end
+([297, 314], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([28, 37], 'PERSON')
+([65, 79], 'PERSON')
+segment_end
+segment_end
+([79, 85], 'NORP')
+([142, 147], 'PRODUCT')
+segment_end
+([196, 203], 'ORG')
+([272, 278], 'GPE')
+([373, 379], 'NORP')
+segment_end
+([206, 214], 'PERSON')
+([237, 246], 'NORP')
+segment_end
+segment_end
+([96, 105], 'NORP')
+segment_end
+([58, 65], 'DATE')
+([91, 106], 'FAC')
+([110, 117], 'PERSON')
+([174, 182], 'PERSON')
+segment_end
+([84, 101], 'ORG')
+([119, 126], 'GPE')
+([285, 288], 'ORG')
+segment_end
+([31, 44], 'ORG')
+([59, 66], 'GPE')
+segment_end
+([37, 52], 'DATE')
+segment_end
+([14, 24], 'ORG')
+segment_end
+([66, 72], 'ORG')
+([99, 108], 'GPE')
+([203, 212], 'PERSON')
+segment_end
+([92, 98], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([210, 213], 'DATE')
+([242, 256], 'FAC')
+segment_end
+segment_end
+segment_end
+segment_end
+([31, 36], 'DATE')
+segment_end
+segment_end
+segment_end
+([56, 61], 'DATE')
+([109, 124], 'LOC')
+([128, 139], 'GPE')
+([248, 256], 'WORK_OF_ART')
+([267, 276], 'NORP')
+([280, 289], 'NORP')
+([323, 331], 'ORG')
+([360, 366], 'ORG')
+segment_end
+([177, 180], 'ORG')
+([262, 265], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([0, 5], 'GPE')
+segment_end
+([267, 277], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([67, 79], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([0, 17], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([73, 87], 'FAC')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([28, 51], 'DATE')
+segment_end
+segment_end
+segment_end
+([45, 48], 'ORG')
+segment_end
+segment_end
+([0, 3], 'ORG')
+segment_end
+([39, 43], 'PERSON')
+([201, 205], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+([52, 63], 'DATE')
+([428, 430], 'ORG')
+segment_end
+segment_end
+([33, 40], 'GPE')
+segment_end
+segment_end
+([9, 21], 'DATE')
+([96, 105], 'GPE')
+segment_end
+([58, 63], 'DATE')
+([195, 203], 'PERSON')
+([277, 286], 'PERSON')
+([348, 357], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+([144, 150], 'NORP')
+([155, 167], 'GPE')
+([197, 203], 'GPE')
+segment_end
+([120, 135], 'LAW')
+segment_end
+([132, 138], 'NORP')
+segment_end
+segment_end
+([43, 51], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([94, 103], 'PERSON')
+segment_end
+segment_end
+segment_end
+([88, 91], 'ORG')
+([210, 213], 'ORG')
+([242, 248], 'ORG')
+segment_end
+([69, 100], 'ORG')
+([185, 188], 'ORG')
+([271, 282], 'WORK_OF_ART')
+segment_end
+segment_end
+segment_end
+([72, 81], 'PERSON')
+([152, 163], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([137, 148], 'PERSON')
+([170, 178], 'NORP')
+([219, 226], 'GPE')
+segment_end
+segment_end
+segment_end
+([55, 62], 'GPE')
+([67, 71], 'ORG')
+segment_end
+segment_end
+([75, 81], 'NORP')
+segment_end
+segment_end
+transcript_end
+([0, 22], 'PERSON')
+([79, 90], 'PERSON')
+([133, 144], 'PERSON')
+([156, 172], 'PERSON')
+segment_end
+segment_end
+([12, 22], 'PERSON')
+([52, 56], 'ORG')
+segment_end
+([20, 24], 'ORG')
+segment_end
+([32, 41], 'GPE')
+([237, 247], 'ORG')
+segment_end
+([334, 341], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([25, 35], 'WORK_OF_ART')
+segment_end
+segment_end
+segment_end
+([91, 101], 'DATE')
+([119, 126], 'ORG')
+([140, 147], 'DATE')
+([453, 463], 'DATE')
+segment_end
+segment_end
+([20, 33], 'ORG')
+([119, 125], 'ORG')
+([164, 180], 'ORG')
+([192, 198], 'ORG')
+segment_end
+([9, 16], 'PERSON')
+segment_end
+([164, 174], 'ORG')
+segment_end
+segment_end
+segment_end
+([38, 54], 'ORG')
+segment_end
+([41, 69], 'ORG')
+segment_end
+segment_end
+([21, 28], 'GPE')
+([172, 176], 'ORG')
+([187, 191], 'ORG')
+([319, 335], 'FAC')
+([415, 424], 'GPE')
+segment_end
+([53, 62], 'GPE')
+segment_end
+([34, 50], 'PERSON')
+([90, 94], 'PERSON')
+segment_end
+segment_end
+([166, 173], 'ORG')
+segment_end
+([20, 26], 'GPE')
+([90, 96], 'GPE')
+([163, 170], 'ORG')
+([221, 227], 'ORG')
+([320, 324], 'PERSON')
+segment_end
+([64, 70], 'ORG')
+([90, 97], 'DATE')
+segment_end
+([112, 120], 'ORG')
+([397, 409], 'DATE')
+segment_end
+segment_end
+([165, 171], 'GPE')
+segment_end
+([136, 143], 'DATE')
+segment_end
+segment_end
+segment_end
+([32, 39], 'NORP')
+segment_end
+([191, 197], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+([0, 8], 'ORG')
+segment_end
+([21, 29], 'GPE')
+([42, 49], 'GPE')
+segment_end
+segment_end
+([85, 91], 'NORP')
+([129, 139], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([236, 237], 'NORP')
+([336, 344], 'ORG')
+([361, 376], 'PERSON')
+([426, 434], 'DATE')
+segment_end
+segment_end
+segment_end
+([212, 217], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([20, 28], 'GPE')
+segment_end
+segment_end
+segment_end
+([142, 150], 'DATE')
+([212, 219], 'ORG')
+segment_end
+([26, 37], 'PERSON')
+([83, 102], 'LOC')
+segment_end
+([122, 133], 'PERSON')
+([148, 158], 'PRODUCT')
+([200, 211], 'PERSON')
+([282, 293], 'PERSON')
+([462, 473], 'PERSON')
+segment_end
+([49, 55], 'ORG')
+([300, 311], 'PERSON')
+segment_end
+([127, 138], 'PERSON')
+([198, 209], 'PERSON')
+([300, 311], 'PERSON')
+segment_end
+([100, 111], 'PERSON')
+segment_end
+([49, 60], 'PERSON')
+([268, 274], 'NORP')
+([347, 358], 'PERSON')
+([488, 494], 'GPE')
+segment_end
+([28, 34], 'GPE')
+segment_end
+segment_end
+segment_end
+([23, 29], 'ORG')
+segment_end
+([16, 27], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([108, 113], 'PERSON')
+([170, 181], 'PERSON')
+([220, 230], 'PRODUCT')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([88, 98], 'ORG')
+([491, 497], 'FAC')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([290, 303], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([107, 118], 'PERSON')
+([253, 265], 'DATE')
+segment_end
+segment_end
+segment_end
+([58, 64], 'GPE')
+([137, 141], 'LOC')
+segment_end
+([108, 114], 'GPE')
+segment_end
+([92, 98], 'ORG')
+([161, 165], 'ORG')
+([357, 363], 'ORG')
+segment_end
+([174, 180], 'ORG')
+segment_end
+segment_end
+([11, 17], 'ORG')
+segment_end
+([372, 378], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([331, 341], 'DATE')
+segment_end
+segment_end
+([81, 96], 'PERSON')
+segment_end
+segment_end
+([4, 12], 'PERSON')
+([31, 40], 'ORG')
+([100, 105], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+transcript_end
+([46, 50], 'ORG')
+([129, 133], 'ORG')
+([152, 156], 'ORG')
+([169, 176], 'DATE')
+([193, 207], 'ORG')
+segment_end
+([183, 189], 'ORG')
+([251, 266], 'LOC')
+segment_end
+([14, 28], 'ORG')
+segment_end
+segment_end
+([228, 236], 'GPE')
+([369, 377], 'GPE')
+segment_end
+([73, 80], 'GPE')
+([143, 157], 'ORG')
+([237, 251], 'GPE')
+segment_end
+([19, 29], 'PERSON')
+([54, 61], 'PERSON')
+segment_end
+([11, 18], 'GPE')
+([43, 50], 'PERSON')
+([305, 313], 'GPE')
+([410, 420], 'PERSON')
+segment_end
+([24, 44], 'ORG')
+([203, 209], 'ORG')
+segment_end
+([71, 78], 'NORP')
+([87, 96], 'NORP')
+([133, 140], 'ORG')
+([196, 203], 'NORP')
+([218, 224], 'NORP')
+([447, 456], 'NORP')
+segment_end
+([284, 290], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+([285, 306], 'DATE')
+([403, 409], 'ORG')
+segment_end
+([187, 193], 'GPE')
+([228, 242], 'LOC')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([0, 7], 'GPE')
+segment_end
+([186, 195], 'GPE')
+([318, 323], 'LOC')
+segment_end
+segment_end
+segment_end
+([72, 78], 'GPE')
+([174, 177], 'ORG')
+segment_end
+segment_end
+([242, 250], 'DATE')
+segment_end
+segment_end
+([35, 47], 'DATE')
+([144, 151], 'NORP')
+segment_end
+([50, 57], 'NORP')
+segment_end
+([184, 191], 'GPE')
+segment_end
+segment_end
+([463, 469], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+([98, 106], 'NORP')
+segment_end
+([97, 105], 'NORP')
+([118, 127], 'DATE')
+([136, 149], 'DATE')
+([178, 195], 'DATE')
+segment_end
+([60, 66], 'ORG')
+segment_end
+segment_end
+([127, 133], 'NORP')
+([169, 176], 'GPE')
+([181, 197], 'FAC')
+segment_end
+([85, 105], 'ORG')
+segment_end
+([120, 131], 'GPE')
+([227, 239], 'LOC')
+segment_end
+([19, 34], 'DATE')
+([46, 59], 'DATE')
+([131, 139], 'NORP')
+([480, 485], 'LOC')
+segment_end
+([114, 119], 'LOC')
+segment_end
+([367, 372], 'LOC')
+segment_end
+segment_end
+([70, 78], 'GPE')
+([100, 114], 'DATE')
+segment_end
+([34, 46], 'LOC')
+segment_end
+([88, 95], 'GPE')
+([322, 329], 'GPE')
+segment_end
+segment_end
+([147, 166], 'PERSON')
+segment_end
+segment_end
+([25, 33], 'NORP')
+segment_end
+([151, 159], 'NORP')
+([208, 225], 'FAC')
+([426, 435], 'GPE')
+segment_end
+([132, 151], 'LOC')
+([395, 403], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([331, 337], 'GPE')
+([380, 386], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([189, 196], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([159, 166], 'DATE')
+([350, 357], 'DATE')
+segment_end
+([202, 214], 'DATE')
+([231, 241], 'DATE')
+([275, 282], 'GPE')
+segment_end
+([124, 132], 'GPE')
+([424, 432], 'NORP')
+segment_end
+([148, 154], 'GPE')
+segment_end
+segment_end
+segment_end
+transcript_end
+([11, 26], 'PERSON')
+([43, 47], 'PERSON')
+([53, 75], 'DATE')
+([96, 100], 'ORG')
+([106, 117], 'DATE')
+([124, 132], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([3, 7], 'DATE')
+segment_end
+([48, 52], 'ORG')
+segment_end
+segment_end
+([41, 45], 'ORG')
+([73, 84], 'GPE')
+segment_end
+([35, 46], 'DATE')
+([163, 178], 'DATE')
+([263, 274], 'DATE')
+([310, 321], 'DATE')
+([398, 407], 'DATE')
+([429, 439], 'FAC')
+segment_end
+([34, 52], 'DATE')
+([96, 100], 'ORG')
+segment_end
+segment_end
+([23, 32], 'DATE')
+([47, 61], 'DATE')
+segment_end
+([20, 46], 'DATE')
+([78, 86], 'DATE')
+segment_end
+segment_end
+([92, 99], 'NORP')
+([183, 190], 'NORP')
+([438, 447], 'LOC')
+([460, 466], 'GPE')
+([471, 477], 'GPE')
+segment_end
+([27, 39], 'PERSON')
+([63, 69], 'GPE')
+([101, 108], 'NORP')
+([212, 224], 'ORG')
+segment_end
+([8, 14], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([256, 272], 'DATE')
+segment_end
+segment_end
+([152, 176], 'DATE')
+([253, 263], 'ORG')
+segment_end
+([165, 173], 'DATE')
+segment_end
+([135, 142], 'NORP')
+segment_end
+([130, 143], 'LOC')
+([148, 159], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([29, 33], 'DATE')
+([34, 51], 'EVENT')
+([57, 67], 'PERSON')
+([116, 129], 'LOC')
+([137, 145], 'NORP')
+([153, 159], 'NORP')
+([167, 174], 'NORP')
+segment_end
+([8, 16], 'LOC')
+([75, 88], 'LOC')
+([199, 211], 'DATE')
+segment_end
+([52, 61], 'LOC')
+([104, 115], 'GPE')
+([179, 188], 'LOC')
+([253, 262], 'LOC')
+segment_end
+([131, 137], 'NORP')
+([160, 178], 'DATE')
+([249, 265], 'DATE')
+segment_end
+segment_end
+([9, 13], 'DATE')
+([73, 83], 'GPE')
+([203, 216], 'LOC')
+([233, 243], 'DATE')
+([312, 327], 'DATE')
+segment_end
+segment_end
+segment_end
+([135, 151], 'DATE')
+([163, 167], 'FAC')
+segment_end
+([183, 193], 'DATE')
+([374, 390], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([65, 69], 'ORG')
+([280, 285], 'NORP')
+segment_end
+segment_end
+([50, 66], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([22, 33], 'DATE')
+([64, 74], 'DATE')
+([100, 115], 'ORG')
+([130, 138], 'DATE')
+([155, 170], 'DATE')
+segment_end
+segment_end
+([62, 64], 'GPE')
+([143, 150], 'ORG')
+segment_end
+([68, 70], 'GPE')
+segment_end
+([26, 33], 'PERSON')
+segment_end
+([0, 7], 'ORG')
+segment_end
+([9, 16], 'ORG')
+segment_end
+([45, 72], 'EVENT')
+([112, 118], 'NORP')
+([233, 244], 'GPE')
+segment_end
+segment_end
+([154, 165], 'PERSON')
+([312, 316], 'PERSON')
+([373, 383], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([0, 7], 'ORG')
+segment_end
+([16, 24], 'LOC')
+([57, 63], 'ORG')
+([75, 81], 'GPE')
+([134, 140], 'NORP')
+([156, 160], 'GPE')
+([170, 176], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([73, 81], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([27, 40], 'DATE')
+([64, 68], 'DATE')
+([98, 103], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+([442, 449], 'DATE')
+segment_end
+([50, 59], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+([202, 207], 'PERSON')
+segment_end
+segment_end
+segment_end
+([122, 126], 'FAC')
+segment_end
+([82, 94], 'GPE')
+segment_end
+([213, 234], 'PERSON')
+([254, 256], 'ORG')
+segment_end
+([18, 29], 'GPE')
+([78, 86], 'ORG')
+([88, 96], 'ORG')
+([126, 133], 'GPE')
+([173, 179], 'PERSON')
+([230, 244], 'DATE')
+segment_end
+([48, 50], 'GPE')
+segment_end
+([80, 87], 'ORG')
+segment_end
+segment_end
+([40, 48], 'GPE')
+([63, 74], 'PERSON')
+([84, 95], 'PERSON')
+([107, 124], 'DATE')
+([135, 144], 'LOC')
+segment_end
+([11, 20], 'ORG')
+segment_end
+([26, 43], 'FAC')
+segment_end
+([105, 112], 'GPE')
+([126, 136], 'DATE')
+([185, 191], 'NORP')
+([219, 229], 'DATE')
+segment_end
+segment_end
+segment_end
+([42, 49], 'NORP')
+segment_end
+segment_end
+([17, 26], 'ORG')
+([82, 88], 'LOC')
+([115, 127], 'GPE')
+segment_end
+([24, 30], 'LOC')
+segment_end
+([10, 22], 'GPE')
+([97, 105], 'PERSON')
+([132, 136], 'GPE')
+([187, 195], 'ORG')
+segment_end
+segment_end
+segment_end
+([22, 24], 'GPE')
+([53, 60], 'DATE')
+segment_end
+segment_end
+([63, 69], 'PERSON')
+([95, 103], 'GPE')
+segment_end
+([11, 13], 'ORG')
+segment_end
+segment_end
+([29, 35], 'LOC')
+segment_end
+segment_end
+([336, 348], 'GPE')
+segment_end
+([23, 30], 'DATE')
+segment_end
+segment_end
+segment_end
+([29, 46], 'LOC')
+segment_end
+segment_end
+segment_end
+segment_end
+([4, 10], 'LAW')
+segment_end
+([27, 32], 'PRODUCT')
+segment_end
+([48, 50], 'ORG')
+segment_end
+([138, 144], 'NORP')
+segment_end
+([72, 76], 'PRODUCT')
+segment_end
+([14, 17], 'ORG')
+([158, 169], 'PERSON')
+([184, 193], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+([147, 152], 'PERSON')
+([170, 182], 'PERSON')
+([201, 229], 'ORG')
+segment_end
+([159, 163], 'ORG')
+segment_end
+([3, 15], 'PERSON')
+segment_end
+([0, 9], 'DATE')
+segment_end
+([58, 64], 'EVENT')
+([79, 89], 'DATE')
+segment_end
+segment_end
+segment_end
+([6, 10], 'ORG')
+([22, 24], 'ORG')
+segment_end
+([0, 9], 'DATE')
+segment_end
+([11, 13], 'ORG')
+([16, 28], 'DATE')
+([68, 72], 'DATE')
+([139, 150], 'ORG')
+([159, 163], 'DATE')
+([264, 273], 'LOC')
+segment_end
+([47, 55], 'PERSON')
+([71, 77], 'LOC')
+([136, 147], 'PERSON')
+([152, 159], 'GPE')
+([219, 226], 'ORG')
+([230, 236], 'GPE')
+([254, 263], 'NORP')
+([294, 302], 'NORP')
+([313, 320], 'GPE')
+([399, 410], 'PERSON')
+([449, 457], 'PERSON')
+segment_end
+([11, 17], 'GPE')
+([40, 48], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([45, 49], 'PERSON')
+([129, 141], 'GPE')
+([161, 168], 'GPE')
+([203, 210], 'GPE')
+([214, 216], 'DATE')
+segment_end
+segment_end
+([81, 87], 'GPE')
+([92, 108], 'DATE')
+([155, 163], 'PERSON')
+([182, 188], 'GPE')
+segment_end
+([16, 22], 'GPE')
+([26, 33], 'GPE')
+([52, 58], 'GPE')
+segment_end
+segment_end
+([28, 35], 'ORG')
+segment_end
+([24, 31], 'PERSON')
+([58, 64], 'DATE')
+([102, 108], 'GPE')
+([130, 146], 'ORG')
+([221, 233], 'ORG')
+segment_end
+([22, 29], 'PERSON')
+([49, 58], 'GPE')
+([78, 90], 'ORG')
+segment_end
+segment_end
+segment_end
+([163, 170], 'ORG')
+([195, 213], 'DATE')
+segment_end
+([7, 13], 'NORP')
+([30, 48], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([121, 129], 'GPE')
+([186, 191], 'DATE')
+([212, 224], 'DATE')
+segment_end
+([35, 49], 'LOC')
+([62, 70], 'NORP')
+([241, 248], 'NORP')
+segment_end
+([54, 59], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([38, 43], 'DATE')
+segment_end
+segment_end
+([23, 31], 'LOC')
+([49, 58], 'NORP')
+segment_end
+([423, 431], 'GPE')
+([446, 454], 'ORG')
+segment_end
+([7, 15], 'ORG')
+segment_end
+([22, 31], 'ORG')
+segment_end
+([142, 158], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([74, 80], 'LOC')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([255, 257], 'ORG')
+([374, 385], 'PERSON')
+([390, 406], 'DATE')
+segment_end
+segment_end
+([78, 86], 'LOC')
+([91, 99], 'NORP')
+([149, 159], 'GPE')
+segment_end
+segment_end
+([10, 16], 'LOC')
+([31, 38], 'GPE')
+([62, 70], 'LOC')
+([78, 84], 'GPE')
+([88, 95], 'GPE')
+([118, 125], 'NORP')
+segment_end
+([10, 17], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([28, 35], 'ORG')
+segment_end
+([31, 37], 'ORG')
+segment_end
+segment_end
+segment_end
+([0, 6], 'ORG')
+segment_end
+segment_end
+([12, 18], 'EVENT')
+([61, 69], 'LOC')
+([135, 141], 'NORP')
+segment_end
+segment_end
+([71, 75], 'NORP')
+segment_end
+([0, 14], 'PERSON')
+([67, 76], 'ORG')
+([182, 190], 'LOC')
+([220, 229], 'GPE')
+segment_end
+([8, 17], 'GPE')
+([23, 29], 'EVENT')
+([39, 55], 'FAC')
+([151, 156], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+([15, 20], 'ORG')
+([29, 38], 'GPE')
+([53, 62], 'LOC')
+([111, 116], 'ORG')
+([150, 157], 'NORP')
+segment_end
+([335, 342], 'NORP')
+segment_end
+segment_end
+([2, 7], 'ORG')
+([18, 24], 'EVENT')
+segment_end
+([31, 43], 'LOC')
+segment_end
+segment_end
+([26, 32], 'EVENT')
+segment_end
+([0, 6], 'EVENT')
+([23, 32], 'GPE')
+segment_end
+([59, 66], 'NORP')
+([100, 106], 'NORP')
+segment_end
+segment_end
+segment_end
+([2, 19], 'DATE')
+([54, 60], 'NORP')
+segment_end
+segment_end
+segment_end
+([138, 144], 'NORP')
+segment_end
+segment_end
+segment_end
+([15, 21], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([11, 23], 'DATE')
+([48, 60], 'DATE')
+([68, 84], 'FAC')
+([101, 110], 'GPE')
+([117, 123], 'DATE')
+([124, 131], 'DATE')
+segment_end
+([148, 157], 'LOC')
+([179, 184], 'GPE')
+([206, 215], 'GPE')
+segment_end
+([33, 44], 'NORP')
+([83, 91], 'NORP')
+([221, 230], 'GPE')
+segment_end
+([74, 83], 'GPE')
+([96, 107], 'NORP')
+([126, 131], 'NORP')
+([202, 209], 'PERSON')
+segment_end
+([76, 88], 'DATE')
+([93, 101], 'PERSON')
+([200, 208], 'GPE')
+segment_end
+segment_end
+([0, 9], 'GPE')
+segment_end
+([75, 77], 'GPE')
+segment_end
+([176, 197], 'DATE')
+([254, 265], 'NORP')
+([290, 295], 'NORP')
+([317, 322], 'NORP')
+segment_end
+([28, 35], 'DATE')
+segment_end
+([30, 38], 'GPE')
+segment_end
+([141, 149], 'NORP')
+segment_end
+([346, 355], 'GPE')
+segment_end
+segment_end
+segment_end
+([13, 18], 'NORP')
+([20, 30], 'NORP')
+([90, 98], 'NORP')
+segment_end
+segment_end
+segment_end
+([76, 93], 'LAW')
+([201, 215], 'DATE')
+([312, 316], 'ORG')
+([320, 333], 'ORG')
+segment_end
+([39, 47], 'PRODUCT')
+([58, 66], 'LOC')
+([125, 136], 'PERSON')
+segment_end
+segment_end
+segment_end
+([63, 71], 'ORG')
+segment_end
+([9, 21], 'ORG')
+([43, 45], 'GPE')
+segment_end
+([16, 28], 'LOC')
+([120, 132], 'LOC')
+([158, 167], 'NORP')
+segment_end
+segment_end
+segment_end
+([139, 146], 'GPE')
+([199, 217], 'DATE')
+segment_end
+([23, 30], 'GPE')
+([112, 119], 'ORG')
+([223, 231], 'GPE')
+([235, 246], 'GPE')
+segment_end
+([81, 88], 'LOC')
+([118, 125], 'LOC')
+([137, 146], 'GPE')
+segment_end
+([143, 150], 'GPE')
+([281, 288], 'GPE')
+([330, 334], 'ORG')
+segment_end
+segment_end
+([27, 31], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([35, 43], 'DATE')
+([50, 73], 'DATE')
+segment_end
+([70, 77], 'GPE')
+([123, 130], 'GPE')
+segment_end
+([216, 221], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([6, 10], 'PERSON')
+([123, 130], 'LANGUAGE')
+([154, 160], 'GPE')
+([204, 210], 'GPE')
+([215, 224], 'NORP')
+([267, 271], 'DATE')
+([297, 300], 'ORG')
+segment_end
+segment_end
+transcript_end
+([10, 23], 'PERSON')
+segment_end
+([44, 51], 'ORG')
+([120, 127], 'GPE')
+([167, 174], 'GPE')
+segment_end
+([62, 66], 'DATE')
+segment_end
+([30, 37], 'ORG')
+([104, 111], 'ORG')
+([247, 254], 'ORG')
+([430, 435], 'DATE')
+segment_end
+([322, 339], 'ORG')
+segment_end
+([78, 85], 'ORG')
+([132, 140], 'GPE')
+([165, 173], 'GPE')
+([187, 204], 'DATE')
+([328, 332], 'ORG')
+segment_end
+segment_end
+segment_end
+([8, 11], 'ORG')
+([72, 76], 'ORG')
+([124, 134], 'GPE')
+([157, 162], 'GPE')
+([168, 173], 'GPE')
+segment_end
+segment_end
+segment_end
+([31, 35], 'PERSON')
+segment_end
+segment_end
+([19, 34], 'PERSON')
+([118, 123], 'PERSON')
+([168, 177], 'PERSON')
+segment_end
+([242, 248], 'ORG')
+segment_end
+segment_end
+([80, 86], 'PERSON')
+([111, 117], 'DATE')
+segment_end
+([24, 31], 'ORG')
+([154, 163], 'PERSON')
+([168, 172], 'PERSON')
+segment_end
+([2, 5], 'PERSON')
+segment_end
+([29, 34], 'ORG')
+([112, 116], 'GPE')
+([190, 194], 'PERSON')
+([282, 286], 'PERSON')
+segment_end
+segment_end
+([100, 106], 'GPE')
+([122, 128], 'NORP')
+([175, 182], 'ORG')
+([213, 223], 'GPE')
+([256, 260], 'PERSON')
+segment_end
+([287, 295], 'GPE')
+([296, 303], 'GPE')
+([323, 335], 'ORG')
+([393, 398], 'ORG')
+segment_end
+([198, 202], 'DATE')
+segment_end
+([261, 267], 'PERSON')
+([272, 278], 'ORG')
+segment_end
+segment_end
+([302, 318], 'PERSON')
+([467, 479], 'ORG')
+segment_end
+([18, 34], 'FAC')
+([36, 56], 'ORG')
+([60, 76], 'FAC')
+segment_end
+([91, 113], 'ORG')
+([117, 123], 'GPE')
+([140, 146], 'GPE')
+([415, 424], 'PRODUCT')
+segment_end
+segment_end
+([86, 90], 'GPE')
+([207, 212], 'PERSON')
+segment_end
+([156, 161], 'PERSON')
+([195, 204], 'GPE')
+([229, 236], 'GPE')
+([301, 311], 'NORP')
+([330, 338], 'GPE')
+([366, 370], 'ORG')
+([453, 460], 'GPE')
+segment_end
+([295, 310], 'PERSON')
+([325, 329], 'GPE')
+([340, 348], 'DATE')
+([359, 374], 'PERSON')
+segment_end
+([80, 95], 'PERSON')
+segment_end
+([145, 149], 'ORG')
+segment_end
+([56, 63], 'GPE')
+segment_end
+segment_end
+([14, 21], 'GPE')
+([88, 97], 'GPE')
+segment_end
+([64, 71], 'ORG')
+([215, 220], 'PERSON')
+([231, 236], 'GPE')
+([256, 262], 'GPE')
+([287, 293], 'GPE')
+segment_end
+([83, 92], 'GPE')
+([443, 452], 'PRODUCT')
+segment_end
+([76, 85], 'ORG')
+([233, 237], 'ORG')
+segment_end
+([83, 93], 'DATE')
+([172, 178], 'GPE')
+([350, 368], 'ORG')
+([457, 462], 'ORG')
+segment_end
+([23, 34], 'ORG')
+([88, 93], 'ORG')
+([166, 172], 'PERSON')
+segment_end
+([191, 205], 'FAC')
+([209, 215], 'GPE')
+([246, 251], 'ORG')
+([261, 266], 'ORG')
+segment_end
+([22, 27], 'PERSON')
+([48, 53], 'PERSON')
+([69, 76], 'NORP')
+([362, 372], 'FAC')
+([376, 389], 'GPE')
+([425, 445], 'FAC')
+([458, 478], 'ORG')
+segment_end
+segment_end
+([108, 114], 'GPE')
+([269, 282], 'ORG')
+([303, 309], 'GPE')
+segment_end
+([123, 131], 'NORP')
+([194, 204], 'GPE')
+([379, 386], 'GPE')
+([401, 407], 'GPE')
+([417, 427], 'GPE')
+segment_end
+([57, 67], 'FAC')
+([154, 167], 'ORG')
+segment_end
+([0, 9], 'DATE')
+([20, 23], 'PERSON')
+([28, 30], 'DATE')
+segment_end
+([49, 59], 'FAC')
+([110, 120], 'GPE')
+([246, 253], 'NORP')
+([262, 268], 'NORP')
+([279, 288], 'NORP')
+segment_end
+([0, 9], 'NORP')
+([100, 107], 'GPE')
+([152, 159], 'NORP')
+segment_end
+([0, 7], 'LANGUAGE')
+([9, 16], 'NORP')
+([39, 47], 'NORP')
+([57, 67], 'FAC')
+segment_end
+([9, 19], 'FAC')
+([132, 141], 'NORP')
+([173, 181], 'NORP')
+segment_end
+([80, 94], 'PERSON')
+([299, 303], 'ORG')
+segment_end
+([11, 25], 'PERSON')
+([276, 296], 'DATE')
+segment_end
+([13, 23], 'PERSON')
+([67, 77], 'ORG')
+([250, 260], 'PERSON')
+segment_end
+([2, 5], 'PERSON')
+([102, 105], 'PERSON')
+segment_end
+([17, 22], 'PERSON')
+([87, 93], 'GPE')
+([160, 164], 'PERSON')
+([183, 193], 'NORP')
+([226, 231], 'GPE')
+([250, 256], 'GPE')
+([303, 316], 'ORG')
+segment_end
+([47, 57], 'NORP')
+([312, 317], 'PERSON')
+([463, 467], 'PERSON')
+segment_end
+([68, 73], 'DATE')
+segment_end
+([144, 151], 'NORP')
+([164, 170], 'NORP')
+segment_end
+([102, 107], 'ORG')
+([144, 148], 'PERSON')
+segment_end
+segment_end
+([90, 96], 'GPE')
+([144, 156], 'PERSON')
+([339, 354], 'ORG')
+([464, 472], 'NORP')
+segment_end
+([44, 50], 'GPE')
+([60, 68], 'NORP')
+segment_end
+segment_end
+([59, 68], 'PERSON')
+([107, 116], 'PERSON')
+([151, 158], 'GPE')
+([255, 259], 'ORG')
+([354, 363], 'GPE')
+([453, 457], 'NORP')
+segment_end
+([82, 89], 'DATE')
+([120, 132], 'ORG')
+segment_end
+([83, 94], 'DATE')
+segment_end
+([44, 51], 'DATE')
+segment_end
+([15, 22], 'GPE')
+([150, 154], 'ORG')
+segment_end
+([9, 19], 'GPE')
+([38, 45], 'GPE')
+([73, 83], 'GPE')
+([136, 139], 'PERSON')
+([149, 159], 'GPE')
+([188, 194], 'GPE')
+([211, 226], 'LOC')
+([250, 257], 'GPE')
+([282, 296], 'FAC')
+([310, 323], 'NORP')
+segment_end
+([32, 47], 'LOC')
+([76, 91], 'LOC')
+([119, 125], 'GPE')
+segment_end
+([187, 191], 'ORG')
+segment_end
+([16, 22], 'GPE')
+([184, 190], 'GPE')
+([287, 295], 'GPE')
+([303, 312], 'PERSON')
+([361, 364], 'ORG')
+segment_end
+segment_end
+([69, 75], 'GPE')
+([155, 163], 'DATE')
+segment_end
+([48, 56], 'PRODUCT')
+segment_end
+([21, 27], 'NORP')
+([40, 48], 'ORG')
+([171, 176], 'GPE')
+segment_end
+([91, 96], 'DATE')
+segment_end
+([4, 13], 'PERSON')
+segment_end
+([14, 23], 'PERSON')
+segment_end
+segment_end
+([9, 18], 'GPE')
+([96, 102], 'GPE')
+([129, 135], 'GPE')
+([234, 239], 'GPE')
+([257, 263], 'GPE')
+([270, 284], 'FAC')
+([298, 303], 'GPE')
+([411, 427], 'ORG')
+segment_end
+segment_end
+([67, 72], 'GPE')
+([215, 220], 'GPE')
+([224, 233], 'GPE')
+segment_end
+([13, 22], 'GPE')
+segment_end
+([104, 110], 'GPE')
+([137, 142], 'GPE')
+([256, 261], 'GPE')
+([440, 445], 'GPE')
+segment_end
+([55, 62], 'NORP')
+segment_end
+([22, 27], 'PERSON')
+([67, 72], 'PERSON')
+([87, 92], 'GPE')
+segment_end
+segment_end
+([221, 225], 'PERSON')
+segment_end
+([18, 22], 'PERSON')
+([113, 118], 'PERSON')
+segment_end
+([25, 30], 'PERSON')
+([67, 73], 'GPE')
+([87, 93], 'PERSON')
+([122, 129], 'GPE')
+([221, 237], 'ORG')
+([241, 247], 'GPE')
+segment_end
+([94, 101], 'PERSON')
+([139, 149], 'DATE')
+segment_end
+segment_end
+([25, 30], 'GPE')
+([36, 45], 'GPE')
+([177, 186], 'GPE')
+([190, 196], 'GPE')
+([389, 395], 'GPE')
+segment_end
+([21, 30], 'GPE')
+([152, 172], 'ORG')
+([308, 317], 'GPE')
+([369, 375], 'GPE')
+([447, 456], 'GPE')
+([460, 466], 'GPE')
+([470, 490], 'ORG')
+segment_end
+([22, 28], 'GPE')
+([53, 59], 'GPE')
+segment_end
+([28, 35], 'NORP')
+([73, 79], 'GPE')
+segment_end
+([14, 34], 'FAC')
+segment_end
+([134, 140], 'GPE')
+([310, 317], 'ORG')
+([319, 339], 'ORG')
+([474, 487], 'DATE')
+segment_end
+([55, 61], 'PERSON')
+segment_end
+([36, 43], 'NORP')
+([248, 256], 'NORP')
+segment_end
+([29, 36], 'NORP')
+([52, 58], 'GPE')
+([142, 152], 'ORG')
+([343, 351], 'NORP')
+segment_end
+([40, 46], 'GPE')
+([251, 257], 'ORG')
+segment_end
+([9, 15], 'NORP')
+([28, 35], 'ORG')
+([378, 387], 'GPE')
+([397, 403], 'NORP')
+([416, 422], 'NORP')
+segment_end
+([89, 95], 'NORP')
+([101, 108], 'NORP')
+([196, 203], 'NORP')
+([227, 231], 'NORP')
+([280, 287], 'NORP')
+([411, 418], 'NORP')
+segment_end
+([17, 24], 'NORP')
+([48, 57], 'GPE')
+([82, 88], 'NORP')
+([124, 127], 'NORP')
+segment_end
+([33, 40], 'GPE')
+([56, 63], 'GPE')
+([99, 105], 'GPE')
+([118, 123], 'PERSON')
+([170, 177], 'GPE')
+([218, 233], 'ORG')
+([264, 268], 'PERSON')
+([318, 322], 'ORG')
+segment_end
+segment_end
+segment_end
+([20, 26], 'PERSON')
+([31, 40], 'PERSON')
+segment_end
+([39, 43], 'ORG')
+([60, 75], 'ORG')
+([85, 93], 'NORP')
+([99, 107], 'NORP')
+([133, 138], 'NORP')
+segment_end
+([33, 38], 'PERSON')
+([93, 100], 'GPE')
+([157, 172], 'ORG')
+segment_end
+([131, 139], 'NORP')
+([327, 336], 'PERSON')
+([344, 349], 'PERSON')
+([372, 379], 'GPE')
+([407, 416], 'PERSON')
+([441, 446], 'PERSON')
+segment_end
+([101, 106], 'PERSON')
+([189, 196], 'GPE')
+([292, 300], 'NORP')
+([428, 434], 'GPE')
+segment_end
+([132, 136], 'ORG')
+([141, 156], 'ORG')
+segment_end
+([13, 25], 'DATE')
+([44, 50], 'GPE')
+([56, 62], 'DATE')
+([127, 138], 'GPE')
+([310, 319], 'NORP')
+([384, 392], 'NORP')
+segment_end
+segment_end
+([280, 287], 'NORP')
+([350, 358], 'NORP')
+([428, 436], 'GPE')
+segment_end
+segment_end
+([76, 83], 'GPE')
+([232, 239], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([334, 338], 'PERSON')
+([363, 370], 'ORG')
+segment_end
+([321, 329], 'PERSON')
+([333, 342], 'GPE')
+([375, 388], 'PERSON')
+segment_end
+([27, 35], 'PERSON')
+([64, 71], 'ORG')
+([108, 116], 'DATE')
+([239, 260], 'DATE')
+segment_end
+([165, 170], 'LOC')
+([216, 220], 'DATE')
+segment_end
+segment_end
+segment_end
+transcript_end
+([14, 26], 'DATE')
+([37, 55], 'ORG')
+([70, 78], 'GPE')
+([110, 118], 'GPE')
+segment_end
+([22, 32], 'PERSON')
+([40, 49], 'PERSON')
+segment_end
+([98, 112], 'GPE')
+([140, 148], 'GPE')
+([167, 183], 'DATE')
+segment_end
+([57, 61], 'DATE')
+([88, 106], 'FAC')
+([254, 272], 'FAC')
+segment_end
+([154, 158], 'ORG')
+([389, 398], 'GPE')
+segment_end
+([79, 108], 'DATE')
+([112, 123], 'ORG')
+([139, 149], 'GPE')
+segment_end
+([0, 9], 'DATE')
+([49, 53], 'DATE')
+([58, 76], 'DATE')
+([129, 138], 'DATE')
+([232, 239], 'GPE')
+([255, 264], 'DATE')
+segment_end
+([297, 301], 'ORG')
+([346, 356], 'DATE')
+segment_end
+([137, 147], 'DATE')
+([160, 176], 'DATE')
+([178, 192], 'DATE')
+([316, 324], 'GPE')
+([374, 392], 'FAC')
+segment_end
+([16, 20], 'GPE')
+segment_end
+([363, 372], 'PERSON')
+segment_end
+([18, 25], 'PERSON')
+([230, 244], 'LAW')
+([306, 320], 'LAW')
+([361, 375], 'LAW')
+segment_end
+([299, 308], 'ORG')
+segment_end
+([58, 66], 'PERSON')
+([162, 172], 'PRODUCT')
+([174, 183], 'PRODUCT')
+([227, 233], 'PERSON')
+([341, 350], 'NORP')
+([431, 446], 'DATE')
+segment_end
+segment_end
+([114, 120], 'ORG')
+segment_end
+([14, 20], 'ORG')
+([46, 52], 'GPE')
+([71, 81], 'GPE')
+([187, 194], 'ORG')
+([433, 437], 'GPE')
+segment_end
+([248, 262], 'ORG')
+([341, 347], 'PERSON')
+segment_end
+([13, 24], 'ORG')
+([42, 48], 'PERSON')
+segment_end
+([248, 259], 'ORG')
+segment_end
+segment_end
+([71, 79], 'NORP')
+segment_end
+([7, 15], 'ORG')
+([43, 47], 'GPE')
+([145, 149], 'GPE')
+([162, 166], 'GPE')
+([195, 199], 'GPE')
+([362, 369], 'GPE')
+([449, 456], 'PRODUCT')
+segment_end
+([21, 33], 'ORG')
+([38, 50], 'DATE')
+([121, 128], 'GPE')
+([211, 215], 'GPE')
+segment_end
+([22, 40], 'ORG')
+([152, 160], 'NORP')
+([184, 192], 'NORP')
+segment_end
+([37, 41], 'GPE')
+segment_end
+([170, 187], 'ORG')
+segment_end
+segment_end
+([175, 178], 'ORG')
+([189, 200], 'NORP')
+([205, 215], 'ORG')
+segment_end
+segment_end
+([37, 44], 'GPE')
+([168, 174], 'FAC')
+([287, 294], 'GPE')
+([323, 330], 'PERSON')
+segment_end
+([84, 91], 'PERSON')
+([163, 170], 'GPE')
+([199, 203], 'GPE')
+([275, 292], 'ORG')
+([296, 303], 'GPE')
+([336, 359], 'DATE')
+([459, 472], 'DATE')
+([480, 487], 'GPE')
+segment_end
+([114, 116], 'PRODUCT')
+([182, 189], 'GPE')
+segment_end
+([174, 181], 'GPE')
+([374, 386], 'ORG')
+segment_end
+([54, 58], 'ORG')
+segment_end
+([76, 83], 'GPE')
+([92, 100], 'PERSON')
+([147, 157], 'ORG')
+([187, 197], 'PERSON')
+segment_end
+segment_end
+([95, 100], 'NORP')
+segment_end
+segment_end
+([212, 221], 'ORG')
+([319, 328], 'ORG')
+segment_end
+([40, 44], 'PERSON')
+([288, 295], 'PERSON')
+([305, 310], 'GPE')
+([371, 374], 'ORG')
+segment_end
+segment_end
+([298, 303], 'ORG')
+([372, 385], 'GPE')
+segment_end
+([5, 12], 'GPE')
+([211, 216], 'PERSON')
+([346, 355], 'NORP')
+segment_end
+segment_end
+([182, 191], 'ORG')
+([194, 201], 'PRODUCT')
+([214, 223], 'ORG')
+segment_end
+([82, 85], 'ORG')
+segment_end
+segment_end
+([218, 222], 'PERSON')
+segment_end
+segment_end
+([267, 276], 'ORG')
+segment_end
+([207, 216], 'PERSON')
+segment_end
+segment_end
+([80, 93], 'ORG')
+([312, 322], 'DATE')
+segment_end
+([27, 36], 'NORP')
+([72, 81], 'NORP')
+segment_end
+([299, 311], 'DATE')
+([329, 338], 'NORP')
+segment_end
+([120, 124], 'ORG')
+segment_end
+([263, 268], 'ORG')
+segment_end
+([199, 203], 'GPE')
+segment_end
+([37, 42], 'ORG')
+([62, 67], 'PERSON')
+([283, 292], 'DATE')
+segment_end
+segment_end
+([246, 250], 'DATE')
+segment_end
+segment_end
+segment_end
+([117, 122], 'ORG')
+segment_end
+segment_end
+segment_end
+([20, 29], 'ORG')
+([256, 259], 'ORG')
+segment_end
+segment_end
+([41, 58], 'FAC')
+([318, 322], 'ORG')
+segment_end
+([433, 448], 'ORG')
+segment_end
+segment_end
+([103, 112], 'ORG')
+([270, 273], 'ORG')
+segment_end
+([283, 289], 'GPE')
+([300, 311], 'PERSON')
+segment_end
+segment_end
+([168, 174], 'GPE')
+segment_end
+([238, 244], 'ORG')
+([276, 282], 'ORG')
+([422, 426], 'ORG')
+segment_end
+([66, 87], 'DATE')
+([104, 113], 'ORG')
+([159, 167], 'DATE')
+([278, 295], 'DATE')
+segment_end
+([312, 317], 'DATE')
+segment_end
+([119, 126], 'PERSON')
+([326, 334], 'DATE')
+segment_end
+([172, 177], 'DATE')
+segment_end
+segment_end
+([249, 262], 'ORG')
+([361, 364], 'ORG')
+segment_end
+([106, 109], 'ORG')
+([213, 220], 'GPE')
+([266, 269], 'ORG')
+([330, 333], 'ORG')
+segment_end
+segment_end
+([77, 80], 'ORG')
+([144, 154], 'ORG')
+segment_end
+([26, 39], 'ORG')
+segment_end
+segment_end
+([284, 302], 'DATE')
+segment_end
+segment_end
+([28, 34], 'ORG')
+([127, 135], 'GPE')
+([171, 180], 'GPE')
+([229, 231], 'GPE')
+([303, 307], 'GPE')
+segment_end
+([218, 245], 'ORG')
+([291, 318], 'ORG')
+segment_end
+([4, 10], 'ORG')
+segment_end
+([32, 44], 'PERSON')
+([48, 54], 'GPE')
+([128, 137], 'ORG')
+([146, 153], 'GPE')
+([168, 180], 'PERSON')
+([192, 208], 'ORG')
+segment_end
+([15, 20], 'PERSON')
+([48, 54], 'ORG')
+segment_end
+([37, 53], 'DATE')
+segment_end
+segment_end
+transcript_end
+([0, 3], 'PERSON')
+([47, 54], 'PERSON')
+([70, 77], 'GPE')
+([98, 105], 'GPE')
+([182, 193], 'GPE')
+([326, 331], 'GPE')
+([336, 344], 'DATE')
+segment_end
+([82, 85], 'PERSON')
+([232, 239], 'WORK_OF_ART')
+segment_end
+([35, 45], 'GPE')
+([252, 262], 'DATE')
+segment_end
+segment_end
+([129, 134], 'GPE')
+([166, 174], 'NORP')
+([176, 187], 'GPE')
+([189, 202], 'ORG')
+([260, 273], 'ORG')
+segment_end
+segment_end
+([9, 19], 'DATE')
+([249, 255], 'DATE')
+([275, 291], 'DATE')
+segment_end
+([320, 334], 'WORK_OF_ART')
+([341, 347], 'ORG')
+segment_end
+([4, 10], 'GPE')
+([96, 101], 'ORG')
+([105, 110], 'ORG')
+([140, 145], 'ORG')
+segment_end
+segment_end
+([156, 162], 'NORP')
+([219, 223], 'PERSON')
+segment_end
+([181, 186], 'ORG')
+segment_end
+([223, 228], 'GPE')
+([234, 240], 'LOC')
+segment_end
+segment_end
+([416, 426], 'DATE')
+segment_end
+([40, 46], 'NORP')
+([311, 317], 'WORK_OF_ART')
+segment_end
+([50, 56], 'PERSON')
+([139, 145], 'PERSON')
+segment_end
+segment_end
+([25, 31], 'GPE')
+([374, 392], 'LOC')
+([437, 446], 'GPE')
+([448, 456], 'GPE')
+([461, 467], 'GPE')
+segment_end
+([33, 40], 'DATE')
+([65, 71], 'GPE')
+([100, 108], 'GPE')
+([113, 125], 'DATE')
+segment_end
+([0, 9], 'DATE')
+([76, 80], 'DATE')
+segment_end
+([11, 15], 'DATE')
+segment_end
+([80, 87], 'GPE')
+([114, 121], 'GPE')
+([134, 141], 'GPE')
+segment_end
+segment_end
+([101, 108], 'GPE')
+([133, 136], 'PERSON')
+([143, 150], 'GPE')
+([286, 299], 'GPE')
+segment_end
+segment_end
+([24, 30], 'PERSON')
+([41, 49], 'PERSON')
+([235, 241], 'PERSON')
+([302, 308], 'PERSON')
+segment_end
+([161, 170], 'GPE')
+segment_end
+([188, 194], 'PERSON')
+segment_end
+([21, 30], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+([391, 395], 'PERSON')
+segment_end
+segment_end
+([200, 208], 'LOC')
+([268, 278], 'GPE')
+segment_end
+([100, 111], 'PERSON')
+segment_end
+([138, 144], 'PRODUCT')
+([177, 183], 'PRODUCT')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([155, 163], 'GPE')
+([172, 180], 'GPE')
+segment_end
+segment_end
+([24, 32], 'PERSON')
+([199, 212], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([156, 160], 'PERSON')
+([170, 174], 'PERSON')
+segment_end
+([59, 66], 'LOC')
+([91, 98], 'NORP')
+([109, 127], 'LOC')
+([132, 136], 'GPE')
+segment_end
+([119, 124], 'ORG')
+segment_end
+([246, 259], 'LOC')
+([375, 382], 'ORG')
+([386, 391], 'GPE')
+([478, 485], 'LOC')
+segment_end
+segment_end
+([68, 71], 'PERSON')
+([115, 122], 'LOC')
+([448, 461], 'LOC')
+segment_end
+([347, 350], 'PERSON')
+segment_end
+segment_end
+([175, 179], 'PERSON')
+([215, 222], 'LOC')
+segment_end
+segment_end
+([49, 56], 'NORP')
+([71, 78], 'LANGUAGE')
+([93, 100], 'LANGUAGE')
+([423, 436], 'LOC')
+segment_end
+([338, 345], 'GPE')
+segment_end
+([52, 59], 'GPE')
+segment_end
+([157, 168], 'WORK_OF_ART')
+([392, 397], 'ORG')
+segment_end
+segment_end
+([26, 28], 'ORG')
+segment_end
+([143, 153], 'ORG')
+segment_end
+segment_end
+([107, 116], 'NORP')
+segment_end
+([398, 401], 'PERSON')
+segment_end
+([250, 268], 'LOC')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([156, 170], 'PERSON')
+([298, 305], 'GPE')
+([337, 347], 'PERSON')
+([351, 356], 'GPE')
+segment_end
+segment_end
+([17, 31], 'LOC')
+segment_end
+([0, 7], 'NORP')
+([105, 118], 'LOC')
+([164, 176], 'DATE')
+segment_end
+([313, 319], 'ORG')
+segment_end
+([44, 51], 'NORP')
+segment_end
+([97, 110], 'LOC')
+segment_end
+segment_end
+segment_end
+([8, 13], 'PERSON')
+([129, 136], 'NORP')
+segment_end
+([89, 95], 'NORP')
+([225, 231], 'PERSON')
+segment_end
+([133, 140], 'GPE')
+([207, 216], 'GPE')
+segment_end
+([65, 73], 'ORG')
+([92, 99], 'NORP')
+([117, 124], 'GPE')
+([132, 137], 'GPE')
+([170, 176], 'ORG')
+([185, 192], 'GPE')
+([198, 204], 'NORP')
+([334, 341], 'GPE')
+([396, 405], 'GPE')
+segment_end
+([184, 189], 'ORG')
+segment_end
+([77, 86], 'GPE')
+([191, 200], 'GPE')
+segment_end
+segment_end
+segment_end
+([450, 458], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+transcript_end
+([11, 32], 'PERSON')
+([35, 50], 'DATE')
+([74, 84], 'DATE')
+([391, 410], 'LOC')
+([429, 439], 'GPE')
+([441, 458], 'PERSON')
+segment_end
+([54, 71], 'DATE')
+segment_end
+segment_end
+([373, 382], 'GPE')
+([419, 426], 'GPE')
+segment_end
+([204, 222], 'DATE')
+([252, 268], 'ORG')
+([350, 356], 'NORP')
+([421, 427], 'NORP')
+segment_end
+([66, 70], 'ORG')
+segment_end
+([150, 158], 'ORG')
+([173, 177], 'ORG')
+([182, 203], 'FAC')
+([236, 246], 'DATE')
+segment_end
+segment_end
+segment_end
+([84, 98], 'ORG')
+([361, 369], 'WORK_OF_ART')
+([392, 399], 'FAC')
+([434, 446], 'PERSON')
+segment_end
+([76, 81], 'PERSON')
+([450, 460], 'GPE')
+segment_end
+segment_end
+segment_end
+([130, 135], 'ORG')
+([137, 140], 'ORG')
+segment_end
+segment_end
+([81, 87], 'PERSON')
+([228, 238], 'DATE')
+([243, 250], 'DATE')
+segment_end
+([72, 79], 'NORP')
+([331, 338], 'NORP')
+([348, 354], 'GPE')
+segment_end
+segment_end
+([87, 94], 'NORP')
+([144, 150], 'DATE')
+([157, 164], 'DATE')
+([399, 406], 'DATE')
+segment_end
+([141, 147], 'NORP')
+([210, 217], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([80, 87], 'NORP')
+segment_end
+([21, 26], 'DATE')
+segment_end
+([10, 16], 'DATE')
+([24, 29], 'DATE')
+segment_end
+([8, 26], 'DATE')
+([138, 145], 'NORP')
+segment_end
+([290, 309], 'LOC')
+segment_end
+([158, 163], 'NORP')
+([216, 223], 'NORP')
+([293, 310], 'DATE')
+([358, 367], 'ORG')
+segment_end
+([170, 177], 'NORP')
+([398, 403], 'NORP')
+segment_end
+([60, 64], 'ORG')
+([330, 335], 'NORP')
+segment_end
+segment_end
+([65, 72], 'LANGUAGE')
+([94, 99], 'NORP')
+([221, 230], 'DATE')
+segment_end
+([46, 51], 'NORP')
+([68, 72], 'DATE')
+([156, 161], 'NORP')
+([240, 248], 'GPE')
+([274, 281], 'GPE')
+([418, 424], 'GPE')
+segment_end
+segment_end
+([157, 167], 'DATE')
+segment_end
+segment_end
+([21, 25], 'ORG')
+([29, 42], 'ORG')
+([105, 118], 'ORG')
+([140, 150], 'DATE')
+([194, 198], 'ORG')
+([251, 259], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([3, 17], 'DATE')
+segment_end
+segment_end
+([43, 50], 'NORP')
+([124, 131], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([14, 21], 'NORP')
+([147, 160], 'DATE')
+([186, 195], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([3, 10], 'GPE')
+([28, 35], 'GPE')
+segment_end
+segment_end
+([9, 16], 'NORP')
+([137, 144], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+([28, 33], 'DATE')
+([97, 102], 'DATE')
+segment_end
+segment_end
+([60, 74], 'DATE')
+([215, 221], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+([16, 18], 'ORG')
+segment_end
+([145, 153], 'DATE')
+([174, 183], 'GPE')
+([216, 224], 'GPE')
+segment_end
+([18, 35], 'FAC')
+([165, 172], 'GPE')
+segment_end
+([27, 31], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([71, 77], 'NORP')
+([148, 154], 'NORP')
+segment_end
+segment_end
+transcript_end
+([11, 24], 'PERSON')
+([43, 47], 'DATE')
+([97, 104], 'GPE')
+([123, 133], 'DATE')
+segment_end
+segment_end
+([200, 209], 'PERSON')
+([247, 257], 'DATE')
+([363, 370], 'GPE')
+([392, 399], 'DATE')
+([410, 414], 'DATE')
+segment_end
+([3, 13], 'DATE')
+segment_end
+([23, 34], 'DATE')
+([69, 76], 'DATE')
+([299, 307], 'DATE')
+segment_end
+([33, 34], 'DATE')
+([89, 101], 'DATE')
+segment_end
+([53, 60], 'GPE')
+segment_end
+segment_end
+([8, 12], 'DATE')
+([58, 65], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([78, 87], 'DATE')
+segment_end
+segment_end
+segment_end
+([115, 122], 'GPE')
+segment_end
+segment_end
+segment_end
+([10, 18], 'PERSON')
+segment_end
+segment_end
+([15, 22], 'NORP')
+([88, 96], 'PERSON')
+([176, 184], 'NORP')
+segment_end
+([4, 11], 'NORP')
+([44, 52], 'PERSON')
+([228, 235], 'NORP')
+([334, 342], 'NORP')
+segment_end
+([146, 154], 'PERSON')
+([292, 300], 'PERSON')
+segment_end
+([16, 24], 'PERSON')
+segment_end
+segment_end
+([156, 166], 'GPE')
+([233, 243], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([286, 301], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([11, 18], 'DATE')
+segment_end
+segment_end
+segment_end
+([374, 387], 'DATE')
+segment_end
+([31, 39], 'ORG')
+([67, 75], 'ORG')
+segment_end
+([34, 42], 'ORG')
+([261, 269], 'ORG')
+([379, 387], 'ORG')
+segment_end
+([101, 109], 'ORG')
+segment_end
+([399, 412], 'PERSON')
+segment_end
+([183, 189], 'ORG')
+segment_end
+transcript_end
+([11, 22], 'PERSON')
+([30, 40], 'DATE')
+([91, 117], 'DATE')
+segment_end
+segment_end
+segment_end
+([20, 31], 'GPE')
+segment_end
+segment_end
+segment_end
+([36, 42], 'NORP')
+([186, 195], 'NORP')
+([256, 265], 'NORP')
+segment_end
+([92, 112], 'DATE')
+segment_end
+([0, 9], 'DATE')
+segment_end
+segment_end
+([6, 14], 'DATE')
+([35, 39], 'DATE')
+([75, 84], 'GPE')
+([89, 98], 'DATE')
+([111, 120], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([33, 42], 'GPE')
+segment_end
+segment_end
+([119, 125], 'NORP')
+([275, 286], 'GPE')
+([290, 297], 'GPE')
+segment_end
+([208, 217], 'EVENT')
+([221, 232], 'ORG')
+([291, 298], 'NORP')
+segment_end
+([25, 34], 'GPE')
+segment_end
+segment_end
+([21, 32], 'ORG')
+segment_end
+segment_end
+([37, 46], 'GPE')
+([115, 119], 'ORG')
+([131, 153], 'DATE')
+([290, 296], 'NORP')
+([387, 400], 'LOC')
+segment_end
+segment_end
+([32, 43], 'ORG')
+segment_end
+([32, 43], 'ORG')
+segment_end
+([247, 249], 'ORG')
+segment_end
+([77, 84], 'NORP')
+segment_end
+([306, 313], 'NORP')
+segment_end
+segment_end
+([136, 138], 'ORG')
+segment_end
+([175, 177], 'ORG')
+segment_end
+segment_end
+([54, 65], 'ORG')
+([186, 190], 'PERSON')
+segment_end
+([94, 100], 'DATE')
+segment_end
+([406, 412], 'NORP')
+([428, 440], 'ORG')
+segment_end
+segment_end
+([117, 124], 'NORP')
+([360, 365], 'ORG')
+([368, 374], 'NORP')
+segment_end
+([154, 160], 'ORG')
+([162, 166], 'PERSON')
+segment_end
+([402, 411], 'PERSON')
+segment_end
+([26, 35], 'GPE')
+([67, 84], 'DATE')
+([434, 444], 'GPE')
+([461, 473], 'GPE')
+segment_end
+([7, 12], 'GPE')
+([28, 40], 'FAC')
+([214, 220], 'NORP')
+([312, 325], 'ORG')
+([331, 336], 'GPE')
+segment_end
+segment_end
+([55, 59], 'ORG')
+segment_end
+([87, 107], 'LAW')
+segment_end
+([31, 55], 'LAW')
+([95, 116], 'DATE')
+([291, 300], 'DATE')
+([304, 327], 'ORG')
+([331, 342], 'ORG')
+segment_end
+([329, 336], 'NORP')
+segment_end
+([18, 29], 'ORG')
+segment_end
+segment_end
+([0, 13], 'ORG')
+segment_end
+([26, 39], 'ORG')
+segment_end
+segment_end
+([9, 14], 'PERSON')
+segment_end
+segment_end
+([373, 379], 'NORP')
+segment_end
+([35, 42], 'ORG')
+([134, 141], 'NORP')
+segment_end
+([18, 27], 'DATE')
+([52, 61], 'DATE')
+([404, 412], 'LOC')
+segment_end
+([172, 176], 'ORG')
+([276, 278], 'GPE')
+([300, 302], 'GPE')
+([313, 318], 'ORG')
+segment_end
+segment_end
+segment_end
+([56, 61], 'GPE')
+([210, 220], 'DATE')
+segment_end
+segment_end
+([39, 44], 'GPE')
+segment_end
+segment_end
+([8, 15], 'PERSON')
+([90, 95], 'GPE')
+([221, 226], 'PERSON')
+([245, 250], 'GPE')
+([367, 379], 'FAC')
+segment_end
+([122, 129], 'NORP')
+segment_end
+segment_end
+([77, 86], 'PERSON')
+([104, 109], 'GPE')
+([283, 287], 'ORG')
+segment_end
+([195, 202], 'ORG')
+segment_end
+([44, 57], 'ORG')
+([73, 76], 'ORG')
+([100, 105], 'GPE')
+([133, 152], 'PERSON')
+segment_end
+([89, 102], 'ORG')
+([125, 131], 'PRODUCT')
+([135, 149], 'LOC')
+([285, 294], 'LOC')
+([408, 415], 'PERSON')
+segment_end
+([29, 37], 'DATE')
+([108, 116], 'NORP')
+([117, 119], 'ORG')
+segment_end
+segment_end
+([0, 8], 'ORG')
+segment_end
+([91, 105], 'FAC')
+segment_end
+segment_end
+([47, 53], 'FAC')
+([263, 268], 'ORG')
+([292, 298], 'PERSON')
+([365, 374], 'GPE')
+([459, 464], 'GPE')
+segment_end
+segment_end
+([28, 33], 'PERSON')
+([59, 65], 'FAC')
+([115, 128], 'ORG')
+([154, 161], 'ORG')
+([297, 307], 'ORG')
+segment_end
+([40, 51], 'ORG')
+([138, 144], 'NORP')
+([205, 212], 'LANGUAGE')
+([247, 260], 'ORG')
+([264, 271], 'PRODUCT')
+([298, 305], 'PRODUCT')
+segment_end
+([48, 53], 'GPE')
+segment_end
+segment_end
+([9, 16], 'ORG')
+segment_end
+([40, 47], 'ORG')
+segment_end
+([81, 94], 'ORG')
+([108, 113], 'DATE')
+([122, 127], 'DATE')
+([155, 158], 'DATE')
+([190, 199], 'DATE')
+([228, 230], 'ORG')
+([293, 297], 'PERSON')
+([440, 444], 'PERSON')
+segment_end
+([64, 68], 'PERSON')
+segment_end
+([84, 91], 'ORG')
+([241, 247], 'GPE')
+([293, 306], 'GPE')
+([366, 379], 'ORG')
+segment_end
+([20, 25], 'DATE')
+([46, 53], 'ORG')
+([97, 104], 'ORG')
+([139, 156], 'LOC')
+([230, 235], 'DATE')
+([242, 247], 'DATE')
+segment_end
+([376, 384], 'DATE')
+segment_end
+segment_end
+([153, 166], 'ORG')
+segment_end
+([279, 285], 'GPE')
+segment_end
+segment_end
+([293, 300], 'ORG')
+segment_end
+segment_end
+([28, 34], 'GPE')
+([192, 198], 'GPE')
+([212, 218], 'GPE')
+segment_end
+([124, 135], 'GPE')
+([176, 187], 'GPE')
+segment_end
+([6, 11], 'DATE')
+segment_end
+([0, 5], 'GPE')
+segment_end
+segment_end
+segment_end
+([21, 25], 'PERSON')
+segment_end
+([22, 28], 'GPE')
+([98, 105], 'GPE')
+([136, 143], 'ORG')
+([196, 202], 'GPE')
+([237, 243], 'GPE')
+segment_end
+([38, 45], 'NORP')
+([50, 55], 'NORP')
+([239, 245], 'NORP')
+([410, 420], 'ORG')
+segment_end
+segment_end
+([217, 224], 'NORP')
+([248, 252], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([120, 127], 'GPE')
+([238, 247], 'PRODUCT')
+([304, 309], 'PERSON')
+([319, 326], 'GPE')
+segment_end
+([69, 81], 'DATE')
+([153, 159], 'NORP')
+segment_end
+([0, 4], 'PERSON')
+segment_end
+([104, 111], 'GPE')
+([138, 142], 'ORG')
+([156, 160], 'ORG')
+([174, 178], 'ORG')
+([193, 199], 'NORP')
+([240, 244], 'ORG')
+([261, 267], 'NORP')
+([299, 303], 'ORG')
+([385, 391], 'NORP')
+([411, 418], 'GPE')
+segment_end
+([199, 203], 'NORP')
+([250, 258], 'NORP')
+([356, 360], 'ORG')
+([399, 405], 'NORP')
+([451, 455], 'NORP')
+segment_end
+([95, 101], 'NORP')
+([116, 123], 'LANGUAGE')
+([358, 365], 'LANGUAGE')
+segment_end
+([21, 28], 'GPE')
+([96, 100], 'NORP')
+segment_end
+([82, 91], 'NORP')
+segment_end
+([6, 13], 'GPE')
+segment_end
+([270, 280], 'DATE')
+segment_end
+segment_end
+segment_end
+([144, 151], 'NORP')
+([432, 439], 'NORP')
+segment_end
+([83, 90], 'GPE')
+([136, 144], 'LOC')
+([149, 162], 'LOC')
+([195, 202], 'GPE')
+segment_end
+([46, 53], 'GPE')
+segment_end
+([200, 213], 'GPE')
+segment_end
+([73, 80], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+([43, 50], 'GPE')
+([163, 169], 'NORP')
+segment_end
+([237, 243], 'NORP')
+([300, 306], 'NORP')
+segment_end
+([167, 173], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+([3, 9], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+([74, 78], 'PERSON')
+([287, 291], 'ORG')
+([362, 369], 'GPE')
+([416, 423], 'LANGUAGE')
+segment_end
+segment_end
+([16, 23], 'GPE')
+([60, 66], 'ORG')
+([82, 86], 'ORG')
+([111, 122], 'PERSON')
+([126, 134], 'DATE')
+segment_end
+([314, 323], 'LOC')
+([370, 382], 'DATE')
+([397, 401], 'ORG')
+segment_end
+([43, 47], 'FAC')
+segment_end
+([10, 21], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+([397, 403], 'NORP')
+segment_end
+([143, 149], 'NORP')
+([186, 193], 'GPE')
+segment_end
+segment_end
+([91, 97], 'PRODUCT')
+([154, 161], 'NORP')
+([266, 281], 'PERSON')
+([324, 330], 'PERSON')
+segment_end
+([41, 47], 'PRODUCT')
+([86, 93], 'NORP')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+transcript_end
+([14, 20], 'GPE')
+([24, 42], 'FAC')
+([155, 165], 'DATE')
+([260, 271], 'DATE')
+segment_end
+segment_end
+([29, 33], 'ORG')
+segment_end
+([18, 28], 'DATE')
+segment_end
+([126, 129], 'ORG')
+([131, 151], 'ORG')
+segment_end
+([153, 160], 'GPE')
+([202, 206], 'ORG')
+([256, 273], 'DATE')
+segment_end
+([34, 54], 'DATE')
+([98, 102], 'ORG')
+([108, 124], 'DATE')
+([139, 147], 'DATE')
+segment_end
+([30, 36], 'DATE')
+([91, 95], 'ORG')
+segment_end
+([73, 77], 'ORG')
+([124, 128], 'ORG')
+segment_end
+([29, 49], 'DATE')
+([150, 162], 'PERSON')
+([262, 268], 'GPE')
+([290, 296], 'GPE')
+([330, 338], 'ORG')
+([359, 375], 'ORG')
+([466, 470], 'ORG')
+segment_end
+([108, 117], 'DATE')
+segment_end
+([122, 126], 'DATE')
+([157, 169], 'PERSON')
+segment_end
+([167, 177], 'ORG')
+([275, 285], 'ORG')
+segment_end
+segment_end
+segment_end
+([313, 318], 'DATE')
+([410, 417], 'NORP')
+segment_end
+segment_end
+([175, 183], 'ORG')
+([232, 238], 'ORG')
+([258, 268], 'ORG')
+([305, 317], 'ORG')
+([326, 331], 'PRODUCT')
+([412, 427], 'LOC')
+segment_end
+segment_end
+([189, 199], 'ORG')
+segment_end
+segment_end
+([266, 273], 'NORP')
+([398, 403], 'PRODUCT')
+segment_end
+([52, 57], 'PERSON')
+([67, 88], 'ORG')
+([122, 132], 'ORG')
+([292, 299], 'GPE')
+segment_end
+segment_end
+([60, 73], 'DATE')
+([298, 302], 'ORG')
+segment_end
+([249, 255], 'NORP')
+([283, 289], 'NORP')
+([322, 329], 'NORP')
+([359, 366], 'GPE')
+segment_end
+([10, 21], 'DATE')
+segment_end
+([3, 14], 'DATE')
+([67, 77], 'ORG')
+([249, 256], 'GPE')
+([273, 277], 'ORG')
+([332, 338], 'GPE')
+segment_end
+segment_end
+([103, 110], 'PERSON')
+([206, 214], 'ORG')
+segment_end
+segment_end
+([17, 24], 'PERSON')
+([198, 202], 'ORG')
+([368, 372], 'ORG')
+segment_end
+([172, 180], 'WORK_OF_ART')
+([191, 202], 'DATE')
+segment_end
+([236, 247], 'ORG')
+segment_end
+([93, 98], 'GPE')
+segment_end
+([127, 141], 'ORG')
+segment_end
+([198, 203], 'GPE')
+segment_end
+segment_end
+([83, 88], 'PERSON')
+segment_end
+([216, 226], 'PERSON')
+segment_end
+segment_end
+([127, 132], 'GPE')
+([152, 156], 'PERSON')
+([180, 187], 'GPE')
+([213, 220], 'GPE')
+([225, 233], 'GPE')
+segment_end
+segment_end
+segment_end
+([47, 55], 'LOC')
+segment_end
+([19, 24], 'LAW')
+([169, 179], 'PRODUCT')
+segment_end
+segment_end
+([138, 148], 'ORG')
+segment_end
+([301, 305], 'ORG')
+segment_end
+segment_end
+([5, 20], 'DATE')
+([31, 58], 'DATE')
+([246, 256], 'ORG')
+segment_end
+([85, 95], 'LOC')
+([287, 292], 'ORG')
+segment_end
+segment_end
+([29, 39], 'ORG')
+([180, 190], 'ORG')
+([398, 408], 'ORG')
+([418, 428], 'ORG')
+segment_end
+([161, 171], 'EVENT')
+([229, 234], 'ORG')
+([296, 306], 'ORG')
+segment_end
+segment_end
+segment_end
+([98, 104], 'ORG')
+([207, 217], 'PERSON')
+segment_end
+([8, 23], 'DATE')
+segment_end
+segment_end
+([42, 50], 'DATE')
+([307, 316], 'DATE')
+([382, 392], 'PERSON')
+segment_end
+([0, 10], 'PERSON')
+([243, 252], 'DATE')
+segment_end
+([28, 37], 'DATE')
+([120, 129], 'DATE')
+([170, 179], 'DATE')
+segment_end
+([61, 70], 'DATE')
+segment_end
+([397, 406], 'DATE')
+segment_end
+([335, 345], 'PERSON')
+segment_end
+([10, 19], 'PERSON')
+([223, 235], 'LOC')
+segment_end
+segment_end
+([43, 52], 'DATE')
+([270, 276], 'GPE')
+segment_end
+segment_end
+segment_end
+segment_end
+([69, 79], 'PERSON')
+segment_end
+segment_end
+([127, 129], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+([37, 47], 'PERSON')
+([96, 115], 'LOC')
+([128, 149], 'DATE')
+segment_end
+segment_end
+([58, 66], 'DATE')
+segment_end
+segment_end
+segment_end
+([15, 20], 'NORP')
+segment_end
+([123, 129], 'GPE')
+([133, 141], 'PERSON')
+segment_end
+([144, 154], 'ORG')
+segment_end
+segment_end
+([70, 75], 'ORG')
+segment_end
+([270, 276], 'NORP')
+([308, 316], 'PERSON')
+segment_end
+segment_end
+([24, 30], 'ORG')
+([144, 153], 'NORP')
+([190, 197], 'NORP')
+([227, 234], 'NORP')
+([356, 362], 'ORG')
+([367, 386], 'LOC')
+segment_end
+([7, 13], 'ORG')
+segment_end
+([304, 310], 'ORG')
+segment_end
+([39, 41], 'ORG')
+segment_end
+segment_end
+segment_end
+([420, 426], 'ORG')
+segment_end
+segment_end
+segment_end
+([199, 208], 'PERSON')
+segment_end
+([241, 248], 'NORP')
+([354, 361], 'NORP')
+segment_end
+segment_end
+([138, 144], 'ORG')
+([284, 291], 'NORP')
+([342, 350], 'PERSON')
+([437, 443], 'ORG')
+segment_end
+segment_end
+([53, 59], 'ORG')
+([182, 188], 'ORG')
+([353, 361], 'PERSON')
+segment_end
+([6, 12], 'NORP')
+segment_end
+segment_end
+([0, 6], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+([162, 174], 'LOC')
+([203, 212], 'NORP')
+segment_end
+([51, 57], 'ORG')
+segment_end
+([205, 212], 'ORG')
+([339, 345], 'ORG')
+segment_end
+([95, 101], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([191, 206], 'PERSON')
+([242, 247], 'GPE')
+segment_end
+([113, 122], 'PERSON')
+segment_end
+([101, 106], 'ORG')
+([154, 159], 'ORG')
+([197, 205], 'ORG')
+segment_end
+([363, 371], 'ORG')
+segment_end
+segment_end
+segment_end
+([441, 450], 'PERSON')
+segment_end
+([0, 14], 'PERSON')
+segment_end
+([14, 22], 'NORP')
+([23, 25], 'ORG')
+([46, 87], 'DATE')
+segment_end
+segment_end
+segment_end
+([24, 38], 'WORK_OF_ART')
+([53, 62], 'PERSON')
+segment_end
+segment_end
+([138, 146], 'PERSON')
+([354, 363], 'PERSON')
+([407, 416], 'GPE')
+segment_end
+segment_end
+([63, 68], 'GPE')
+([100, 109], 'GPE')
+([167, 172], 'GPE')
+([191, 199], 'ORG')
+([220, 229], 'GPE')
+segment_end
+([302, 307], 'NORP')
+segment_end
+([155, 160], 'PERSON')
+([297, 308], 'PERSON')
+([425, 430], 'PERSON')
+segment_end
+segment_end
+([48, 56], 'LOC')
+segment_end
+([276, 283], 'GPE')
+segment_end
+([51, 58], 'ORG')
+segment_end
+segment_end
+([69, 78], 'DATE')
+([171, 189], 'LOC')
+segment_end
+([176, 181], 'ORG')
+([393, 408], 'DATE')
+segment_end
+([25, 45], 'DATE')
+([103, 108], 'LAW')
+([126, 135], 'GPE')
+([146, 151], 'PERSON')
+segment_end
+segment_end
+segment_end
+segment_end
+([0, 5], 'PRODUCT')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([194, 200], 'GPE')
+segment_end
+segment_end
+([311, 319], 'LOC')
+segment_end
+([89, 99], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([151, 158], 'PERSON')
+segment_end
+([238, 246], 'LOC')
+segment_end
+([12, 28], 'DATE')
+([116, 123], 'GPE')
+segment_end
+([301, 306], 'GPE')
+([361, 368], 'ORG')
+segment_end
+segment_end
+([43, 48], 'GPE')
+([343, 348], 'GPE')
+segment_end
+([35, 40], 'GPE')
+([102, 110], 'PERSON')
+([277, 284], 'NORP')
+segment_end
+([457, 462], 'GPE')
+segment_end
+segment_end
+segment_end
+([203, 210], 'NORP')
+segment_end
+([20, 52], 'DATE')
+([200, 213], 'ORG')
+([215, 225], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+([388, 408], 'DATE')
+segment_end
+segment_end
+([71, 76], 'LAW')
+([82, 90], 'ORG')
+segment_end
+segment_end
+segment_end
+segment_end
+([0, 6], 'ORG')
+([40, 43], 'DATE')
+([71, 84], 'PERSON')
+([137, 145], 'DATE')
+([165, 173], 'PERSON')
+([295, 304], 'DATE')
+([308, 314], 'DATE')
+([443, 451], 'PERSON')
+segment_end
+([165, 171], 'GPE')
+([233, 239], 'ORG')
+segment_end
+([201, 209], 'NORP')
+segment_end
+([31, 41], 'DATE')
+([228, 232], 'DATE')
+segment_end
+([199, 215], 'ORG')
+([217, 221], 'GPE')
+([312, 321], 'GPE')
+([341, 352], 'NORP')
+([392, 403], 'GPE')
+([430, 439], 'GPE')
+segment_end
+([20, 29], 'GPE')
+([39, 59], 'DATE')
+([192, 202], 'ORG')
+([220, 228], 'ORG')
+([330, 334], 'PERSON')
+segment_end
+([31, 37], 'NORP')
+([52, 58], 'NORP')
+([74, 82], 'ORG')
+([149, 157], 'GPE')
+([236, 244], 'NORP')
+segment_end
+([133, 141], 'ORG')
+segment_end
+segment_end
+([73, 78], 'NORP')
+segment_end
+segment_end
+([45, 47], 'GPE')
+([102, 112], 'NORP')
+([163, 180], 'PERSON')
+([280, 285], 'NORP')
+([369, 377], 'GPE')
+segment_end
+([6, 23], 'PERSON')
+segment_end
+([42, 47], 'NORP')
+([183, 189], 'NORP')
+segment_end
+([311, 315], 'ORG')
+([334, 340], 'NORP')
+segment_end
+([57, 67], 'NORP')
+segment_end
+([4, 10], 'NORP')
+([290, 300], 'NORP')
+([393, 398], 'NORP')
+segment_end
+([338, 343], 'DATE')
+segment_end
+([107, 114], 'DATE')
+segment_end
+([49, 54], 'NORP')
+([178, 183], 'NORP')
+segment_end
+segment_end
+segment_end
+([326, 344], 'DATE')
+([346, 364], 'DATE')
+segment_end
+segment_end
+segment_end
+([389, 395], 'ORG')
+segment_end
+segment_end
+segment_end
+transcript_end
+([0, 3], 'PERSON')
+segment_end
+segment_end
+([23, 27], 'DATE')
+([32, 42], 'PERSON')
+([203, 212], 'DATE')
+segment_end
+([39, 49], 'DATE')
+segment_end
+segment_end
+([19, 22], 'PERSON')
+segment_end
+([37, 48], 'DATE')
+([98, 117], 'ORG')
+([123, 138], 'ORG')
+([184, 194], 'DATE')
+([254, 261], 'GPE')
+([263, 289], 'ORG')
+([372, 380], 'ORG')
+segment_end
+segment_end
+([28, 41], 'DATE')
+segment_end
+segment_end
+([257, 266], 'GPE')
+([291, 307], 'ORG')
+([328, 339], 'GPE')
+([394, 412], 'FAC')
+segment_end
+([47, 58], 'GPE')
+([74, 80], 'DATE')
+([375, 381], 'DATE')
+segment_end
+segment_end
+([302, 306], 'ORG')
+segment_end
+([106, 124], 'FAC')
+([244, 265], 'DATE')
+segment_end
+([214, 222], 'PERSON')
+segment_end
+segment_end
+segment_end
+([37, 40], 'ORG')
+segment_end
+segment_end
+segment_end
+([10, 16], 'GPE')
+segment_end
+([183, 195], 'DATE')
+segment_end
+([21, 30], 'DATE')
+([32, 41], 'DATE')
+([52, 59], 'DATE')
+([186, 192], 'GPE')
+([204, 241], 'ORG')
+segment_end
+([51, 57], 'GPE')
+([90, 96], 'GPE')
+([98, 104], 'GPE')
+([129, 135], 'NORP')
+([162, 169], 'NORP')
+([243, 249], 'ORG')
+([288, 303], 'GPE')
+segment_end
+([94, 101], 'NORP')
+([212, 218], 'NORP')
+([250, 266], 'DATE')
+([315, 321], 'GPE')
+([395, 402], 'NORP')
+segment_end
+([8, 20], 'DATE')
+([73, 80], 'GPE')
+([82, 89], 'ORG')
+([118, 123], 'NORP')
+([224, 230], 'GPE')
+([246, 250], 'ORG')
+segment_end
+([6, 11], 'NORP')
+([137, 141], 'PERSON')
+([166, 172], 'GPE')
+segment_end
+([210, 219], 'NORP')
+segment_end
+([279, 286], 'DATE')
+([318, 322], 'ORG')
+([427, 433], 'PERSON')
+segment_end
+([21, 25], 'ORG')
+([118, 145], 'DATE')
+([159, 165], 'NORP')
+segment_end
+([0, 7], 'PERSON')
+([100, 107], 'DATE')
+([145, 151], 'PERSON')
+([167, 174], 'DATE')
+([183, 195], 'DATE')
+([280, 290], 'NORP')
+([304, 310], 'PERSON')
+segment_end
+segment_end
+([65, 71], 'PERSON')
+([146, 164], 'DATE')
+([173, 179], 'PERSON')
+([243, 249], 'GPE')
+segment_end
+segment_end
+([0, 6], 'GPE')
+segment_end
+([22, 28], 'GPE')
+([51, 72], 'DATE')
+([77, 87], 'GPE')
+([95, 107], 'DATE')
+([120, 126], 'PERSON')
+([419, 425], 'GPE')
+segment_end
+([72, 88], 'ORG')
+([159, 169], 'ORG')
+([191, 211], 'ORG')
+segment_end
+([0, 10], 'ORG')
+([45, 52], 'ORG')
+([69, 81], 'DATE')
+([82, 87], 'GPE')
+([242, 251], 'GPE')
+([255, 262], 'ORG')
+([294, 305], 'GPE')
+([364, 375], 'GPE')
+segment_end
+([7, 11], 'DATE')
+([225, 228], 'ORG')
+([230, 268], 'ORG')
+segment_end
+([75, 84], 'GPE')
+([121, 133], 'GPE')
+([211, 215], 'DATE')
+([224, 230], 'PERSON')
+([239, 245], 'GPE')
+segment_end
+([63, 69], 'GPE')
+([105, 110], 'GPE')
+segment_end
+([80, 82], 'ORG')
+([117, 124], 'PERSON')
+([151, 167], 'LOC')
+segment_end
+([255, 269], 'DATE')
+segment_end
+([188, 213], 'DATE')
+([383, 393], 'DATE')
+segment_end
+([105, 113], 'ORG')
+([119, 124], 'PERSON')
+([183, 185], 'DATE')
+segment_end
+([230, 236], 'GPE')
+([248, 260], 'DATE')
+([366, 384], 'DATE')
+([404, 413], 'DATE')
+segment_end
+([44, 49], 'DATE')
+segment_end
+segment_end
+([8, 23], 'DATE')
+([49, 54], 'DATE')
+([167, 180], 'LOC')
+([260, 266], 'GPE')
+([296, 302], 'GPE')
+segment_end
+([126, 151], 'DATE')
+([216, 223], 'ORG')
+([273, 280], 'NORP')
+([399, 406], 'NORP')
+segment_end
+([69, 73], 'ORG')
+segment_end
+([13, 47], 'ORG')
+([77, 90], 'DATE')
+([344, 351], 'PERSON')
+([436, 449], 'LOC')
+segment_end
+([187, 190], 'ORG')
+([326, 329], 'ORG')
+segment_end
+([97, 99], 'DATE')
+segment_end
+([53, 61], 'PERSON')
+segment_end
+([6, 14], 'PERSON')
+segment_end
+([69, 75], 'PERSON')
+([125, 141], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+([172, 177], 'NORP')
+segment_end
+([0, 3], 'PERSON')
+([72, 77], 'DATE')
+segment_end
+segment_end
+([18, 25], 'NORP')
+([30, 38], 'NORP')
+([51, 56], 'ORG')
+([58, 62], 'ORG')
+segment_end
+([53, 59], 'NORP')
+([145, 149], 'DATE')
+([167, 173], 'ORG')
+([205, 219], 'FAC')
+segment_end
+([342, 345], 'ORG')
+segment_end
+([41, 45], 'DATE')
+([270, 276], 'ORG')
+([306, 323], 'LOC')
+([475, 480], 'DATE')
+segment_end
+([63, 74], 'ORG')
+segment_end
+([91, 97], 'DATE')
+segment_end
+([83, 92], 'PERSON')
+([203, 208], 'NORP')
+segment_end
+([73, 78], 'NORP')
+([138, 144], 'NORP')
+([311, 327], 'ORG')
+([449, 456], 'PERSON')
+([480, 488], 'ORG')
+segment_end
+segment_end
+([34, 42], 'NORP')
+([79, 87], 'NORP')
+segment_end
+([229, 232], 'ORG')
+segment_end
+([111, 116], 'NORP')
+([408, 411], 'ORG')
+([448, 450], 'GPE')
+segment_end
+segment_end
+([185, 188], 'ORG')
+([450, 452], 'GPE')
+segment_end
+([30, 37], 'PERSON')
+([193, 208], 'FAC')
+([236, 240], 'DATE')
+segment_end
+segment_end
+([20, 25], 'DATE')
+segment_end
+segment_end
+([226, 232], 'GPE')
+([351, 359], 'GPE')
+segment_end
+segment_end
+segment_end
+([113, 118], 'NORP')
+segment_end
+([94, 111], 'PERSON')
+([304, 307], 'ORG')
+segment_end
+([14, 20], 'NORP')
+([100, 120], 'DATE')
+segment_end
+segment_end
+([204, 210], 'NORP')
+([292, 303], 'GPE')
+segment_end
+([14, 20], 'NORP')
+([167, 172], 'NORP')
+segment_end
+([156, 161], 'DATE')
+segment_end
+([25, 36], 'DATE')
+([175, 195], 'DATE')
+([203, 209], 'NORP')
+segment_end
+([0, 3], 'PERSON')
+segment_end
+segment_end
+([117, 123], 'NORP')
+([261, 267], 'NORP')
+([339, 359], 'PERSON')
+segment_end
+([62, 68], 'ORG')
+([137, 143], 'ORG')
+segment_end
+([51, 58], 'NORP')
+([98, 103], 'NORP')
+([177, 192], 'ORG')
+([262, 268], 'NORP')
+([276, 281], 'ORG')
+([328, 333], 'NORP')
+([357, 373], 'PERSON')
+segment_end
+segment_end
+([25, 31], 'DATE')
+([68, 73], 'NORP')
+([162, 172], 'ORG')
+([206, 214], 'LAW')
+segment_end
+([6, 16], 'DATE')
+([17, 26], 'DATE')
+([79, 87], 'PERSON')
+([132, 142], 'DATE')
+segment_end
+([41, 49], 'ORG')
+([108, 115], 'GPE')
+([120, 127], 'GPE')
+([379, 382], 'DATE')
+segment_end
+segment_end
+([21, 26], 'NORP')
+([105, 110], 'NORP')
+([215, 223], 'ORG')
+([241, 248], 'GPE')
+segment_end
+([0, 9], 'PERSON')
+([272, 277], 'NORP')
+segment_end
+([101, 115], 'LOC')
+([132, 146], 'LOC')
+([183, 192], 'PERSON')
+([348, 354], 'NORP')
+segment_end
+([75, 94], 'DATE')
+segment_end
+([0, 17], 'PERSON')
+([30, 39], 'PERSON')
+([183, 190], 'NORP')
+segment_end
+segment_end
+([93, 112], 'DATE')
+([220, 226], 'NORP')
+([261, 268], 'GPE')
+([374, 392], 'DATE')
+([406, 413], 'DATE')
+segment_end
+([3, 21], 'DATE')
+([75, 81], 'ORG')
+([104, 121], 'DATE')
+([213, 218], 'NORP')
+segment_end
+segment_end
+([26, 55], 'DATE')
+([164, 168], 'DATE')
+segment_end
+([30, 41], 'PERSON')
+([170, 176], 'GPE')
+([224, 230], 'PERSON')
+([300, 305], 'GPE')
+([482, 488], 'EVENT')
+segment_end
+([16, 21], 'GPE')
+segment_end
+([12, 21], 'GPE')
+([36, 39], 'ORG')
+([144, 151], 'DATE')
+([156, 164], 'DATE')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([58, 69], 'PERSON')
+([130, 135], 'DATE')
+segment_end
+([179, 186], 'NORP')
+segment_end
+([125, 129], 'DATE')
+([134, 136], 'DATE')
+segment_end
+([0, 6], 'GPE')
+([254, 259], 'DATE')
+([354, 360], 'GPE')
+segment_end
+([168, 174], 'NORP')
+segment_end
+([30, 37], 'PERSON')
+([49, 54], 'NORP')
+([103, 109], 'DATE')
+segment_end
+([70, 76], 'DATE')
+([119, 125], 'DATE')
+([186, 193], 'DATE')
+([210, 219], 'NORP')
+segment_end
+([52, 60], 'NORP')
+([161, 170], 'NORP')
+segment_end
+segment_end
+([148, 153], 'GPE')
+([229, 231], 'GPE')
+([277, 283], 'GPE')
+([317, 331], 'ORG')
+segment_end
+([97, 104], 'GPE')
+segment_end
+([34, 42], 'FAC')
+([86, 91], 'ORG')
+([97, 109], 'DATE')
+segment_end
+([22, 31], 'PERSON')
+([150, 171], 'DATE')
+segment_end
+([14, 22], 'GPE')
+([27, 34], 'NORP')
+([142, 149], 'GPE')
+segment_end
+([8, 18], 'DATE')
+([33, 40], 'NORP')
+([141, 146], 'DATE')
+([178, 185], 'DATE')
+([216, 225], 'PERSON')
+([281, 288], 'GPE')
+segment_end
+([4, 16], 'DATE')
+([45, 50], 'NORP')
+([305, 312], 'NORP')
+segment_end
+([53, 60], 'NORP')
+([70, 79], 'DATE')
+segment_end
+segment_end
+transcript_end

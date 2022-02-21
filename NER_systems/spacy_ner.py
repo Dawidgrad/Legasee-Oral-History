@@ -12,7 +12,7 @@ OPTIONS:
 ################################################################
 # Importing libraries
 
-from utilities import get_transcripts, write_to_file, TranscriptType
+from utilities import get_transcripts, write_to_file, TranscriptType, tag_transcripts
 import subprocess
 import sys
 import spacy
@@ -59,29 +59,11 @@ class Spacy_Entities:
         # Download the en_core_web_sm model
         subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
 
-    def get_entities(self): 
+    def get_entities(self, transcripts): 
         # Load the model
         nlp = spacy.load('en_core_web_sm')
         entities = list()
-        ignored_labels = ['LANGUAGE', 'TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
-        transcripts = []
-
-        # Decide on the transcription type
-        if '-a' in opts:
-            dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
-
-            for dictionary in dictionaries:
-                single_transcript = []
-                for key, value in dictionary.items():
-                    single_transcript = [*single_transcript, *value]
-                transcripts.append(single_transcript) 
-                
-        elif '-o' in opts:
-            #TODO
-            print('WIP')
-        else:
-            directory = "../transcripts/ingested"
-            transcripts = get_transcripts(TranscriptType.TEST, directory)
+        ignored_labels = ['TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
 
         # Get the NER tags
         for single_transcript in transcripts:
@@ -101,7 +83,31 @@ class Spacy_Entities:
 if __name__ == '__main__':
     # Get the Named Entities from GATE API
     spacy_recogniser = Spacy_Entities()
-    spacy_entities = spacy_recogniser.get_entities()
+    transcripts = []
+
+    # Decide on the transcription type
+    if '-a' in opts:
+        dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
+
+        for dictionary in dictionaries:
+            single_transcript = []
+            for key, value in dictionary.items():
+                single_transcript = [*single_transcript, *value]
+            transcripts.append(single_transcript) 
+            
+    elif '-o' in opts:
+        #TODO
+        print('WIP')
+    else:
+        directory = "../transcripts/ingested"
+        transcripts = get_transcripts(TranscriptType.TEST, directory)
+
+
+    spacy_entities = spacy_recogniser.get_entities(transcripts)
 
     # Write the result to the output file
-    write_to_file("./outputs/spacy_results.txt", spacy_entities)
+    write_to_file("./outputs/spacy_index_results.txt", spacy_entities)
+
+    # Use spacy_entities to write tagged transcript
+    tagged_transcripts = tag_transcripts(spacy_entities, transcripts)
+    write_to_file("./outputs/spacy_tagged_transcript.txt", tagged_transcripts)

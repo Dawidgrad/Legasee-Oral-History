@@ -108,6 +108,6 @@ if __name__ == '__main__':
     # Write the result to the output file
     write_to_file("./outputs/spacy_index_results.txt", spacy_entities)
 
-    # Use spacy_entities to write tagged transcript
+    # Use entities to write tagged transcript
     tagged_transcripts = tag_transcripts(spacy_entities, transcripts)
     write_to_file("./outputs/spacy_tagged_transcript.txt", tagged_transcripts)

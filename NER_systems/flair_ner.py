@@ -14,7 +14,7 @@ OPTIONS:
 
 from flair.data import Sentence
 from flair.models import SequenceTagger
-from utilities import get_transcripts, write_to_file, TranscriptType
+from utilities import get_transcripts, write_to_file, TranscriptType, tag_transcripts
 import getopt
 import sys
 
@@ -55,28 +55,10 @@ if len(args) > 0:
 # Class definition
 
 class Flair_Entities:
-    def get_entities(self):
+    def get_entities(self, transcripts):
         # Load the NER tagger
         tagger = SequenceTagger.load('ner')
         entities = list()
-        transcripts = []
-
-        # Decide on the transcription type
-        if '-a' in opts:
-            dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
-
-            for dictionary in dictionaries:
-                single_transcript = []
-                for key, value in dictionary.items():
-                    single_transcript = [*single_transcript, *value]
-                transcripts.append(single_transcript) 
-                
-        elif '-o' in opts:
-            #TODO
-            print('WIP')
-        else:
-            directory = "../transcripts/ingested"
-            transcripts = get_transcripts(TranscriptType.TEST, directory)
 
         for single_transcript in transcripts:
             for segment in single_transcript:
@@ -112,7 +94,30 @@ class Flair_Entities:
 if __name__ == '__main__':
     # Get the Named Entities from GATE API
     flair_recogniser = Flair_Entities()
-    flair_entities = flair_recogniser.get_entities()
+    transcripts = []
+
+    # Decide on the transcription type
+    if '-a' in opts:
+        dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
+
+        for dictionary in dictionaries:
+            single_transcript = []
+            for key, value in dictionary.items():
+                single_transcript = [*single_transcript, *value]
+            transcripts.append(single_transcript) 
+            
+    elif '-o' in opts:
+        #TODO
+        print('WIP')
+    else:
+        directory = "../transcripts/ingested"
+        transcripts = get_transcripts(TranscriptType.TEST, directory)
+
+    flair_entities = flair_recogniser.get_entities(transcripts)
 
     # Write the result to the output file
     write_to_file("./outputs/flair_results.txt", flair_entities)
+
+    # Use entities to write tagged transcript
+    tagged_transcripts = tag_transcripts(flair_entities, transcripts)
+    write_to_file("./outputs/flair_tagged_transcript.txt", tagged_transcripts)

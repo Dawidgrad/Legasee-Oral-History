@@ -19,7 +19,7 @@ import json
 import getopt
 import requests
 from ratelimit import limits, sleep_and_retry
-from utilities import get_transcripts, write_to_file, TranscriptType
+from utilities import get_transcripts, write_to_file, TranscriptType, tag_transcripts
 
 ################################################################
 # Command line options handling, and help
@@ -87,26 +87,8 @@ class Gate_Entities:
 
         return results
 
-    def get_entities(self):
-        transcripts = []
+    def get_entities(self, transcripts):
         entities = list()
-
-        # Decide on the transcription type
-        if '-a' in opts:
-            dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
-
-            for dictionary in dictionaries:
-                single_transcript = []
-                for key, value in dictionary.items():
-                    single_transcript = [*single_transcript, *value]
-                transcripts.append(single_transcript) 
-                
-        elif '-o' in opts:
-            #TODO
-            print('WIP')
-        else:
-            directory = "../transcripts/ingested"
-            transcripts = get_transcripts(TranscriptType.TEST, directory)
        
         # Get the NER tags
         for single_transcript in transcripts:
@@ -149,7 +131,30 @@ class Gate_Entities:
 if __name__ == '__main__':
     # Get the Named Entities from GATE API
     gate_recogniser = Gate_Entities(KEY_ID, PASSWORD)
-    gate_entities = gate_recogniser.get_entities()
+    transcripts = []
+
+    # Decide on the transcription type
+    if '-a' in opts:
+        dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
+
+        for dictionary in dictionaries:
+            single_transcript = []
+            for key, value in dictionary.items():
+                single_transcript = [*single_transcript, *value]
+            transcripts.append(single_transcript) 
+            
+    elif '-o' in opts:
+        #TODO
+        print('WIP')
+    else:
+        directory = "../transcripts/ingested"
+        transcripts = get_transcripts(TranscriptType.TEST, directory)
+
+    gate_entities = gate_recogniser.get_entities(transcripts)
 
     # Write the result to the output file
     write_to_file("./outputs/gate_results.txt", gate_entities)
+
+    # Use entities to write tagged transcript
+    tagged_transcripts = tag_transcripts(gate_entities, transcripts)
+    write_to_file("./outputs/gate_tagged_transcript.txt", tagged_transcripts)

@@ -79,8 +79,6 @@ class DeepPavlov_Entities:
             directory = "../transcripts/ingested"
             transcripts = get_transcripts(TranscriptType.TEST, directory)
 
-        print('Just before retrieving NER')
-
         entities = list()
         # Get the NER tags
         for single_transcript in transcripts:
@@ -89,20 +87,7 @@ class DeepPavlov_Entities:
                 entities.append('segment_end')
             entities.append('transcript_end')
 
-        print('Just before formatting NER')
-        print(entities)
-        
-        # Convert format of the DeepPavlov entities to universal one
-        formatted_entities = self.convert_format(entities)
-
-        return formatted_entities
-
-    def convert_format(self, entities):
-        formatted_entities = list()
-
-        # for entity_list in entities:
-
-        
+        return entities        
 
 ################################################################
 # Main Function
@@ -114,3 +99,35 @@ if __name__ == '__main__':
 
     # Write the result to the output file
     write_to_file("./outputs/deeppavlov_results.txt", pavlov_entities)
+
+    tagged_transcripts = list()
+
+    is_entity = False
+    for entity in pavlov_entities:
+        if entity == 'segment_end' or entity == 'transcript_end':
+            continue
+
+        segment_text = ''
+        for token, tag in zip(entity[0][0], entity[1][0]):
+            if tag[0] == 'B':
+                label = tag[2:]
+                segment_text = segment_text + f' <{label}>' + token
+                is_entity = True
+            elif tag[0] == 'I':
+                segment_text = segment_text + ' ' + token
+            elif tag[0] == 'O':
+                if is_entity:
+                    segment_text = segment_text + f'</{label}> ' + token
+                    is_entity = False
+                else:
+                    if segment_text == '':
+                        segment_text = token
+                    else:
+                        segment_text = segment_text + ' ' + token
+
+        tagged_transcripts.append(segment_text)
+        
+
+    write_to_file("./outputs/deeppavlov_tagged_transcript.txt", tagged_transcripts)
+              
+          

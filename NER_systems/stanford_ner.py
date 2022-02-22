@@ -12,7 +12,7 @@ OPTIONS:
 ################################################################
 # Importing libraries
 
-from utilities import get_transcripts, write_to_file, TranscriptType
+from utilities import get_transcripts, write_to_file, TranscriptType, tag_transcripts
 import nltk
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
@@ -59,30 +59,12 @@ class Stanford_Entities:
     def __init__(self):
         nltk.download('punkt')
 
-    def get_entities(self):
+    def get_entities(self, transcripts):
         # Load the model
         st = StanfordNERTagger('stanford_models/english.all.3class.distsim.crf.ser.gz',
                             'stanford_models/stanford-ner.jar',
                             encoding='utf-8')
         entities = list()
-        transcripts = []
-
-        if '-a' in opts:
-            dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
-            transcripts = []
-
-            for dictionary in dictionaries:
-                single_transcript = []
-                for key, value in dictionary.items():
-                    single_transcript = [*single_transcript, *value]
-                transcripts.append(single_transcript) 
-                
-        elif '-o' in opts:
-            #TODO
-            print('WIP')
-        else:
-            directory = "../transcripts/ingested"
-            transcripts = get_transcripts(TranscriptType.TEST, directory)
 
         # Get the NER tags
         for single_transcript in transcripts:
@@ -116,9 +98,32 @@ class Stanford_Entities:
 # Main Function
 
 if __name__ == '__main__':
-    # Get the Named Entities from GATE API
     stanford_recogniser = Stanford_Entities()
-    stanford_entities = stanford_recogniser.get_entities()
+    transcripts = []
+
+    if '-a' in opts:
+        dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
+        transcripts = []
+
+        for dictionary in dictionaries:
+            single_transcript = []
+            for key, value in dictionary.items():
+                single_transcript = [*single_transcript, *value]
+            transcripts.append(single_transcript) 
+            
+    elif '-o' in opts:
+        #TODO
+        print('WIP')
+    else:
+        directory = "../transcripts/ingested"
+        transcripts = get_transcripts(TranscriptType.TEST, directory)
+
+    # Perform NER
+    stanford_entities = stanford_recogniser.get_entities(transcripts)
 
     # Write the result to the output file
     write_to_file("./outputs/stanford_results.txt", stanford_entities)
+
+    # Use entities to write tagged transcript
+    tagged_transcripts = tag_transcripts(stanford_entities, transcripts)
+    write_to_file("./outputs/stanford_tagged_transcript.txt", tagged_transcripts)

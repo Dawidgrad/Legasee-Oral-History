@@ -14,7 +14,9 @@ export CXX=g++
 
 mkdir $TMPDIR/data
 
-cp -R /fastdata/acp21rjf/* $TMPDIR/data
+cp -R /fastdata/acp21rjf/TEDLIUM1 $TMPDIR/data/
+cp -R /fastdata/acp21rjf/sbnc $TMPDIR/data/
+
 cp -R /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/data/FRED-S $TMPDIR/data/
 cp -R /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/data/openslr $TMPDIR/data/
 cp -R /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/data/openslr_bnc_tedium_freds.csv $TMPDIR/data/

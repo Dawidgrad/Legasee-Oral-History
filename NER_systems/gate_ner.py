@@ -74,15 +74,18 @@ class Gate_Entities:
         
     # Rate limit API calls to GATE
     @sleep_and_retry
-    @limits(calls=1, period=5)
+    @limits(calls=1, period=1)
     def call_gate_api(self, transcript):
         results = []
-        endpoint_url = "https://cloud-api.gate.ac.uk/process/annie-named-entity-recognizer?{}={}".format(self.key_id, self.password)
+        endpoint_url = 'https://cloud-api.gate.ac.uk/process/annie-named-entity-recognizer'
         headers = {
             "Content-Type": "text/plain"
         }
 
-        response = requests.request("POST", endpoint_url, headers = headers, data = transcript.encode('utf-8'))
+        response = requests.post(endpoint_url,
+                                auth=(self.key_id, self.password),
+                                data = transcript.encode('utf-8'),
+                                headers = headers)
         results.append(response.text)
 
         return results

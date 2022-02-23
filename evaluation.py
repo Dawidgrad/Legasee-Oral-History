@@ -214,12 +214,12 @@ def score_name(name,
         return None
 
     # Get gold transcript
-    _gfolder = os.path.expanduser("~")+syspath+'/data/legasee/'+test_train+'/transcripts'
+    _gfolder = syspath+'/data/legasee/'+test_train+'/transcripts'
     gold_ts = _read_gold_transcript(_gfolder,name)
 
     
     # Get system transcripts (potentially from multiple files)
-    _mfolder = os.path.expanduser("~")+syspath+'/system_outputs/'+model_folder
+    _mfolder = syspath+'/system_outputs/'+model_folder
     
     if in_folders:
         sys_ts = _read_sys_transcripts(_mfolder+'/'+name)
@@ -389,3 +389,109 @@ def _make_measure_frame(measures,name,i_label):
     m_df.columns = pd.MultiIndex.from_product([[i_label], m_df.columns])
     
     return m_df
+
+
+
+#########################################################
+
+# Weighted evaluation function - perform assessment of system outputs against test set gold standards
+
+def weighted_eval(
+    # Name of model folder containing system outputs. Also target location (and naming convention) for output .tsv. E.g. 'final_output_001'
+    M_FOLDER,
+    # Path to system folder. Should contain '/system_outputs' subfolder and subpath to metadata file
+    SYSPATH = os.path.expanduser("~")+'/H_Drive/srv/studat/cdt/team2',
+    # If True, look for individual subfolders named for each interviewee. If False (default), expect each interviewee to have a .txt within the model fodler.
+    SUB_FOLDERS = False,
+    # Path to folder containing master_metadata.csv
+    META_PATH = SYSPATH+'/data/legasee/metadata',
+    # Set to "train" if gold transcript data stored in train folder.
+    TEST_TRAIN = 'test',
+    
+    # Evaluatuion parameters
+    SHARED_WORD_WEIGHT = 3,         ## Weight applied to keywords derived from all Legasee metadata tags
+    KEY_WEIGHT = 7,                 ## Weight applied to keywords derived from Legasee metadata for the specific transcript being evaluated
+    TRANSFORM = transform_baseline  ## Jiwer transformation applied to both gold and system transcripts prior to comparison
+    ):
+    
+    
+
+    # Read metadata from CSV
+    meta_df = pd.read_csv(META_PATH+'/master_metadata.csv', converters={'Priority Words': eval, 'Name Words' : eval})
+
+    # Remove Test items
+    train_meta = meta_df[~pd.Series(meta_df.Allocation == "Test")]
+    
+    # Shared keywords (from training data)
+    all_words = [x for subl in train_meta['Priority Words'] for w in subl for x in re.split('[\s/]',w)]
+    all_words_clean = kword_prep(all_words,transform_baseline)
+
+    wdict = {w : SHARED_WORD_WEIGHT for w in all_words_clean}
+    
+    
+    # Process system outputs
+    _started = 0
+
+    if SUB_FOLDERS:
+        for _fn in os.scandir(SYSPATH+'/system_outputs/'+M_FOLDER):
+            # Only want to process folders. Ignore any starting with .
+            if _fn.is_dir() and not _fn.name.startswith('.'):
+                name_df, _, _ = score_name(_fn.name,
+                       meta_df,
+                       SYSPATH,
+                       M_FOLDER,
+                       TEST_TRAIN,
+                       KEY_WEIGHT,
+                       wdict,
+                       TRANSFORM,
+                       in_folders = SUB_FOLDERS,
+                      )
+
+                if type(name_df) != type(None):
+                    if _started:
+                        scores_df = scores_df.append(name_df)
+
+                    else:
+                        _started = 1
+                        scores_df = name_df.copy()
+                    
+    else:
+        for _fn in os.scandir(SYSPATH+'/system_outputs/'+M_FOLDER):
+            # Get names from files
+            if _fn.is_file() and not _fn.name.startswith('.') and _fn.name[-4:] == '.txt':
+                _name = _fn.name[:-4]
+                name_df, _, _ = score_name(_name,
+                       meta_df,
+                       SYSPATH,
+                       M_FOLDER,
+                       TEST_TRAIN,
+                       KEY_WEIGHT,
+                       wdict,
+                       TRANSFORM,
+                       in_folders = SUB_FOLDERS,
+                      )
+
+                if type(name_df) != type(None):
+                    if _started:
+                        scores_df = scores_df.append(name_df)
+
+                    else:
+                        _started = 1
+                        scores_df = name_df.copy()
+
+
+    # Output results
+    scores_df.to_csv(SYSPATH+'/system_outputs/'+M_FOLDER+'_'+'evaluation_scores.tsv',sep='\t')
+    
+    # Print summary
+    wer = scores_df['Unweighted','wer'].mean()
+    wwer = scores_df['Weighted (own + shared keywords)','wer'].mean()
+    kwer = scores_df['Keywords (own) only','wer'].mean()
+    
+    print( "Evaluation results for model {}:".format(M_FOLDER), '\n',
+        'WER: ', "{:.2%}".format(wer) , '\n', 
+        'WWER: ', "{:.2%}".format(wwer), '\n', 
+        'KWER: ',"{:.2%}".format(kwer)
+    )
+    
+

@@ -85,9 +85,9 @@ etcdict = {'etcetera' : 'et cetera',
           }
 
 # Hesitations - removed
-hesdict = {r'\bum+\b' : '',
-           r'\ber+(m+?)\b' : '',
-           r'\buh+\b' : '',
+hesdict = {r'\b[Uu]m+\b' : '',
+           r'\b[Ee]r+(m+?)\b' : '',
+           r'\b[Uu]h+\b' : '',
             }
 
 transform_baseline = jiwer.Compose([
@@ -109,11 +109,15 @@ transform_baseline = jiwer.Compose([
     # Other numbers (as standalone words)
     # NB: things like "£1000" unchanged - might want to revisit
     DigitsToWords(),
+    
+    jiwer.ToLowerCase(),
 
     # Extra fix for common typo
     jiwer.SubstituteWords({'im' : "i'm", "Im" : "I'm"}),
+    
     # E.g. "I've" -> "I have"
-    jiwer.ExpandCommonEnglishContractions(),
+    # "I'd" -> "I would" (& similar) causes errors when it should be "I had"
+    #jiwer.ExpandCommonEnglishContractions(),
 
     # etcetera, etc. -> et cetera
     jiwer.SubstituteWords(etcdict),
@@ -131,7 +135,6 @@ transform_baseline = jiwer.Compose([
     jiwer.RemoveWhiteSpace(replace_by_space=True),
     jiwer.RemoveMultipleSpaces(),
     jiwer.RemoveEmptyStrings(),
-    jiwer.ToLowerCase(),
     jiwer.Strip(),
     jiwer.SentencesToListOfWords(word_delimiter=" "),
 ]) 
@@ -192,6 +195,8 @@ def score_name(name,
                key_weight,
                shared_dict,
                transform,
+               in_folders = False, # If true, attempt to read system outputs from multiple files within a subfolder of model folder. 
+                                   # Otherwise, grab a single file from within model folder.
               ):
     
     # Do lookup in meta_df, confirm get 1 match
@@ -209,13 +214,20 @@ def score_name(name,
         return None
 
     # Get gold transcript
-    _gfolder = os.path.expanduser("~")+syspath+'/data/legasee/'+test_train+'/transcripts'
+    _gfolder = syspath+'/data/legasee/'+test_train+'/transcripts'
     gold_ts = _read_gold_transcript(_gfolder,name)
 
+    
     # Get system transcripts (potentially from multiple files)
-    _sfolder = os.path.expanduser("~")+syspath+'/system_outputs/'+model_folder+'/'+name
-    sys_ts = _read_sys_transcripts(_sfolder)
+    _mfolder = syspath+'/system_outputs/'+model_folder
+    
+    if in_folders:
+        sys_ts = _read_sys_transcripts(_mfolder+'/'+name)
 
+    else:
+        sys_ts = _read_sys_file(_mfolder+'/'+name+'.txt')
+    
+    
     # Get individual keywords
     key_words = name_meta['Priority Words'][0].copy()
     key_words.extend(name_meta['Name Words'][0])
@@ -281,12 +293,12 @@ def score_name(name,
     
     scores_df = m_df.join(ww_s_df).join(ww_a_df).join(kw_df)
 
-    # Output score frame
-    return scores_df
+    # Output score frame, text
+    return scores_df, sys_text, gold_text
 
 
 ### Transcript readers
-def _read_sys_transcripts(sys_folder):
+def _read_sys_folder(sys_folder):
 
     sys_ts = []
     
@@ -320,7 +332,31 @@ def _read_sys_transcripts(sys_folder):
     return sys_ts
 
 
+def _read_sys_file(sys_file):
+
+    sys_ts = []
+            
+    # Only interested in .txt files
+    if sys_file[-4:] == '.txt':
+
+        sys_text = ''
+        with open(sys_file,'r') as sysin:
+            for l in sysin.readlines():
+                
+                sys_text = " ".join([sys_text,l.strip()])
+
+                if len(sys_text.strip()):
+                    sys_ts.append(sys_text.strip())
+
+        return sys_ts
+    
+    else:
+        raise NameError('Input {} not valid - expected a .txt file'.format(sys_file))
+
+
 def _read_gold_transcript(gold_folder,name):
+    
+    patt_marker = re.compile(r"(\-+\s+NEW VIDEO\s+\-+)|(\s*New\s+Film\s*)|(\s*Start\s+of\s+Film(\s*\d+)?\s*)|(\s*End\s+of\s+Films?\s*)",re.I)
     
     gold_df = pd.read_csv(gold_folder+'/'+name+'.tsv', delimiter='\t', index_col=0)
 
@@ -329,7 +365,7 @@ def _read_gold_transcript(gold_folder,name):
     hum_text = ''
 
     for l in gold_df.Transcript:
-        if l.strip() == "New Film":
+        if re.fullmatch(patt_marker,l.strip()):
             if len(hum_text.strip()):
                 hum_ts.append(hum_text.strip())
             hum_text = ''
@@ -353,3 +389,109 @@ def _make_measure_frame(measures,name,i_label):
     m_df.columns = pd.MultiIndex.from_product([[i_label], m_df.columns])
     
     return m_df
+
+
+
+#########################################################
+
+# Weighted evaluation function - perform assessment of system outputs against test set gold standards
+
+def weighted_eval(
+    # Name of model folder containing system outputs. Also target location (and naming convention) for output .tsv. E.g. 'final_output_001'
+    M_FOLDER,
+    # Path to system folder. Should contain '/system_outputs' subfolder and subpath to metadata file
+    SYSPATH = os.path.expanduser("~")+'/H_Drive/srv/studat/cdt/team2',
+    # If True, look for individual subfolders named for each interviewee. If False (default), expect each interviewee to have a .txt within the model fodler.
+    SUB_FOLDERS = False,
+    # Path to folder containing master_metadata.csv
+    META_PATH = SYSPATH+'/data/legasee/metadata',
+    # Set to "train" if gold transcript data stored in train folder.
+    TEST_TRAIN = 'test',
+    
+    # Evaluatuion parameters
+    SHARED_WORD_WEIGHT = 3,         ## Weight applied to keywords derived from all Legasee metadata tags
+    KEY_WEIGHT = 7,                 ## Weight applied to keywords derived from Legasee metadata for the specific transcript being evaluated
+    TRANSFORM = transform_baseline  ## Jiwer transformation applied to both gold and system transcripts prior to comparison
+    ):
+    
+    
+
+    # Read metadata from CSV
+    meta_df = pd.read_csv(META_PATH+'/master_metadata.csv', converters={'Priority Words': eval, 'Name Words' : eval})
+
+    # Remove Test items
+    train_meta = meta_df[~pd.Series(meta_df.Allocation == "Test")]
+    
+    # Shared keywords (from training data)
+    all_words = [x for subl in train_meta['Priority Words'] for w in subl for x in re.split('[\s/]',w)]
+    all_words_clean = kword_prep(all_words,transform_baseline)
+
+    wdict = {w : SHARED_WORD_WEIGHT for w in all_words_clean}
+    
+    
+    # Process system outputs
+    _started = 0
+
+    if SUB_FOLDERS:
+        for _fn in os.scandir(SYSPATH+'/system_outputs/'+M_FOLDER):
+            # Only want to process folders. Ignore any starting with .
+            if _fn.is_dir() and not _fn.name.startswith('.'):
+                name_df, _, _ = score_name(_fn.name,
+                       meta_df,
+                       SYSPATH,
+                       M_FOLDER,
+                       TEST_TRAIN,
+                       KEY_WEIGHT,
+                       wdict,
+                       TRANSFORM,
+                       in_folders = SUB_FOLDERS,
+                      )
+
+                if type(name_df) != type(None):
+                    if _started:
+                        scores_df = scores_df.append(name_df)
+
+                    else:
+                        _started = 1
+                        scores_df = name_df.copy()
+                    
+    else:
+        for _fn in os.scandir(SYSPATH+'/system_outputs/'+M_FOLDER):
+            # Get names from files
+            if _fn.is_file() and not _fn.name.startswith('.') and _fn.name[-4:] == '.txt':
+                _name = _fn.name[:-4]
+                name_df, _, _ = score_name(_name,
+                       meta_df,
+                       SYSPATH,
+                       M_FOLDER,
+                       TEST_TRAIN,
+                       KEY_WEIGHT,
+                       wdict,
+                       TRANSFORM,
+                       in_folders = SUB_FOLDERS,
+                      )
+
+                if type(name_df) != type(None):
+                    if _started:
+                        scores_df = scores_df.append(name_df)
+
+                    else:
+                        _started = 1
+                        scores_df = name_df.copy()
+
+
+    # Output results
+    scores_df.to_csv(SYSPATH+'/system_outputs/'+M_FOLDER+'_'+'evaluation_scores.tsv',sep='\t')
+    
+    # Print summary
+    wer = scores_df['Unweighted','wer'].mean()
+    wwer = scores_df['Weighted (own + shared keywords)','wer'].mean()
+    kwer = scores_df['Keywords (own) only','wer'].mean()
+    
+    print( "Evaluation results for model {}:".format(M_FOLDER), '\n',
+        'WER: ', "{:.2%}".format(wer) , '\n', 
+        'WWER: ', "{:.2%}".format(wwer), '\n', 
+        'KWER: ',"{:.2%}".format(kwer)
+    )
+    
+

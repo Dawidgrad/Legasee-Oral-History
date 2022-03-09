@@ -1,5 +1,3 @@
-import os
-import pandas as pd
 import json
 import re
 from enum import Enum
@@ -7,15 +5,14 @@ from enum import Enum
 class TranscriptType(Enum):
     ANNOTATION = 1
     OUTPUT = 2
-    TEST = 3
 
 # Get the appropriate transcript based on the type of input we want to use
-def get_transcripts(type, directory = ''):
+def get_transcripts(type, path):
     result = []
     
     if type == TranscriptType.ANNOTATION:
         # Get the json file
-        with open('./ner_annotations.jsonl', 'r') as json_file:
+        with open(path, 'r') as json_file:
             json_list = list(json_file)
         
         raw_transcripts = []
@@ -25,29 +22,17 @@ def get_transcripts(type, directory = ''):
             raw_transcripts.append(document['data'])
         
         result = segment_trascripts(raw_transcripts)
-        
-        # with open('segmenting.txt', "w") as file:
-        #     for dictionary in result:
-        #         for key, value in dictionary.items():
-        #             file.write(str(key) + ': ' + str(value) + '\n')
     
     elif type == TranscriptType.OUTPUT:
-        # TODO
-        result = []
+        # Get all of the txt files from a folder named either asr_output or punctuation_output (they can handle it in cloud)
+        # Segment them as necessary (compare to the structure used in the ANNOTATION if statement)
+        # return segmented versions, scripts will handle the rest
+        
+        raw_transcripts = []
+        with open(path, "r") as file:
+            raw_transcripts.append(file.read())
 
-    elif type == TranscriptType.TEST:
-        for root, dirs, files in os.walk(directory):
-            for file in files:
-                if file == 'John Roche.tsv':
-                    df = pd.read_csv("{}/{}".format(directory, file), sep='\t')
-                    cond = (df['Speaker'] != 'New Film') & (df['Speaker'] != 'End of audio')
-                    section_list = list(df[cond]['Transcript'])
-
-                    consecutive_n = 5
-                    temp = '{} ' * consecutive_n
-                    result = [temp.format(*item) for item in zip(*[iter(section_list)] * consecutive_n)] 
-                    break
-        result = [result]
+        result = segment_trascripts(raw_transcripts)
 
     return result
 
@@ -157,9 +142,6 @@ def tag_segment(text, label):
         previous_idx = post
     transcript += text[previous_idx:]
 
-    # Lord Mayor of London
-    # <Title>Lord<\Title> <Rank>Mayor<\Rank> <Person> Lord Mayor of London <\Person>
-    # <Person> <Title>Lord<\Title> <Rank>Mayor<\Rank> of London <\Person>
     # Looks at embedded tags:<Title>Captain<\Title><Person>James<\Person> --> <Person><Title>Captain<\Title>James<\Person>
     pattern = r'<([\w ]+)>([\w ]+)<\\([\w ]+)><([\w ]+)>([\w ]+)<\\([\w ]+)>'
     for a in re.finditer(pattern, transcript):

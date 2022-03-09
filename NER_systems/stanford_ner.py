@@ -6,7 +6,6 @@ OPTIONS:
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
     -o ASR_OUTPUT : uses ASR system output (WIP)
-    -t TEST : uses a test file (John Roche from batch 0)
 """
 
 ################################################################
@@ -18,11 +17,12 @@ from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
 import getopt
 import sys
+import os
 
 ################################################################
 # Command line options handling, and help
 
-opts, args = getopt.getopt(sys.argv[1:], 'haot')
+opts, args = getopt.getopt(sys.argv[1:], 'hao')
 opts = dict(opts)
 
 def printHelp():
@@ -35,14 +35,13 @@ def printHelp():
 if '-h' in opts:
     printHelp()
 
-if ('-a' not in opts) and ('-o' not in opts) and ('-t' not in opts):
+if ('-a' not in opts) and ('-o' not in opts):
     print("\n** ERROR: must specify transcription handling method **", file=sys.stderr)
     printHelp()
 
 options_count = 0
 options_count += 1 if '-a' in opts else 0
 options_count += 1 if '-o' in opts else 0
-options_count += 1 if '-t' in opts else 0
 
 if options_count > 1:
     print("\n** ERROR: cannot use more than one transcription handling method **", file=sys.stderr)
@@ -102,7 +101,7 @@ if __name__ == '__main__':
     transcripts = []
 
     if '-a' in opts:
-        dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
+        dictionaries = get_transcripts(TranscriptType.ANNOTATION, './ner_annotations.jsonl')
         transcripts = []
 
         for dictionary in dictionaries:
@@ -112,18 +111,17 @@ if __name__ == '__main__':
             transcripts.append(single_transcript) 
             
     elif '-o' in opts:
-        #TODO
-        print('WIP')
-    else:
-        directory = "../transcripts/ingested"
-        transcripts = get_transcripts(TranscriptType.TEST, directory)
+        directory = './punctuation_output'
+        for root, dirs, files in os.walk(directory):
+            for filename in files:
+                dictionaries = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
 
     # Perform NER
     stanford_entities = stanford_recogniser.get_entities(transcripts)
 
     # Write the result to the output file
-    write_to_file("./outputs/stanford_results.txt", stanford_entities)
+    write_to_file("./ner_output/stanford_results.txt", stanford_entities)
 
     # Use entities to write tagged transcript
     tagged_transcripts = tag_transcripts(stanford_entities, transcripts)
-    write_to_file("./outputs/stanford_tagged_transcript.txt", tagged_transcripts)
+    write_to_file("./ner_output/stanford_tagged_transcript.txt", tagged_transcripts)

@@ -6,7 +6,6 @@ OPTIONS:
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
     -o ASR_OUTPUT : uses ASR system output (WIP)
-    -t TEST : uses a test file (John Roche from batch 0)
 """
 
 ################################################################
@@ -22,7 +21,7 @@ from tqdm import tqdm
 ################################################################
 # Command line options handling, and help
 
-opts, args = getopt.getopt(sys.argv[1:], 'haot')
+opts, args = getopt.getopt(sys.argv[1:], 'hao')
 opts = dict(opts)
 
 def printHelp():
@@ -35,14 +34,13 @@ def printHelp():
 if '-h' in opts:
     printHelp()
 
-if ('-a' not in opts) and ('-o' not in opts) and ('-t' not in opts):
+if ('-a' not in opts) and ('-o' not in opts):
     print("\n** ERROR: must specify transcription handling method **", file=sys.stderr)
     printHelp()
 
 options_count = 0
 options_count += 1 if '-a' in opts else 0
 options_count += 1 if '-o' in opts else 0
-options_count += 1 if '-t' in opts else 0
 
 if options_count > 1:
     print("\n** ERROR: cannot use more than one transcription handling method **", file=sys.stderr)
@@ -64,7 +62,7 @@ class DeepPavlov_Entities:
         
         # Decide on the transcription type
         if '-a' in opts:
-            dictionaries = get_transcripts(TranscriptType.ANNOTATION, '')
+            dictionaries = get_transcripts(TranscriptType.ANNOTATION, './ner_annotations.jsonl')
 
             for dictionary in dictionaries:
                 single_transcript = []
@@ -73,11 +71,7 @@ class DeepPavlov_Entities:
                 transcripts.append(single_transcript) 
                 
         elif '-o' in opts:
-            #TODO
-            print('WIP')
-        else:
-            directory = "../transcripts/ingested"
-            transcripts = get_transcripts(TranscriptType.TEST, directory)
+            dictionaries = get_transcripts(TranscriptType.OUTPUT, './punctuation_output')
 
         entities = list()
         # Get the NER tags
@@ -98,7 +92,7 @@ if __name__ == '__main__':
     pavlov_entities = pavlov_recogniser.get_entities()
 
     # Write the result to the output file
-    write_to_file("./outputs/deeppavlov_results.txt", pavlov_entities)
+    write_to_file("./ner_output/deeppavlov_results.txt", pavlov_entities)
 
     tagged_transcripts = list()
 
@@ -128,6 +122,6 @@ if __name__ == '__main__':
         tagged_transcripts.append(segment_text)
         
 
-    write_to_file("./outputs/deeppavlov_tagged_transcript.txt", tagged_transcripts)
+    write_to_file("./ner_output/deeppavlov_tagged_transcript.txt", tagged_transcripts)
               
           

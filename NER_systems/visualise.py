@@ -59,22 +59,22 @@ if __name__ == '__main__':
     para.add_run('OTHER\n').font.highlight_color = WD_COLOR_INDEX.YELLOW
 
     # Visualise GATE results
-    results = read_results('./outputs/gate_results.txt')
+    results = read_results('./ner_output/gate_results.txt')
     doc.add_heading('GATE', 0)
     write_to_doc(transcript, results)
     
     # Visualise Flair results
-    results = read_results('./outputs/flair_results.txt')
+    results = read_results('./ner_output/flair_results.txt')
     doc.add_heading('Flair', 0)
     write_to_doc(transcript, results)
 
     # Visualise spaCy results
-    results = read_results('./outputs/spacy_results.txt')
+    results = read_results('./ner_output/spacy_results.txt')
     doc.add_heading('spaCy', 0)
     write_to_doc(transcript, results)
 
     # Visualise Stanford results
-    results = read_results('./outputs/stanford_results.txt')
+    results = read_results('./ner_output/stanford_results.txt')
     doc.add_heading('Stanford', 0)
     write_to_doc(transcript, results)
 
@@ -82,4 +82,4 @@ if __name__ == '__main__':
     # TODO
 
     # Save the document
-    doc.save('./outputs/highlighted_entities.docx')
+    doc.save('./highlighted_entities.docx')

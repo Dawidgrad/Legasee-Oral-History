@@ -7,12 +7,13 @@ OPTIONS:
 
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
-    -o ASR_OUTPUT : uses ASR system output (WIP)
+    -o ASR_OUTPUT : uses ASR system output
 """
 
 ################################################################
 # Importing libraries
 
+import os
 import sys
 import json
 import getopt
@@ -145,7 +146,11 @@ if __name__ == '__main__':
             transcripts.append(single_transcript) 
             
     elif '-o' in opts:
-        dictionaries = get_transcripts(TranscriptType.OUTPUT, './punctuation_output')
+        directory = './input'
+        for root, dirs, files in os.walk(directory):
+            for filename in files:
+                transcript = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
+                transcripts.append(transcript)
 
     gate_entities = gate_recogniser.get_entities(transcripts)
 

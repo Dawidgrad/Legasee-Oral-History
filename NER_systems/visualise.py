@@ -78,8 +78,5 @@ if __name__ == '__main__':
     doc.add_heading('Stanford', 0)
     write_to_doc(transcript, results)
 
-    # Visualise DeepPavlov results
-    # TODO
-
     # Save the document
     doc.save('./highlighted_entities.docx')

@@ -5,7 +5,7 @@ OPTIONS:
 
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
-    -o ASR_OUTPUT : uses ASR system output (WIP)
+    -o ASR_OUTPUT : uses ASR system output
 """
 
 ################################################################
@@ -111,10 +111,11 @@ if __name__ == '__main__':
             transcripts.append(single_transcript) 
             
     elif '-o' in opts:
-        directory = './punctuation_output'
+        directory = './input'
         for root, dirs, files in os.walk(directory):
             for filename in files:
-                dictionaries = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
+                transcript = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
+                transcripts.append(transcript)
 
     # Perform NER
     stanford_entities = stanford_recogniser.get_entities(transcripts)

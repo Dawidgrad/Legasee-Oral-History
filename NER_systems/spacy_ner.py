@@ -5,7 +5,7 @@ OPTIONS:
 
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
-    -o ASR_OUTPUT : uses ASR system output (WIP)
+    -o ASR_OUTPUT : uses ASR system output
 """
 
 ################################################################
@@ -16,6 +16,7 @@ import subprocess
 import sys
 import spacy
 import getopt
+import os
 
 ################################################################
 # Command line options handling, and help
@@ -94,7 +95,11 @@ if __name__ == '__main__':
             transcripts.append(single_transcript) 
             
     elif '-o' in opts:
-        dictionaries = get_transcripts(TranscriptType.OUTPUT, './punctuation_output')
+        directory = './input'
+        for root, dirs, files in os.walk(directory):
+            for filename in files:
+                transcript = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
+                transcripts.append(transcript)
 
     spacy_entities = spacy_recogniser.get_entities(transcripts)
 

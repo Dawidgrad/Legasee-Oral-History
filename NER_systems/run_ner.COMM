@@ -1,9 +1,10 @@
-python gate_ner.py -k gcnwoybltkvp -p 490s4q8rbm2sfcygp421
-python flair_ner.py
-python spacy_ner.py
-python stanford_ner.py
+python -m venv ner_env
+source ./ner_env/bin/activate
 
-python -m venv deeppavlov_env
-source ./deeppavlov_env/bin/activate
-python deeppavlov_ner.py
+python gate_ner.py -o -k gcnwoybltkvp -p 490s4q8rbm2sfcygp421
+python flair_ner.py -o
+python spacy_ner.py -o
+python stanford_ner.py -o
+python deeppavlov_ner.py -o
+
 deactivate

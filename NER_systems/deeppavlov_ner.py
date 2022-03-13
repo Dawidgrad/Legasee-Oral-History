@@ -5,15 +5,15 @@ OPTIONS:
 
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
-    -o ASR_OUTPUT : uses ASR system output (WIP)
+    -o ASR_OUTPUT : uses ASR system output
 """
 
 ################################################################
 # Importing libraries
 
+import os
 from utilities import get_transcripts, write_to_file, TranscriptType
 from deeppavlov import configs, build_model
-import json
 import getopt
 import sys
 from tqdm import tqdm
@@ -71,7 +71,11 @@ class DeepPavlov_Entities:
                 transcripts.append(single_transcript) 
                 
         elif '-o' in opts:
-            dictionaries = get_transcripts(TranscriptType.OUTPUT, './punctuation_output')
+            directory = './input'
+            for root, dirs, files in os.walk(directory):
+                for filename in files:
+                    transcript = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
+                    transcripts.append(transcript)
 
         entities = list()
         # Get the NER tags
@@ -111,7 +115,7 @@ if __name__ == '__main__':
                 segment_text = segment_text + ' ' + token
             elif tag[0] == 'O':
                 if is_entity:
-                    segment_text = segment_text + f'</{label}> ' + token
+                    segment_text = segment_text + f'<\{label}> ' + token
                     is_entity = False
                 else:
                     if segment_text == '':

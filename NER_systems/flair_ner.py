@@ -5,12 +5,13 @@ OPTIONS:
 
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
-    -o ASR_OUTPUT : uses ASR system output (WIP)
+    -o ASR_OUTPUT : uses ASR system output
 """
 
 ################################################################
 # Importing libraries
 
+import os
 from flair.data import Sentence
 from flair.models import SequenceTagger
 from utilities import get_transcripts, write_to_file, TranscriptType, tag_transcripts
@@ -105,7 +106,11 @@ if __name__ == '__main__':
             transcripts.append(single_transcript) 
             
     elif '-o' in opts:
-        dictionaries = get_transcripts(TranscriptType.OUTPUT, './punctuation_output')
+        directory = './input'
+        for root, dirs, files in os.walk(directory):
+            for filename in files:
+                transcript = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
+                transcripts.append(transcript)
 
     flair_entities = flair_recogniser.get_entities(transcripts)
 

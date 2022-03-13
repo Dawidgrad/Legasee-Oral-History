@@ -7,12 +7,12 @@ class TranscriptType(Enum):
     OUTPUT = 2
 
 # Get the appropriate transcript based on the type of input we want to use
-def get_transcripts(type, path):
+def get_transcripts(type, input_path):
     result = []
     
     if type == TranscriptType.ANNOTATION:
         # Get the json file
-        with open(path, 'r') as json_file:
+        with open(input_path, 'r') as json_file:
             json_list = list(json_file)
         
         raw_transcripts = []
@@ -24,15 +24,13 @@ def get_transcripts(type, path):
         result = segment_trascripts(raw_transcripts)
     
     elif type == TranscriptType.OUTPUT:
-        # Get all of the txt files from a folder named either asr_output or punctuation_output (they can handle it in cloud)
-        # Segment them as necessary (compare to the structure used in the ANNOTATION if statement)
-        # return segmented versions, scripts will handle the rest
-        
-        raw_transcripts = []
-        with open(path, "r") as file:
-            raw_transcripts.append(file.read())
+        # Get the output file from previous step of the pipeline
+        with open(input_path, "r") as file:
+            file_content = file.read()
 
-        result = segment_trascripts(raw_transcripts)
+        # Ensure the string is not too large
+        segment_size = 500
+        result = segment_string(segment_size, file_content)
 
     return result
 
@@ -55,41 +53,47 @@ def segment_trascripts(raw_transcripts):
         segment_size = 500
         segmented_dict = dict()
         for key, value in transcript_dict.items():
-            segmented_dict[key] = []
-            idx = 0
-            while True:
-                # Find how far is the closest full stop (relative to segment size)
-                idx_limit = idx + segment_size if (idx + segment_size) < len(value) else (len(value) - 1)
-                full_stop_idx = value[:idx_limit].rfind('.') # not guaranteed that it's not out of index + start from idx possibly
-                triple_dot_idx = value[:idx_limit].rfind('…')
-
-                end_idx = full_stop_idx if full_stop_idx > triple_dot_idx else triple_dot_idx
-
-                # What to do if no full_stop can be found
-                if end_idx <= idx:
-                    end_idx = value[:idx + int(segment_size / 2)].rfind(' ')
-
-                # Get the segment from current index to closest full stop
-                segment = value[idx:end_idx + 1]
-
-                # Preprocess the segment and add it to the output dictionary
-                segment = preprocess_segment(segment)
-
-                if (len(segment) > 5):
-                    segmented_dict[key].append(segment)
-                idx = end_idx + 1
-                
-                # Check if the last segment has been encountered already
-                if (idx > (len(value) - segment_size)):
-                    last_segment = value[end_idx:]
-                    last_segment = preprocess_segment(last_segment)
-                    if (len(last_segment) > 5):
-                        segmented_dict[key].append(last_segment)
-                    break
-
+            segment_list = segment_string(segment_size, value)
+            segmented_dict[key] = segment_list
+            
         result.append(segmented_dict)
 
     return result
+
+def segment_string(segment_size, text):
+    segmented = []
+    idx = 0
+    while True:
+        # Find how far is the closest full stop (relative to segment size)
+        idx_limit = idx + segment_size if (idx + segment_size) < len(text) else (len(text) - 1)
+        full_stop_idx = text[:idx_limit].rfind('.')
+        triple_dot_idx = text[:idx_limit].rfind('…')
+
+        end_idx = full_stop_idx if full_stop_idx > triple_dot_idx else triple_dot_idx
+
+        # What to do if no full_stop can be found
+        if end_idx <= idx:
+            end_idx = text[:idx + int(segment_size / 2)].rfind(' ')
+
+        # Get the segment from current index to closest full stop
+        segment = text[idx:end_idx + 1]
+
+        # Preprocess the segment and add it to the output dictionary
+        segment = preprocess_segment(segment)
+
+        if (len(segment) > 5):
+            segmented.append(segment)
+        idx = end_idx + 1
+        
+        # Check if the last segment has been encountered already
+        if (idx > (len(text) - segment_size)):
+            last_segment = text[end_idx:]
+            last_segment = preprocess_segment(last_segment)
+            if (len(last_segment) > 5):
+                segmented.append(last_segment)
+            break
+        
+    return segmented
 
 def preprocess_segment(segment):
     # Remove newlines
@@ -126,6 +130,8 @@ def tag_transcripts(entities, transcripts):
             segment_idx = 0
             tagged_output.append('')
 
+    print(tagged_output)
+
     return tagged_output
 
 def tag_segment(text, label):
@@ -161,6 +167,3 @@ def write_to_file(directory, data):
     with open(directory, "w") as file:
         for item in data:
             file.write(str(item) + '\n')
-
-
-get_transcripts(TranscriptType.TEST, "../transcripts/ingested")

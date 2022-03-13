@@ -11,7 +11,7 @@ OPTIONS:
 import sys
 import getopt
 
-from utilities import get_transcript
+from utilities import get_transcripts
 # from flair_ner import Flair_Entities
 # from deeppavlov_ner import DeepPavlov_Entities
 # from spacy_ner import Spacy_Entities

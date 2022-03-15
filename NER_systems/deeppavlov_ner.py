@@ -2,6 +2,7 @@
 USE: python <PROGNAME> (options) 
 OPTIONS:
     -h : print this help message and exit
+    -d : directory of the NER package
 
     Specify ONE method of transcript type handling:
     -a ANNOTATION : uses annotation transcripts (dictionary format)
@@ -23,6 +24,7 @@ from tqdm import tqdm
 
 opts, args = getopt.getopt(sys.argv[1:], 'hao')
 opts = dict(opts)
+BASE_DIR = opts['-d']
 
 def printHelp():
     progname = sys.argv[0]
@@ -36,6 +38,10 @@ if '-h' in opts:
 
 if ('-a' not in opts) and ('-o' not in opts):
     print("\n** ERROR: must specify transcription handling method **", file=sys.stderr)
+    printHelp()
+
+if '-d' not in opts:
+    print("\n** ERROR: must specify directory of the NER package **", file=sys.stderr)
     printHelp()
 
 options_count = 0
@@ -62,7 +68,7 @@ class DeepPavlov_Entities:
         
         # Decide on the transcription type
         if '-a' in opts:
-            dictionaries = get_transcripts(TranscriptType.ANNOTATION, './ner_annotations.jsonl')
+            dictionaries = get_transcripts(TranscriptType.ANNOTATION, f'{BASE_DIR}/ner_annotations.jsonl')
 
             for dictionary in dictionaries:
                 single_transcript = []
@@ -71,10 +77,10 @@ class DeepPavlov_Entities:
                 transcripts.append(single_transcript) 
                 
         elif '-o' in opts:
-            directory = './input'
+            directory = f'{BASE_DIR}/input'
             for root, dirs, files in os.walk(directory):
                 for filename in files:
-                    transcript = get_transcripts(TranscriptType.OUTPUT, directory + '/' + filename)
+                    transcript = get_transcripts(TranscriptType.OUTPUT, f'{directory}/{filename}')
                     transcripts.append(transcript)
 
         entities = list()
@@ -96,7 +102,7 @@ if __name__ == '__main__':
     pavlov_entities = pavlov_recogniser.get_entities()
 
     # Write the result to the output file
-    write_to_file("./ner_output/deeppavlov_results.txt", pavlov_entities)
+    write_to_file(f'{BASE_DIR}/ner_output/deeppavlov_results.txt', pavlov_entities)
 
     tagged_transcripts = list()
 
@@ -126,6 +132,6 @@ if __name__ == '__main__':
         tagged_transcripts.append(segment_text)
         
 
-    write_to_file("./ner_output/deeppavlov_tagged_transcript.txt", tagged_transcripts)
+    write_to_file(f'{BASE_DIR}/ner_output/deeppavlov_tagged_transcript.txt', tagged_transcripts)
               
           

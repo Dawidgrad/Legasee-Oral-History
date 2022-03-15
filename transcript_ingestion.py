@@ -33,7 +33,7 @@ patt_eoa  = re.compile(r"\[(?P<stamp>\d{1,2}:\d{2}:\d{2})\]\s*\[END OF AUDIO\]",
 
 ## Text file
 patt_ts  = re.compile(r"\d{1,2}:\d{2}:\d{2}")
-patt_sof = re.compile(r"[*]+ start of film \d+",re.I)
+patt_txt_sof = re.compile(r"[*]+ start of film \d+",re.I)
 
 ######
 
@@ -274,7 +274,7 @@ def text_to_ts(filename):
             line = line.strip(' \t\n')
             
             # Start of film X
-            if patt_sof.fullmatch(line):
+            if patt_txt_sof.fullmatch(line):
                 _started = 1
                 
                 new_block(None,speaker='New Film')

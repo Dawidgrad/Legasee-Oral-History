@@ -1,0 +1,40 @@
+([110, 116], 'LOC')
+([306, 312], 'LOC')
+segment_end
+([129, 133], 'PER')
+([145, 151], 'LOC')
+segment_end
+segment_end
+([261, 267], 'LOC')
+([373, 382], 'MISC')
+segment_end
+segment_end
+segment_end
+([437, 446], 'MISC')
+segment_end
+transcript_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+([6, 13], 'MISC')
+segment_end
+segment_end
+segment_end
+segment_end
+transcript_end
+([7, 18], 'PER')
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+segment_end
+transcript_end

@@ -3,6 +3,9 @@ from torch.utils.data import Dataset, DataLoader
 from os import listdir as ls
 import numpy as np
 import re
+from os.path import isdir, join
+from os import walk
+import pandas as pd
 
 vocab = {
     "'": 24,
@@ -35,7 +38,7 @@ vocab = {
     'Y': 19,
     'Z': 28,
     ' ': 29
-}
+} # need to add <s> and </s> tokens to the beginning and end of each sequence
 
 reverse_vocab = {q:k for k,q in vocab.items()}
 
@@ -43,6 +46,7 @@ def decode(sequence):
   seq = sequence.squeeze()
   out = [reverse_vocab[int(el)] for el in seq]
   return "".join(out)
+
 
 
 def tokenize(string:str) -> np.array:
@@ -53,14 +57,31 @@ def tokenize(string:str) -> np.array:
     proc = " ".join([el for el in proc.split(' ') if el != '']) #remove double spaces
     return np.array([vocab[char.upper()] for char in string if char.upper() in vocab]) #convert to integers
 
+def create_train_test_split(start_folder:str, save_name:str="train_test_val.csv"):
+    '''
+    Creates a dataframe for train/test/val splits by walking through the directory tree, shuffling the data, and splitting 80/10/10
+    '''
+    files = []
+    for (dirpath, dirnames, filenames) in walk(start_folder):
+        files.extend([join(dirpath, f) for f in filenames if f.endswith('.txt')])
+    np.random.shuffle(files)
+    train_files = files[:int(0.8*len(files))]
+    test_files = files[int(0.8*len(files)):]
+    val_files = test_files[:int(0.5*len(test_files))]
+
+   
+    data_files = pd.DataFrame({'files':train_files, 'split':['train']*len(train_files)})
+    data_files = data_files.append(pd.DataFrame({'files':test_files, 'split':['test']*len(test_files)}))
+    data_files = data_files.append(pd.DataFrame({'files':val_files, 'split':['val']*len(val_files)}))
+    data_files.to_csv(save_name, index=False)
+    
+
 class DatasetXL(Dataset):
-    '''
-    Dataset for language modeling with TransformerXL - each batch should contain one entire continous sequence 
-    '''
-    def __init__(self, folders:list, tokenizer, train_dir:str):
-        self.folders = folders
+    def __init__(self, csv:pd.DataFrame, tokenizer, split:str="train"):
+        self.csv = csv
         self.tokenizer = tokenizer
-        self.train_dir = train_dir
+        self.split = split
+        
         self.data = self.load()
         print(f'Number of Training Documents: {len(self)}')
 
@@ -68,26 +89,27 @@ class DatasetXL(Dataset):
         '''
         Collate function for the dataloader
         '''
-        maxl = max([len(el) for el in batch])
+        maxl = max([len(el) for el in batch]) 
+        # rather than pad we should start a new sequence
         padded = np.array([np.pad(el, (0, maxl - len(el)), 'constant', constant_values=0) for el in batch])
+        labels = np.array([np.pad(el, (0, maxl - len(el)), 'constant', constant_values=-100) for el in batch]) # -100for padding on labels to ignore loss
         
-        return torch.tensor(padded, dtype=torch.long)
+        return torch.tensor(padded, dtype=torch.long), torch.tensor(labels, dtype=torch.long)
 
     def load(self) -> list:
         '''
-        Load the data from the folders
+        Loads the data from the csv file
         '''
-        #print(self.folders[0])
         data = []
         ttl_len = 0
-        for folder in self.folders:
-            for file in ls(self.train_dir+folder): 
-                if(file[-3:] == 'txt'): #check if file is a text file
-                    with open(self.train_dir+folder + '/' + file, 'r') as f:
-                        dta = self.tokenizer(f.read())
-                        ttl_len += len(dta)
-                        data.append(dta)
-        print(f'Total Characters: {ttl_len}')
+        for idx, row in self.csv.iterrows():
+            if row['split'] == self.split:
+                with open(row['files'], 'r') as f:
+                    text = f.read()
+                    text = self.tokenizer(text)
+                    data.append(text)
+                    ttl_len += len(text)
+        print(f'Total Length of {self.split} data: {ttl_len}')
         return data
 
     def __len__(self):
@@ -97,9 +119,9 @@ class DatasetXL(Dataset):
         return self.data[idx]
 
 
-def get_dataloader(folders:list, tokenizer,  batch_size:int, train_dir:str, shuffle:bool, num_workers:int):
+def get_dataloader(csv:pd.DataFrame, tokenizer,  batch_size:int, split:str, shuffle:bool, num_workers:int):
     '''
     Get dataloader for the dataset
     '''
-    dataset = DatasetXL(folders, tokenizer, train_dir)
+    dataset = DatasetXL(csv, tokenizer=tokenizer, split=split)
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers, collate_fn=dataset.collate_fn)

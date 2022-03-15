@@ -65,14 +65,16 @@ def segment_string(segment_size, text):
     idx = 0
     while True:
         # Find how far is the closest full stop (relative to segment size)
-        idx_limit = idx + segment_size if (idx + segment_size) < len(text) else (len(text) - 1)
+        idx_limit = idx + segment_size if (idx + segment_size) < len(text) else (len(text))
         full_stop_idx = text[:idx_limit].rfind('.')
         triple_dot_idx = text[:idx_limit].rfind('…')
-
+        
         end_idx = full_stop_idx if full_stop_idx > triple_dot_idx else triple_dot_idx
 
         # What to do if no full_stop can be found
-        if end_idx <= idx:
+        if len(text) < segment_size and end_idx <= idx:
+            end_idx = len(text) - 1
+        elif end_idx <= idx:
             end_idx = text[:idx + int(segment_size / 2)].rfind(' ')
 
         # Get the segment from current index to closest full stop
@@ -129,8 +131,6 @@ def tag_transcripts(entities, transcripts):
             transcripts_idx += 1
             segment_idx = 0
             tagged_output.append('')
-
-    print(tagged_output)
 
     return tagged_output
 

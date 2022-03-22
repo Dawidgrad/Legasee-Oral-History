@@ -7,10 +7,10 @@ def get_named_entities(text, base_dir):
         file.write(str(text))
 
     # Run NER library/ies
-    os.system(f'python {base_dir}/spacy_ner.py -d {base_dir} -o')
+    os.system(f'python {base_dir}/flair_ner.py -d {base_dir} -o')
 
     # Read output file into tagged_text
-    with open(f'{base_dir}/ner_output/spacy_tagged_transcript.txt') as file:
+    with open(f'{base_dir}/ner_output/flair_tagged_transcript.txt') as file:
         tagged_text = file.read()
 
     return tagged_text

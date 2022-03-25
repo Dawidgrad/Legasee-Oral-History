@@ -22,7 +22,7 @@ from tqdm import tqdm
 ################################################################
 # Command line options handling, and help
 
-opts, args = getopt.getopt(sys.argv[1:], 'hao')
+opts, args = getopt.getopt(sys.argv[1:], 'hd:ao')
 opts = dict(opts)
 BASE_DIR = opts['-d']
 

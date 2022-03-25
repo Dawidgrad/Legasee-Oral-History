@@ -1,10 +1,10 @@
 python -m venv ner_env
 source ./ner_env/bin/activate
 
-python gate_ner.py -o -k gcnwoybltkvp -p 490s4q8rbm2sfcygp421
-python flair_ner.py -o
-python spacy_ner.py -o
-python stanford_ner.py -o
-python deeppavlov_ner.py -o
+python gate_ner.py -d "/home/davidgrad/Desktop/mini_project/Legasee-Oral-History/NER_systems" -o -k gcnwoybltkvp -p 490s4q8rbm2sfcygp421
+python flair_ner.py -d "/home/davidgrad/Desktop/mini_project/Legasee-Oral-History/NER_systems" -o
+python spacy_ner.py -d "/home/davidgrad/Desktop/mini_project/Legasee-Oral-History/NER_systems" -o
+python stanford_ner.py -d "/home/davidgrad/Desktop/mini_project/Legasee-Oral-History/NER_systems" -o
+python deeppavlov_ner.py -d "/home/davidgrad/Desktop/mini_project/Legasee-Oral-History/NER_systems" -o
 
 deactivate

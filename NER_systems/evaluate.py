@@ -12,118 +12,148 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--outputs", type=str, help="dir with ner_outputs", default=None)
-parser.add_argument("--gold", type=str, help="gold standard with ner annotation", default=None)
+parser.add_argument("--output_path", type=str, help="dir with NER system output in subfolders for each person", default=None)
+parser.add_argument("--gold_path", type=str, help="dir with gold annotated transcripts", default=None)
+parser.add_argument("--start", type=int, help="give range of threshold's start", default=None)
+parser.add_argument("--stop", type=int, help="give range of threshold's stop", default=None)
+parser.add_argument("--step", type=int, help="give range of threshold's step", default=None)
+
 args = vars(parser.parse_args())
 
 
 
 # Aggregating NE information into a dataframe
 def tabulating(text, col):
-        df = pd.DataFrame(columns=col)
-        for i in range(len(patterns)):
-                pattern = patterns[i]
-                for a in re.finditer(pattern, text):
-                        NE = a.group(i+2)
-                        if i==1:
-                                NE += a.group(5)
-                        Label = 'Count'
-                        col_len = len(col)
-                        if NE in df.index:
-                                df.loc[NE,Label] += 1
-                        else:
-                                idx = col.index(Label)
-                                Labels = [0]*col_len
-                                Labels[idx] = 1
-                                df.loc[NE] = Labels
-        return df
+  col = ['Count', 'Exact', 'prod']
+  pattern1 = r'\<([\w ]+)\>([\w ]+)\<\\([\w ]+)\>'
+  pattern2 = r'<([\w ]+)><([\w ]+)>([\w ]+)<\\([\w ]+)>([\w ]+)<\\([\w ]+)>' # embedded tags
+  patterns  = (pattern1, pattern2)
+  df = pd.DataFrame(columns=col)
+  for i in range(len(patterns)):
+    pattern = patterns[i]
+    for a in re.finditer(pattern, text):
+      NE = a.group(i+2)
+      if i==1:
+        NE += a.group(5)
+      Label = 'Count'
+      col_len = len(col)
+      if NE in df.index:
+        df.loc[NE,Label] += 1
+      else:
+        idx = col.index(Label)
+        Labels = [0]*col_len
+        Labels[idx] = 1
+        df.loc[NE] = Labels
+  return df
 
 
 # Generates a dataframe for the intersection of two df
-def intersection(df1, df2):
+def intersection(df1, df2, threshold):
+        col = ['Count', 'Exact', 'prod']
         df = pd.DataFrame(columns=col)
         for NE in df1.index:
                 pseudo_match = process.extractOne(NE, df2.index)
                 if pseudo_match != None:
-                    if pseudo_match[1] >= 90:
-                    #if NE in df2.index:
+                    if pseudo_match[1] >= threshold:
                             entry = NE if len(NE) < len(pseudo_match[0]) else pseudo_match[0]
-                            df.loc[entry] = [min(df1.loc[NE,Label], df2.loc[pseudo_match[0],Label]) for Label in col]
+                            df.loc[entry,'Count'] = min(df1.loc[NE,'Count'], df2.loc[pseudo_match[0],'Count'])
+                            df.loc[entry,'Exact'] = 1 if pseudo_match[1]==100 else 0
+                            df.loc[entry, 'prod'] = df.loc[entry,'Count'] * df.loc[entry,'Exact']
+
         return df
 
-# Evaluation based on absolute matches
-def eval_crude(df_output, df_gold):
-        df_inter = intersection(df_output, df_gold)
-        if len(df_output.index) == 0:
-          precision =0
-        else:
-          precision = len(df_inter.index)/len(df_output.index)
-        if len(df_gold.index) == 0:
-          recall =0
-        else:
-          recall = len(df_inter.index)/len(df_gold.index)
-        if recall == 0 and precision ==0:
-          F1 = 0
-        else:
-          F1 = 2*precision*recall/(precision+recall)
-        return precision, recall, F1
+# Gives relevant numbers needed to compute prec, recall, F1, ratio
+def eval(df_output, df_gold, df_inter):
+  gold_nc = len(df_gold.index)
+  output_nc = len(df_output.index)
+  inter_nc = len(df_inter.index)
+  exact_nc = sum(df_inter['Exact'])
+  matches_nc = len(df_inter)
 
-# Evaluation based on counts of matches depsite label
-def eval_weight(df_output, df_gold):
-        df_inter = intersection(df_output, df_gold)
-        df_output["sum"] = df_output.sum(axis=1)
-        df_gold["sum"] = df_gold.sum(axis=1)
-        df_inter["sum"] = df_inter.sum(axis=1)
+  gold_wc = sum(df_gold['Count'])
+  output_wc = sum(df_output['Count'])
+  inter_wc = sum(df_inter['Count'])
+  exact_wc = sum(df_inter['prod'])
+  matches_wc = sum(df_inter['Count'])
+  results = [gold_nc, output_nc, inter_nc, exact_nc, matches_nc, gold_wc, output_wc, inter_wc, exact_wc, matches_wc]
+  return results
 
-        if sum(df_output['sum']) == 0:
-          precision =0
-        else:
-          precision = sum(df_inter['sum'])/sum(df_output['sum'])
-
-        if sum(df_gold['sum']) == 0:
-          recall = 0
-        else:
-          recall = sum(df_inter['sum'])/sum(df_gold['sum'])      
-        
-        if precision == 0 and recall == 0:
-                F1 = 0
-        else:
-                F1 = 2*precision*recall/(precision+recall)
-        return round(precision*100,2), round(recall*100,2), round(F1*100,2)
+# output_files = directory with a person's ner system outputs
+# gold_file = txt file with gold annotated text
+def result_per_name(output_texts, gold_text):
+  # Open relevant files for a specific person
+  col = ['Count', 'Exact', 'prod']
+  pd_col = ['Systems', 'gold_nc', 'output_nc', 'inter_nc', 'exact_nc', 'matches_nc', 'gold_wc', 'output_wc', 'inter_wc', 'exact_wc', 'matches_wc']
+  results = pd.DataFrame(columns=pd_col)
+  start, stop, step = args['start'], args['stop'], args['step']
 
 
+# Loop through all NER system and outputs values needed for micro F1
+  df_gold = tabulating(gold_text, col)
+  for output_text, system_name in output_texts:
+          df_output = tabulating(output_text, col)
+          df_inter = []
+
+          for threshold in range(start, stop, step):
+                  df_inter.append((intersection(df_output, df_gold, threshold), threshold))
+          
+          systems = []
+          for df, threshold in df_inter:
+                  eval_data = eval(df_output, df_gold, df)
+                  system = [system_name+'_'+str(threshold)] + eval_data
+                  systems.append(system)
+          current = pd.DataFrame(systems,columns=pd_col)
+          results = pd.concat([results, current])
+  
+  return results.set_index('Systems')
 
 
+def accumulated_table(gold_path, output_path):
+  df_per_name = []
+  for name in os.listdir(output_path):
+    with open(gold_path+'/'+name+'.txt', 'r') as g:
+      gold_text = g.read().replace('\n', ' ')
+    
+    output_texts = []
+    for system in os.listdir(output_path+'/'+name):
+      with open(output_path+'/'+name+'/'+system, 'r') as f:
+        output_texts.append((f.read().replace('\n', ' '), system.replace('_tagged_transcript.txt', '_')))
 
-# Open relevant files
-output_files = os.listdir(args['outputs'])
-gold_file = args['gold']
-with open(gold_file, 'r') as f:
-        gold_text = f.read().replace('\n', ' ')
+    df_per_name.append((result_per_name(output_texts, gold_text), name))
 
-output_texts = []
-for output_file in output_files:
-        with open(args['outputs']+'/'+output_file, 'r') as f:
-                output_texts.append((f.read().replace('\n', ' '), output_file))
+  df_all = df_per_name[0][0]*0
+  for df, name in df_per_name:
+      df_all += df
 
-# Patterns that we are searching in the labelled code
-col = ['Count']
-pattern1 = r'\<([\w ]+)\>([\w ]+)\<\\([\w ]+)\>'
-pattern2 = r'<([\w ]+)><([\w ]+)>([\w ]+)<\\([\w ]+)>([\w ]+)<\\([\w ]+)>' # embedded tags
-patterns  = (pattern1, pattern2)
+  return df_all
 
-pd_col = ['Systems', 'P no count', 'R no count', 'F1 no count','P with count', 'R with count', 'F1 with count']
-results = pd.DataFrame(columns=pd_col)
-# Loop through all NER system and outputs precision, recall and F1
-for output_text, output_file in output_texts:
-        df_output = tabulating(output_text, col)
-        df_gold = tabulating(gold_text, col)
-        df_inter = intersection(df_gold, df_output)
+def convert_to_metrics(table):
+#['Systems', 'gold_nc', 'output_nc', 'inter_nc', 'exact_nc', 'matches_nc', 'gold_wc', 'output_wc', 'inter_wc', 'exact_wc', 'matches_wc']
+  metrics = []
+  indexes = []
+  for index, row in table.iterrows():
+    p_nc = row['inter_nc']/row['output_nc']
+    r_nc = row['inter_nc'] / row['gold_nc']
+    f1_nc = 2*p_nc*r_nc/(p_nc+r_nc)
+    e_ratio_nc = row['exact_nc']/row['matches_nc']
+    p_wc = row['inter_wc']/row['output_wc']
+    r_wc = row['inter_wc'] / row['gold_wc']
+    f1_wc = 2*p_wc*r_wc/(p_wc+r_wc)
+    e_ratio_wc = row['exact_wc']/row['matches_wc']
+    metrics.append([p_nc, r_nc, f1_nc, e_ratio_nc, p_wc, r_wc, f1_wc, e_ratio_wc])
+    indexes.append(index)
+  
+  df_metrics = pd.DataFrame(metrics,
+                            index = indexes,
+                            columns = ['p_nc', 'r_nc', 'f1_nc', 'e_ratio_nc', 'p_wc', 'r_wc', 'f1_wc', 'e_ratio_wc'],
+                            )
+  df_metrics = df_metrics*100
+  return df_metrics.round(2)
 
-        # eval = eval_crude(df_output, df_gold) + eval_weight(df_output, df_gold)
-
-        system = [output_file.replace('_tagged_transcript.txt', '')] + list(eval_crude(df_output, df_gold)) + list(eval_weight(df_output, df_gold))
-        current = pd.DataFrame([system],columns=pd_col)
-        results = pd.concat([results, current])
-
-results.to_csv('NER_results_table', index=False)
+gold_path = args['gold_path']
+output_path = args['output_path']
+table = accumulated_table(gold_path, output_path)
+metrics = convert_to_metrics(table)
+print(metrics)
+o_file_name = 'NER_eval_'+output_path.replace('output','').replace('/', '_')
+metrics.to_csv(o_file_name)

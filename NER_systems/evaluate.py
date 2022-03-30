@@ -57,7 +57,7 @@ def intersection(df1, df2, threshold):
                     if pseudo_match[1] >= threshold:
                             entry = NE if len(NE) < len(pseudo_match[0]) else pseudo_match[0]
                             df.loc[entry,'Count'] = min(df1.loc[NE,'Count'], df2.loc[pseudo_match[0],'Count'])
-                            df.loc[entry,'Exact'] = 1 if pseudo_match[1]==100 else 0
+                            df.loc[entry,'Exact'] = 1 if pseudo_match[0]==NE else 0
                             df.loc[entry, 'prod'] = df.loc[entry,'Count'] * df.loc[entry,'Exact']
 
         return df

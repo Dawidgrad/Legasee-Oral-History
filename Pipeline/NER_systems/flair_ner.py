@@ -12,12 +12,12 @@ OPTIONS:
 ################################################################
 # Importing libraries
 
-from utilities import get_transcripts, write_to_file, TranscriptType, tag_transcripts
-import subprocess
-import sys
-import spacy
-import getopt
 import os
+from flair.data import Sentence
+from flair.models import SequenceTagger
+from utilities import get_transcripts, write_to_file, TranscriptType, tag_transcripts
+import getopt
+import sys
 
 ################################################################
 # Command line options handling, and help
@@ -59,35 +59,46 @@ if len(args) > 0:
 ################################################################
 # Class definition
 
-class Spacy_Entities:
-    def __init__(self):
-        # Download the en_core_web_sm model
-        subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
-
-    def get_entities(self, transcripts): 
-        # Load the model
-        nlp = spacy.load('en_core_web_sm')
+class Flair_Entities:
+    def get_entities(self, transcripts):
+        # Load the NER tagger
+        tagger = SequenceTagger.load('ner')
         entities = list()
-        ignored_labels = ['TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL', 'WORK_OF_ART']
 
-        # Get the NER tags
         for single_transcript in transcripts:
             for segment in single_transcript:
-                doc = nlp(segment)
-                for ent in doc.ents:
-                    if ent.label_ not in ignored_labels:
-                        entities = entities + [([ent.start_char, ent.end_char], ent.label_)]
+                sentence = Sentence(segment)
+                tagger.predict(sentence)
+                entities = entities + sentence.to_dict(tag_type='ner')['entities']
                 entities.append('segment_end')
             entities.append('transcript_end')
+
+        # Convert format of the Flair entities to universal one
+        formatted_entities = self.convert_format(entities)
         
-        return entities
+        return formatted_entities
+
+    def convert_format(self, entities):
+        formatted_entities = list()
+
+        for entity in entities:
+            if entity == 'segment_end':
+                formatted_entities.append('segment_end')
+                continue
+            if entity == 'transcript_end':
+                formatted_entities.append('transcript_end')
+                continue
+                
+            formatted_entities.append(([entity['start_pos'], entity['end_pos']], entity['labels'][0].value))
+
+        return formatted_entities
 
 ################################################################
 # Main Function
 
 if __name__ == '__main__':
     # Get the Named Entities from GATE API
-    spacy_recogniser = Spacy_Entities()
+    flair_recogniser = Flair_Entities()
     transcripts = []
 
     # Decide on the transcription type
@@ -107,11 +118,11 @@ if __name__ == '__main__':
                 transcript = get_transcripts(TranscriptType.OUTPUT, f'{directory}/{filename}')
                 transcripts.append(transcript)
 
-    spacy_entities = spacy_recogniser.get_entities(transcripts)
+    flair_entities = flair_recogniser.get_entities(transcripts)
 
     # Write the result to the output file
-    write_to_file(f'{BASE_DIR}/ner_output/spacy_index_results.txt', spacy_entities)
+    write_to_file(f'{BASE_DIR}/ner_output/flair_results.txt', flair_entities)
 
     # Use entities to write tagged transcript
-    tagged_transcripts = tag_transcripts(spacy_entities, transcripts)
-    write_to_file(f'{BASE_DIR}/ner_output/spacy_tagged_transcript.txt', tagged_transcripts)
+    tagged_transcripts = tag_transcripts(flair_entities, transcripts)
+    write_to_file(f'{BASE_DIR}/ner_output/flair_tagged_transcript.txt', tagged_transcripts)

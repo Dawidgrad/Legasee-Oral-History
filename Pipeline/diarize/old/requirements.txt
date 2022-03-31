@@ -1,0 +1,12 @@
+REQUIREMENTS FOR SPEAKER DIARIZATION SCRIPTS (speaker_diarization.py and spectral_clustering.py)
+
+Install the following packages:
+
+malaya-speech
+numpy
+webrtcvad
+spectralcluster (author is Quan Wang)
+scipy
+typing
+tensorflow-addons (at least version >= 0.12.0)
+soundfile

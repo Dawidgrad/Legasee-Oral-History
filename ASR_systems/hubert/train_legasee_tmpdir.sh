@@ -19,7 +19,7 @@ cp -R /fastdata/acp21rjf/sbnc $TMPDIR/data/
 
 cp -R /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/data/FRED-S $TMPDIR/data/
 cp -R /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/data/openslr $TMPDIR/data/
-cp -R /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/data/openslr_bnc_tedium_freds.csv $TMPDIR/data/
+cp -R /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/data/hubert_train.csv $TMPDIR/data/
 
 cp /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/hubert_train/adafactor.py $TMPDIR
 cp /home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/hubert_train/audio_dataset.py $TMPDIR

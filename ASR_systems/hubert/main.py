@@ -26,23 +26,24 @@ def cleanup():
     dist.destroy_process_group()
 
 
-def get_pretrained(args):
+def get_pretrained(args, gpu):
     hubert = HubertForCTC.from_pretrained(args.pretrained )
     processor = Wav2Vec2Processor.from_pretrained(args.pretrained+'_proc')
-    if args.pretrained not in ls('../'): # save locally for fasterloading
-        print('-- Downloading Pretrained Model --')
-        hubert.save_pretrained(args.pretrained)
-        processor.save_pretrained(args.pretrained+'_proc')
-        print(f'Saved {args.pretrained} and {args.pretrained+"_proc"}')
-        print('-- EDIT THE CONFIG TO ENABLE GRADIENT CHECKPOINTING, and switch loss reduction to mean! --')
+ 
+    model = models.ASR_CTC(hubert, args)
+    if args.ckpt != 'NONE':
+        model = model_utils.load_model(args, model, gpu)
+    model.model.freeze_feature_extractor()
+    model.model.config.gradient_checkpointing = True
+    print('--- Loaded, and Feature Extractor Frozen ---')
 
-    hubert.freeze_feature_extractor() 
-    return models.ASR_CTC(hubert, args), processor
+    return model, processor
     
 def run(args, model, loaders, rank):
     torch.cuda.set_device(rank)
     if rank == 0:
-        print(model) 
+        #print(model)
+        pass 
 
     model = DDP(model.to(rank), device_ids=[rank], output_device=rank, find_unused_parameters=True, gradient_as_bucket_view=True)
     print('--- DDP Model initialized ---')
@@ -57,7 +58,7 @@ def run(args, model, loaders, rank):
         val_loss = model_utils.val_epoch(args, model, loaders['val'], rank)
         if val_loss < min_val_loss:
             min_val_loss = val_loss
-            #model_utils.save_model(args, model, optim, epoch, val_loss, rank)
+            model_utils.save_model(args, model, optim, epoch, val_loss, rank)
         print(f'--- Epoch {epoch+1} Complete ---')
 
 
@@ -76,7 +77,7 @@ def main(gpu, args):
             wandb.init(project="Wav2vec2", entity='slt-cdt-team-a')
             print(f'--- Wandb Initialized as {wandb.run.id} ---')
 
-    hubert, processor = get_pretrained(args)
+    hubert, processor = get_pretrained(args, gpu)
     train, val = model_utils.load_datasets(args, processor)
     print('--- Datasets loaded ---')
     dataloaders = model_utils.load_dataloaders(args, gpu, train, val)
@@ -90,20 +91,20 @@ if __name__ == "__main__":
     #parser.add_argument('--local_rank', type=int, default=0, help='Local rank')
     parser.add_argument('--pretrained', help='path to pretrained model', default='/home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/hubert-xlarge-ls960-ft')
     parser.add_argument('--ckpt', help='path to trained model as checkpoint', default='NONE')
-    parser.add_argument('--data_csv_path', help='path to entire csv file with data', default='../data/Legasee_fred_s.csv')
+    parser.add_argument('--data_csv_path', help='path to entire csv file with data', default='./data/hubert_train.csv')
     
     parser.add_argument('--accumulate_grad_batches', help='accumulate gradients over batches', default=16, type=int)
-    parser.add_argument('--data_path', help='path to folder to store data csv', default='../data/')
-    parser.add_argument('--audio_path', help='path to folder containing wav files that are referenced in csv', default='../data/')
+    parser.add_argument('--data_path', help='path to folder to store data csv', default='./data/')
+    parser.add_argument('--audio_path', help='path to folder containing wav files that are referenced in csv', default='./data/')
    
     parser.add_argument('--epochs', help='number of epochs to train', default=30, type=int)
     parser.add_argument('--batch_size', help='batch size', default=4, type=int) 
 	
-    parser.add_argument('--learning_rate', '-lr', help='learning rate', default=4e-5, type=float) # base learning rate
+    parser.add_argument('--learning_rate', '-lr', help='learning rate', default=1e-4, type=float) # base learning rate
     parser.add_argument('--max_lr', help='max learning rate', default=1.2e-4, type=float)   
     parser.add_argument('--cycle_len', help='cycle length', default=200, type=int) # step size up to max lr (step size down = 1)
 
-    parser.add_argument('--save_dir', help='path to save model', default='../checkpoints/')
+    parser.add_argument('--save_dir', help='path to save model', default='/home/acp21rjf/Legasee-Oral-History/ASR_systems/wav2vec2/train/hubert_train/checkpoints/')
     parser.add_argument('--max_saves', help='max number of saves', default=1, type=int)
 
     parser.add_argument('--cores', help='number of cores to use', default=0, type=int)

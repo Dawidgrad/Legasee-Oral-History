@@ -33,12 +33,35 @@ from torch.distributed.algorithms.join import Join
 
 from os import mkdir
 from os import rmdir
+from shutil import rmtree
 
 from torch.cuda.amp import GradScaler, autocast
 import wandb
+
+
 def isthere(config, element:str):
     return True if element in config else False
 
+def convert_from_ddp(model_state_dict):
+    '''
+    Convert model state dict from DDP to single GPU.
+    '''
+    new_state_dict = {}
+    for k, v in model_state_dict.items():
+        if 'module' in k:
+            k = k.replace('module.', '')
+        new_state_dict[k] = v
+    return new_state_dict
+
+def load_model(args, model, gpu) -> torch.nn.Module:
+    modelpth = args.ckpt
+    new_weights = torch.load(modelpth, map_location=f'cuda:{gpu}')['model']
+   
+    new_weights = convert_from_ddp(new_weights)
+
+    model.load_state_dict(new_weights)
+    print(f'Loaded model from {modelpth} !!!')
+    return model
 
 def load_datasets(config, processor):
     if isthere(config, 'data_csv_path'):
@@ -61,19 +84,19 @@ def batch_to_device(batch, device):
 
 
 def save_model(args, model, optim, epoch, val_loss, rank):
-    optim.consolidate_state_dict(to=0) # consolidate optimizer states on rank zero
+    #optim.consolidate_state_dict(to=0) # consolidate optimizer states on rank zero
     
     if rank == 0:
         print('Saving model...')
         unique_name = np.random.randint(0, 100000)
         save_dir = join(args.save_dir, f'{unique_name}_{epoch}')
         mkdir(save_dir)
-        model.model.save_pretrained(join(save_dir, 'model'))
         torch.save({
             'epoch': epoch,
             'val_loss': val_loss,
-            'optimizer': optim.state_dict(),
+            #'optimizer': optim.state_dict(),
             'config': args,
+            'model': model.state_dict(),
         }, join(save_dir, 'checkpoint.pt'))
 
         with open(join(save_dir, 'val_loss.txt'), 'w') as f:
@@ -81,8 +104,9 @@ def save_model(args, model, optim, epoch, val_loss, rank):
 
         if len(listdir(args.save_dir)) > args.max_saves:
             oldest_save = min(listdir(args.save_dir), key=lambda x: int(x.split('_')[1]))
-            rmdir(join(args.save_dir, oldest_save))
-        
+            # remove dir and contents
+            rmtree(join(args.save_dir, oldest_save))
+            print(f'\n\n--- Removed previous best checkpoint: {oldest_save} ---\n\n')
         
 
 def load_optimizer(args, model):
@@ -90,7 +114,7 @@ def load_optimizer(args, model):
     Zero-redundancy optimizer partitions optimizer states so that each GPU is only responsible for a its own subset of the parameters.
     Adafactor uses less memory than Adam!
     ''' 
-    return Zero(model.parameters(), optimizer_class=Adafactor, lr=args.learning_rate)
+    return Zero(model.parameters(), optimizer_class=Adafactor, relative_step=True, warmup_init=True)
 
 def load_dataloaders(args, rank:int, train:audio_dataset.dataset, val:audio_dataset.dataset) -> Dict[str, DataLoader]:
     return {

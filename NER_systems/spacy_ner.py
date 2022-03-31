@@ -68,7 +68,7 @@ class Spacy_Entities:
         # Load the model
         nlp = spacy.load('en_core_web_sm')
         entities = list()
-        ignored_labels = ['TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
+        ignored_labels = ['TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL', 'WORK_OF_ART']
 
         # Get the NER tags
         for single_transcript in transcripts:

@@ -105,6 +105,7 @@ if __name__ == '__main__':
     write_to_file(f'{BASE_DIR}/ner_output/deeppavlov_results.txt', pavlov_entities)
 
     tagged_transcripts = list()
+    labels_to_ignore = ['WORK_OF_ART', 'TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
 
     is_entity = False
     for entity in pavlov_entities:
@@ -113,11 +114,11 @@ if __name__ == '__main__':
 
         segment_text = ''
         for token, tag in zip(entity[0][0], entity[1][0]):
-            if tag[0] == 'B':
+            if tag[0] == 'B' and tag[2:] not in labels_to_ignore:
                 label = tag[2:]
                 segment_text = segment_text + f' <{label}>' + token
                 is_entity = True
-            elif tag[0] == 'I':
+            elif tag[0] == 'I' or tag[2:] in labels_to_ignore:
                 segment_text = segment_text + ' ' + token
             elif tag[0] == 'O':
                 if is_entity:

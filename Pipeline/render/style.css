@@ -1,0 +1,38 @@
+
+body{
+    background-color: #f2f2f2;
+}
+
+.interviewee {
+    color: rgb(15, 10, 2);
+}
+.interviewer {
+    color: rgb(207, 24, 24);
+}
+
+#transcript {
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(238, 238, 225);
+    width: 50%;
+    top:100px;
+    margin: 0px auto;
+    padding: 5px;
+    padding-top: 30px;
+    text-align: center;
+    line-height: 30px;
+    box-shadow: 0px 0px 3px 3px #ccc;
+}
+
+#topdiv {
+    position: fixed;
+    top:0px;
+    left:25%;
+    margin: 0px auto;
+    padding: 0px;
+    width: 50%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 3px 3px #ccc;
+
+    box-shadow: 0px 0px 3px 3px #ccc;
+}

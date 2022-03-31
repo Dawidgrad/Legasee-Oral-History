@@ -150,16 +150,16 @@ def build_output(output:Dict) -> Dict:
     sys_out['transcriber'] = {
         'type': 'automatic',
         'name': 'SLT-CDT-TEAM-2',
-        'confidence': None # add this 
+        'predicted_word_error_rate': None # add this 
     }
     sys_out['speaker_turns'] = output['Output']['speaker_turns']
     sys_out['plain_output'] = output['Output']['plain_text']
     sys_out['contents'] = []
     for item in output['Output']['segmented_output']:
-        sys_out['contents'].append({
-            'speaker': item['Speaker_turns'],
+        sys_out['contents'].append({ # item['Speaker_turns']
+            'speaker': [0] if item['Speaker_turns'] == "Interviewer" else [1],
             'text': item['text'] if item['text'].__class__.__name__ == 'str' else " ".join(el['text'] for el in item['text']),
-            'confidence':None, # add this
+            'predicted_word_error_rate':None, # add this
             'time': {
                 'start': item['start'],
                 'end': item['end']

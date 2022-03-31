@@ -3,3 +3,5 @@
 - All inputted audio files should be formatted as 16khz wav files. The audio that requires processing should be listed in a csv file in the column 'Wav_Files', this csv file is passed to the pipeline using the argument '--csv'.
 - Full details for each command line argument can be seen by running 'python main.py --help'
 - To install the relevant packages use the requirements.txt file 
+- If speaker diarization is enabled the output will include an array with an integer either {[0],[1]} [0] is used to denote the interviewer and [1] to denote the interviewee. A sample file of the interviewer speaking is required for diarization to run, this can be passed to the system as '--interviewer_reference', an existing reference for the Legasee interviews is given in /diarize
+- An example of a rendered output is given in the render directory

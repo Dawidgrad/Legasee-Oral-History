@@ -22,6 +22,7 @@ from diarize.speaker_turns import speaker_turn
 import punctuation # not working
 
 from NER_systems import ner
+from wer_prediction import confidence_prediction
 
 from get_segments import process
 import ctc_segmentation
@@ -70,7 +71,8 @@ def pair_with_timestamps(args, text_spl, output_time_text):
         timestamped_txt.append({
             'text': entry,
             'start': output_time_text[cur_pos]['start'],
-            'end': output_time_text[cur_pos+txtlen-1]['end']
+            'end': output_time_text[cur_pos+txtlen-1]['end'],
+            'predicted_word_error_rate': output_time_text[cur_pos]['predicted_word_error_rate']
         })
        
         cur_pos += txtlen
@@ -131,10 +133,10 @@ def split_NER(text:str) -> List[str]:
        
 
 
-def predict(args, model, processor, chunks, chunk_idxs, vocab, decoder=None):
-    out_lst, conf = run_model(args, model, processor, chunks, args.batch_size)   
-    decoded_timestamps = decode_lm(args, out_lst, decoder, chunks, chunk_idxs)
-    return decoded_timestamps, conf
+def predict(args, model, processor, chunks, chunk_idxs, vocab, decoder=None, wer_predictor:confidence_prediction = None):
+    out_lst, conf = run_model(args, model, processor, chunks, args.batch_size, wer_predictor)   
+    decoded_timestamps = decode_lm(args, out_lst, decoder, chunks, chunk_idxs, conf)
+    return decoded_timestamps
 
 def add_punctuation(args, model, text:str) -> str:
     return text if args.punctuation != True else model.punctuate(text.strip())
@@ -190,9 +192,12 @@ def main(args):
     vocab = get_vocab(proc) # vocab used for forced alignment
     decoder = load_decoder(args, vocab) # kenlm decoder used for shallow fusion
 
+    wer_predictor = None if args.confidence == 0 else confidence_prediction(args.frequency_dict) 
+
     out_cache = []
     #outputs = []
-    
+    #csv = csv.iloc[0:1]
+
     for i in tqdm(range(len(csv)), desc='Producing Transcript...'): # ASR
         '''
         First compute outputs from ASR model
@@ -200,7 +205,7 @@ def main(args):
         audio_path = join(args.audio_dir, csv.iloc[i]['Wav_File'])
         logging(args.log_pth, f'--- Processing file: {audio_path} ---')
         chunks, chunk_idxs = process(audio_path, args.vad_threshold, args.min_chunk_length)
-        timestamps_decoded, conf = predict(args, model, proc, chunks, chunk_idxs, vocab, decoder)
+        timestamps_decoded = predict(args, model, proc, chunks, chunk_idxs, vocab, decoder, wer_predictor)
         out_cache.append({
             'file': csv.iloc[i]['Wav_File'],
             'output': timestamps_decoded,
@@ -283,6 +288,7 @@ if __name__ == '__main__':
     parser.add_argument('-ner','--ner', help='Whether to add named entities to the output', action='store_true')
     parser.add_argument('-diar','--diarization', type=bool, help='Whether to perform diarization', default=True) 
     parser.add_argument('-conf','--confidence', type=int, help='Whether to perform confidence estimation 0 = None, Higher is more accurate but N times slower', default=0)
+    parser.add_argument('-freq', '--frequency_dict', type=str, help='Path to frequency dictionary for confidence estimation', default='sfreqs.json')
 
     parser.add_argument('-csv','--csv', type=str, help='Path to csv file denoting wav files to process', default='data.csv')
     parser.add_argument('-d','--audio_dir', type=str, help='Path to audio directory', default='../eval/audio/')

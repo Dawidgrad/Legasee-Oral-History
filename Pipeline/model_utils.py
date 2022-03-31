@@ -9,7 +9,9 @@ import kenlm
 from pyctcdecode import build_ctcdecoder
 import multiLM
 from Levenshtein import distance as levenshtein_distance
-from typing import List, Tuple
+from typing import Dict, List, Tuple
+
+from wer_prediction import confidence_prediction
 
 def logging(path, data):
     if path != "":
@@ -33,12 +35,25 @@ def load_model(args):
         model.to('cpu') 
     return model, processor
 
-def stack_batch(batch:List[torch.Tensor], batch_size:int) -> List[torch.Tensor]:
+
+def stack_dict(dict, num):
     '''
-    Input a list of input tensors and a batch size -> return a list of tensors stacked by batch size
+    takes a dictionary of tensors and stacks eack value num times
     '''
-    return [torch.stack(batch[i:i+batch_size]) for i in range(0, len(batch), batch_size)]
+    return {key: torch.stack([dict[key]]*num, dim=0) for key in dict}
     
+def stack_batch(args, batch:Dict[str, torch.Tensor], k:int, batch_size:int) -> List[Dict[str, torch.Tensor]]:
+    '''
+    Takes an input dictionary of tensors, and stacks them into batches of size batch_size, with a total of k items
+    i.e. if batch_size = 2 and k = 10, the output will be a list of 5 batches of size 2
+    '''
+    batch_list = []
+    for i in range(0, k, batch_size):
+        batch_list.append(stack_dict(batch, batch_size))
+    return batch_list
+
+def get_batch_seconds(batch:torch.Tensor) -> float:
+    return batch.squeeze().shape[0] / 16000
 
 def get_hypotheses(args, model, inputs, k=10) -> List[torch.Tensor]:
     '''
@@ -46,21 +61,24 @@ def get_hypotheses(args, model, inputs, k=10) -> List[torch.Tensor]:
     '''
     enable_dropout(model) # enable dropout layers
     with torch.no_grad():
-        batch = stack_batch([inputs for _ in range(args.confidence)], args.batch_size)
+        batch = stack_batch(args, inputs, k, args.batch_size)
         hypotheses = [model(**el).logits.cpu() for el in batch] 
     hypotheses = torch.stack(hypotheses, dim=0).argmax(dim=-1)
     model.eval() # disable dropout layers
     return hypotheses
 
-def get_confidence(proc:Wav2Vec2Processor, reference:torch.Tensor, hypothesis:torch.Tensor):
+def get_confidence(proc:Wav2Vec2Processor, reference:torch.Tensor, hypothesis:torch.Tensor, wer_predictor:confidence_prediction, batch_slice):
     '''
     Calculates the confidence of the model.
     '''
+    hypothesis = hypothesis.reshape(-1, hypothesis.shape[-1])
     all_max_ids = torch.cat([reference.unsqueeze(0), hypothesis])
     text_outputs = proc.batch_decode(all_max_ids)
     ref, hyp = text_outputs[:1][0], text_outputs[1:]
-    conf = get_levenstein_batch(hyp, ref)
-    return conf
+    max_l, avg_l = get_levenstein_batch(hyp, ref)
+    seconds = get_batch_seconds(batch_slice)
+    pred_wer = wer_predictor.predict(max_l, avg_l, text=ref, length=seconds)
+    return pred_wer
 
 def get_levenstein_batch(labels, gold):
     '''
@@ -70,7 +88,8 @@ def get_levenstein_batch(labels, gold):
     # normalize based on label length
     levs = [lev[i] / len(gold) for i in range(len(labels))]
     max_l = max(levs)
-    return max_l
+    avg_l = sum(levs) / len(levs)
+    return max_l, avg_l
 
 def enable_dropout(model:Wav2Vec2ForCTC):
     '''sets dropout layers to train'''
@@ -112,47 +131,50 @@ def get_dict_index(dict, index):
     return {key: dict[key][index] for key in dict}
 
 
-def run_model(args, model, processor, chunks, batch_size):
+def run_model(args, model, processor, chunks, batch_size, wer_predictor:confidence_prediction):
     out_lst = []
-    conf_lst = []
+    conf_lst = [] if args.confidence > 0 else None
 
     with torch.no_grad():
         for i in range(0, len(chunks), batch_size):
             batch = chunks[i:i+batch_size]
             inp = processor(batch, padding='longest', return_tensors='pt', sampling_rate=16000)
+            if args.confidence != 0 and args.gpus == 1:
+                inp = {key: inp[key].to(torch.device('cuda')) for key in inp}
             out = model(**inp).logits.cpu()
     
             if args.confidence != 0:
                 for ix in range(len(batch)):
+                    batch_slice = batch[ix]
                     hypoth = get_hypotheses(args, model=model, inputs=get_dict_index(inp, ix), k=args.confidence)
                     ref = out[ix].reshape(-1, 32).argmax(dim=-1)
-                    conf = get_confidence(processor, ref, hypoth)
+                    conf = get_confidence(processor, ref, hypoth, wer_predictor, batch_slice)
                     conf_lst.append(conf)
 
             logging(args.log_pth, f'Batch {i}-{i+batch_size} of {len(chunks)} -- {out.shape}')
             out_lst.append(out.numpy())
 
-
     return out_lst, conf_lst
 
 ### word localization
 
-def get_b_time(beam_stamps, index_duration, start_t):
-  return [{'text':el[0], 'start':el[1][0]*index_duration+start_t, 'end':el[1][1]*index_duration+start_t} for el in beam_stamps]
+def get_b_time(beam_stamps, index_duration, start_t, pred_wer):
+  return [{'text':el[0], 'start':el[1][0]*index_duration+start_t, 'end':el[1][1]*index_duration+start_t, 'predicted_word_error_rate':pred_wer} for el in beam_stamps]
 
-def process_beams(beam_list, chunks, chunk_idxs, logits):
+def process_beams(args, beam_list, chunks, chunk_idxs, logits, conf_list):
   out_lst = []
   cur_time = 0
   for i, beam in enumerate(beam_list):
     cur_time = chunk_idxs[i]['start']
+    cur_conf = None if args.confidence == 0 else conf_list[i]
     topbeam = beam[0][1]
     index_duration = chunks[i].shape[0] / logits[i].shape[0] / 16000
-    out_lst.extend(get_b_time(topbeam, index_duration, cur_time))
+    out_lst.extend(get_b_time(topbeam, index_duration, cur_time, cur_conf))
   return out_lst
 
 ### word localization
 
-def decode_lm(args, logits, decoder, chunks, chunk_idxs):
+def decode_lm(args, logits, decoder, chunks, chunk_idxs, conf_list):
     ''' decode logits to text '''
     beam_width = args.beam_width if args.kenlm != '' else 1
     logging(args.log_pth, f'--- Decoding LM with beam width {beam_width} ---')
@@ -165,7 +187,7 @@ def decode_lm(args, logits, decoder, chunks, chunk_idxs):
     with multiprocessing.get_context('fork').Pool() as pool:
         decoded = decoder.decode_beams_batch(pool, logit_list, beam_width=beam_width)
 
-    timestamped_decoded = process_beams(decoded, chunks, chunk_idxs, logit_list)
+    timestamped_decoded = process_beams(args, decoded, chunks, chunk_idxs, logit_list, conf_list)
     return timestamped_decoded
 
 

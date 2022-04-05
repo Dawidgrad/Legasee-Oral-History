@@ -1,5 +1,0 @@
-{
-    "large_model": false, 
-    "model_path": "../train/allfinallegasee",
-    "processor_path": "../train/wav2vec2-large-robust-ft-libri-960h_proc"
-}

@@ -1,0 +1,5 @@
+{
+    "large_model": true, 
+    "model_path": "./model_files/hubert_all",
+    "processor_path": "./model_files/hubert-xlarge-ls960-ft_proc"
+}

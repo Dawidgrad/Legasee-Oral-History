@@ -60,8 +60,6 @@ def remove_punct(text:List[str]) -> List[str]:
 
 def pair_with_timestamps(args, text_spl, output_time_text):
     timestamped_txt = []
-    #print(len(text_spl))
-    #print(len(output_time_text))
     cur_pos = 0
     for entry in text_spl:
         curtxt = entry if entry.__class__.__name__ == 'str' else " ".join(item['text'] for item in entry).strip()
@@ -149,25 +147,28 @@ def build_output(output:Dict) -> Dict:
     sys_out = {}
     sys_out['file_name'] = output['File']
     sys_out['date'] = get_date()
-    sys_out['transcriber'] = {
-        'type': 'automatic',
-        'name': 'SLT-CDT-TEAM-2',
-        'predicted_word_error_rate': None # add this 
-    }
+
     sys_out['speaker_turns'] = output['Output']['speaker_turns']
     sys_out['plain_output'] = output['Output']['plain_text']
     sys_out['contents'] = []
+    avg_wer = []
     for item in output['Output']['segmented_output']:
         sys_out['contents'].append({ # item['Speaker_turns']
             'speaker': [0] if item['Speaker_turns'] == "Interviewer" else [1],
             'text': item['text'] if item['text'].__class__.__name__ == 'str' else " ".join(el['text'] for el in item['text']),
-            'predicted_word_error_rate':None, # add this
+            'predicted_word_error_rate': item['predicted_word_error_rate'],
             'time': {
                 'start': item['start'],
                 'end': item['end']
             },
             'entities': None if item['text'].__class__.__name__ == 'str' else item['text']
         })
+        avg_wer.append(item['predicted_word_error_rate'])
+    sys_out['transcriber'] = {
+        'type': 'automatic',
+        'name': 'SLT-CDT-TEAM-2',
+        'predicted_word_error_rate': sum(avg_wer)/len(avg_wer)
+    }
     return sys_out
 
 def add_model_config_to_args_namespace(args):
@@ -188,15 +189,11 @@ def main(args):
     print(f'--- Model loaded: {args.model} ---')
 
     csv = pd.read_csv(args.csv) # csv file with audio files
-    #martin_s, _ = sf.read(args.interviewer_reference) # reference audio file used for diarization
-    vocab = get_vocab(proc) # vocab used for forced alignment
+    vocab = get_vocab(proc)
     decoder = load_decoder(args, vocab) # kenlm decoder used for shallow fusion
 
     wer_predictor = None if args.confidence == 0 else confidence_prediction(args.frequency_dict) 
-
     out_cache = []
-    #outputs = []
-    #csv = csv.iloc[0:1]
 
     for i in tqdm(range(len(csv)), desc='Producing Transcript...'): # ASR
         '''
@@ -223,7 +220,7 @@ def downstream(args):
         out_cache = pkl.load(f)
     logging(args.log_pth, f'--- Cache loaded ---')
     martin_s, _ = sf.read(args.interviewer_reference) # reference audio file used for diarization
-    vocab = out_cache['vocab'] # vocab used for forced alignment
+    vocab = out_cache['vocab'] # not needed anymore
 
     rpunct = None if args.punctuation != True else punctuation.RestorePuncts()
 
@@ -267,7 +264,7 @@ def downstream(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Arguments for evaluation script')
-    parser.add_argument('-modconf', '--model_config', help='path to config file for ASR model', default='model_config.json')
+    parser.add_argument('-modconf', '--model_config', help='path to config file for ASR model', default='large_model_config.json')
 
     parser.add_argument('-gpus','--gpus', type=int, help='Number of GPUs to use (0 = CPU)', default=1)
     parser.add_argument('-fp16','--fp16', default=False, type=bool, help='Whether to use 16-bit precision, only effective on certain GPUs')
@@ -281,7 +278,7 @@ if __name__ == '__main__':
     parser.add_argument('-beam', '--beam_width', type=int, default=200, help='Beam width for beam search (lower is faster, but less accurate)')
 
     parser.add_argument('-batch','--batch_size', type=int, help='Batch size for inference', default=1)
-    parser.add_argument('-min_sec','--min_chunk_length', type=int, help='Minumun length for chunking sequences (for best performance set to ~25', default=25)
+    parser.add_argument('-min_sec','--min_chunk_length', type=int, help='Minumun length for chunking sequences (for best performance set to ~25', default=25)  
     parser.add_argument('-vad','--vad_threshold', type=float, help='Level of aggressiveness of VAD (0-3)', default=0)
     
     parser.add_argument('-punct','--punctuation', help='Whether to add punctuation', action='store_true') 
@@ -290,14 +287,14 @@ if __name__ == '__main__':
     parser.add_argument('-conf','--confidence', type=int, help='Whether to perform confidence estimation 0 = None, Higher is more accurate but N times slower', default=0)
     parser.add_argument('-freq', '--frequency_dict', type=str, help='Path to frequency dictionary for confidence estimation', default='sfreqs.json')
 
-    parser.add_argument('-csv','--csv', type=str, help='Path to csv file denoting wav files to process', default='data.csv')
-    parser.add_argument('-d','--audio_dir', type=str, help='Path to audio directory', default='../eval/audio/')
+    parser.add_argument('-csv','--csv', type=str, help='Path to csv file denoting wav files to process', default='data_to_process.csv')
+    parser.add_argument('-d','--audio_dir', type=str, help='Path to audio directory', default='./audio/')
 
     parser.add_argument('-log','--log_pth', type=str, help='Path to logs directory (blank for no logging)', default='pipeline.log')
     parser.add_argument('-o','--output_dir', type=str, help='Path to output directory (NONE if saving of outputs is not needed)', default='./output')
     
 
-    parser.add_argument('-lm','--kenlm', type=str, help='Path to kenlm  arpa file', default='../eval/4gram_big.arpa')
+    parser.add_argument('-lm','--kenlm', type=str, help='Path to kenlm  arpa file', default='./model_files/4gram_big.arpa')
     parser.add_argument('-lm2','--kenlm2', type=str, help='Path to kenlm second arpa file (blank if none)', default='')
 
     parser.add_argument('-ref','--interviewer_reference', type=str, help='Path to audio containing interviewer speech for diarization', default='./diarize/martin_all.wav')

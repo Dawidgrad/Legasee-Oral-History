@@ -20,6 +20,14 @@ def logging(path, data):
             f.write(data + '\n')
 
 
+'''
+        elif args.gpus == 1:
+            model.to(torch.device('cuda'))
+        else:
+            model = torch.nn.DataParallel(model) # implement for distributed
+            model.to(torch.device('cuda'))   
+'''
+
 def load_model(args):
     model = HubertForCTC.from_pretrained(args.model) if args.hubert == True else Wav2Vec2ForCTC.from_pretrained(args.model)
     processor = Wav2Vec2Processor.from_pretrained(args.processor)
@@ -30,7 +38,7 @@ def load_model(args):
         else:
             model.to(torch.device('cuda'))
             if args.gpus > 1:
-                print('--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU---')
+                warning('--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU---')
                 logging(args.log_pth, '--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU ---')
     else:
         model.to('cpu') 

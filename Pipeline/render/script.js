@@ -20,7 +20,7 @@ function build_str(list_of_json){
     for (let i = 0; i < list_of_json.length; i++){
         //quaternary
         str_txt = list_of_json[i].entities != null ? `<b>${list_of_json[i].text}</b>` : list_of_json[i].text+" ";
-        str_txt = list_of_json[i].speaker == "Interviewee" ? `<span class="interviewee">${str_txt}</span>` : `<span class="interviewer">${str_txt}</span>`;
+        str_txt = list_of_json[i].speaker[0] == 1 ? `<span class="interviewee">${str_txt}</span>` : `<span class="interviewer">${str_txt}</span>`;
         str += str_txt+" ";
     }
     return str;

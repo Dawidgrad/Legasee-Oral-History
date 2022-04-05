@@ -65,7 +65,8 @@ def pair_with_timestamps(args, text_spl, output_time_text):
         curtxt = entry if entry.__class__.__name__ == 'str' else " ".join(item['text'] for item in entry).strip()
         if len(remove_punct([curtxt])[0].strip()) == 0: # if empty string other than punctuation (change to remove punct before)
           continue
-        txtlen = len(curtxt.split(' '))
+        txtlen = len(remove_punct([curtxt])[0].strip().split())
+        
         timestamped_txt.append({
             'text': entry,
             'start': output_time_text[cur_pos]['start'],

@@ -164,10 +164,11 @@ def build_output(output:Dict) -> Dict:
             'entities': None if item['text'].__class__.__name__ == 'str' else item['text']
         })
         avg_wer.append(item['predicted_word_error_rate'])
+    average_wer = None if any(avg_wer) == None else sum(avg_wer)/len(avg_wer)
     sys_out['transcriber'] = {
         'type': 'automatic',
         'name': 'SLT-CDT-TEAM-2',
-        'predicted_word_error_rate': sum(avg_wer)/len(avg_wer)
+        'predicted_word_error_rate': average_wer
     }
     return sys_out
 

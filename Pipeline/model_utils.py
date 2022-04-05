@@ -1,4 +1,5 @@
 from ast import arg
+from logging import warning
 import torch
 import numpy as np
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC, HubertForCTC
@@ -26,11 +27,11 @@ def load_model(args):
     if args.gpus > 0:
         if args.confidence == 0:
             parallelize(model, num_gpus=args.gpus, fp16=args.fp16) # model parallelization
-        elif args.gpus == 1:
-            model.to(torch.device('cuda'))
         else:
-            model = torch.nn.DataParallel(model) # implement for distributed
-            model.to(torch.device('cuda'))   
+            model.to(torch.device('cuda'))
+            if args.gpus > 1:
+                print('--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU---')
+                logging(args.log_file, '--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU ---')
     else:
         model.to('cpu') 
     return model, processor
@@ -75,6 +76,9 @@ def get_confidence(proc:Wav2Vec2Processor, reference:torch.Tensor, hypothesis:to
     all_max_ids = torch.cat([reference.unsqueeze(0), hypothesis])
     text_outputs = proc.batch_decode(all_max_ids)
     ref, hyp = text_outputs[:1][0], text_outputs[1:]
+    if len(ref) == 0:
+        warning('Warning - empty reference - error with confidence calculation - will return None for predicted WER')
+        return None
     max_l, avg_l = get_levenstein_batch(hyp, ref)
     seconds = get_batch_seconds(batch_slice)
     pred_wer = wer_predictor.predict(max_l, avg_l, text=ref, length=seconds)
@@ -84,7 +88,7 @@ def get_levenstein_batch(labels, gold):
     '''
     Gets the max of the levenstein distance (normalized by the length of the label) between the predictions and the gold (gold = deterministic forward pass)
     '''
-    lev = [levenshtein_distance(gold, label) for label in labels]
+    lev = [levenshtein_distance(gold, label) for label in labels] 
     # normalize based on label length
     levs = [lev[i] / len(gold) for i in range(len(labels))]
     max_l = max(levs)
@@ -93,12 +97,9 @@ def get_levenstein_batch(labels, gold):
 
 def enable_dropout(model:Wav2Vec2ForCTC):
     '''sets dropout layers to train'''
-    num = 0
     for m in model.modules():
         if m.__class__.__name__.startswith('Dropout'):
             m.train()
-            num += 1
-    print(f'{num} dropout layers enabled')
 
 
 def apply_softmax(logits:torch.tensor) -> torch.tensor:
@@ -139,7 +140,7 @@ def run_model(args, model, processor, chunks, batch_size, wer_predictor:confiden
         for i in range(0, len(chunks), batch_size):
             batch = chunks[i:i+batch_size]
             inp = processor(batch, padding='longest', return_tensors='pt', sampling_rate=16000)
-            if args.confidence != 0 and args.gpus == 1:
+            if args.confidence != 0:
                 inp = {key: inp[key].to(torch.device('cuda')) for key in inp}
             out = model(**inp).logits.cpu()
     

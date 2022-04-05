@@ -35,11 +35,11 @@ def load_model(args):
     if args.gpus > 0:
         if args.confidence == 0:
             parallelize(model, num_gpus=args.gpus, fp16=args.fp16) # model parallelization
-        else:
+        elif args.gpus == 1:
             model.to(torch.device('cuda'))
-            if args.gpus > 1:
-                warning('--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU---')
-                logging(args.log_pth, '--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU ---')
+        else:
+            model = torch.nn.DataParallel(model) # implement for distributed
+            model.to(torch.device('cuda'))   
     else:
         model.to('cpu') 
     return model, processor

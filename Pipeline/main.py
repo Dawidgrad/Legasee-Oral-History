@@ -277,7 +277,7 @@ if __name__ == '__main__':
 
     parser.add_argument('-a', '--alpha', type=float, default=0.45, help='Alpha weight for language model fusion')
     parser.add_argument('-b', '--beta', type=float, default=0.8, help='Beta value for language model length penalty')
-    parser.add_argument('-beam', '--beam_width', type=int, default=200, help='Beam width for beam search (lower is faster, but less accurate)')
+    parser.add_argument('-beam', '--beam_width', type=int, default=50, help='Beam width for beam search (lower is faster, but can be less accurate)')
 
     parser.add_argument('-batch','--batch_size', type=int, help='Batch size for inference', default=1)
     parser.add_argument('-min_sec','--min_chunk_length', type=int, help='Minumun length for chunking sequences (for best performance set to ~25', default=25)  

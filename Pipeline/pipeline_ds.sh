@@ -3,9 +3,6 @@
 #SBATCH --time=02:30:00
 
 
-
-
-
 module load Anaconda3/2019.07
 source activate ML
 

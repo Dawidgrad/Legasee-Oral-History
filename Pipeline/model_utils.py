@@ -31,7 +31,7 @@ def load_model(args):
             model.to(torch.device('cuda'))
             if args.gpus > 1:
                 print('--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU---')
-                logging(args.log_file, '--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU ---')
+                logging(args.log_pth, '--- Warning, multi-gpu inference not implemented when using confidence prediction, proceeding on 1 GPU ---')
     else:
         model.to('cpu') 
     return model, processor

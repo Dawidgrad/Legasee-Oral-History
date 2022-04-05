@@ -76,9 +76,7 @@ def get_confidence(proc:Wav2Vec2Processor, reference:torch.Tensor, hypothesis:to
     all_max_ids = torch.cat([reference.unsqueeze(0), hypothesis])
     text_outputs = proc.batch_decode(all_max_ids)
     ref, hyp = text_outputs[:1][0], text_outputs[1:]
-    if len(ref) == 0:
-        warning('Warning - empty reference - error with confidence calculation - will return None for predicted WER')
-        return None
+  
     max_l, avg_l = get_levenstein_batch(hyp, ref)
     seconds = get_batch_seconds(batch_slice)
     pred_wer = wer_predictor.predict(max_l, avg_l, text=ref, length=seconds)
@@ -90,7 +88,8 @@ def get_levenstein_batch(labels, gold):
     '''
     lev = [levenshtein_distance(gold, label) for label in labels] 
     # normalize based on label length
-    levs = [lev[i] / len(gold) for i in range(len(labels))]
+    lengold = len(gold) if len(gold) > 0 else 1
+    levs = [lev[i] / lengold for i in range(len(labels))]
     max_l = max(levs)
     avg_l = sum(levs) / len(levs)
     return max_l, avg_l

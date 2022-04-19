@@ -13,7 +13,7 @@ source activate Legasee
 
 echo "Okay, lets go"
 
-python main.py --gpus 4 -batch 8 -beam 50 -conf 8
+python main.py --gpus 4 -batch 8 -beam 50 
 python main.py -downstream -punct -ner
 
 echo "Okay, bye"
